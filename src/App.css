@@ -1,0 +1,102 @@
+html, body {
+  height:100%;
+  font-size: 10px;
+  font-family: Roboto, Arial, sans-serif; 
+  background-color: rgb(241,241,241);
+}
+
+.App, #root {
+  height:100%;
+  background-color:transparent;
+}
+
+.toolbar {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: 1999999999;
+  height: 50px;
+  background-color: #ffffff;
+  border-bottom: 1px solid #e8e8e8;
+}
+
+.pageCont {
+  height:100%;
+}
+
+.leftPane {
+  height:100%; /* height will be auto with max height 100% once content added for scroll*/
+  width: 230px;
+  visibility: visible;
+
+  position:fixed;
+  margin-top:50px;
+  top:0px;
+  left:0px;
+  bottom:0px;
+
+
+  background-color: #ffffff;
+  border-right: 1px solid #e8e8e8;
+  box-shadow: none;
+}
+
+.page {
+  height:100%;
+  padding-left:230px;
+  margin-top:50px;
+}
+
+.content {
+  height: 100%;
+  margin: 0 auto;
+  width: 1056px;
+}
+
+.App-logo {
+  animation: App-logo-spin infinite 20s linear;
+  height: 80px;
+}
+
+.App-header {
+  background-color: #ffffff;
+  height: 288px;
+  text-align: center;
+  margin-bottom: 10px;
+  box-shadow: 0 1px 2px rgba(0,0,0,.1);
+}
+
+.App-title {
+  font-size: 1.5em;
+}
+
+
+
+@keyframes App-logo-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+
+.bookcase {
+  background-color: #ffffff;
+  box-shadow: 0 1px 2px rgba(0,0,0,.1);
+  width:850px;
+}
+
+.shelf {
+  padding: 15px 18px;
+  border-bottom: 1px solid #e2e2e2;
+}
+
+.shelfTitle {
+  font-size: 15px;
+  font-weight: 500;
+  margin: 0 0 10px;
+}
+
+.grid {
+  display:flex;
+
+}

@@ -1,0 +1,67 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto:400,500');
+
+.vidTile {
+    height: 174.25px;
+    width: 196px;
+    margin-right: 10px;
+    text-align: left;
+}
+.vidThumbCont {
+    height: 110.25px;
+    width: 196px;
+    margin-bottom: 4px;
+    overflow:hidden;
+    flex:none;
+}
+.vidThumb {
+    width:100%;
+    margin:-10% auto;
+}
+.vidDetails{
+    display:flex;
+    flex-direction: column;
+    /*padding-right:24px;*/
+    font-family: 'Roboto', sans-serif;
+    font-weight:bold;
+}
+.vidTitleCont{
+    display:block;
+    font-size: 13px;
+    margin: 0;
+}
+.vidTitle{
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    color: rgb(17, 17, 17);
+    text-decoration: none;
+    max-height: 3.2rem;
+    overflow:hidden;
+    /*text-overflow:ellipsis;
+    cannot multiline ellipsis without some hack*/
+    white-space: normal;
+    -webkit-line-clamp: 2;
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 1.6rem;
+    font-family: 'Roboto', sans-serif;
+}
+.vidMetaCont {
+    font-size: 11px;
+    font-weight: 400;
+}
+.channelCont {
+
+}
+.channel {
+    text-decoration: none;
+    color: #7d7d7d;
+}
+.vidStats {
+    text-decoration: none;
+    color: #7d7d7d;
+}
+.dot{
+    content: '•';
+    margin: 0 4px;
+}
+.views , .timeSince {}
