@@ -11,18 +11,29 @@ class App extends Component {
    * items (huge width) (nowrap + will-change) [transform:translateX(0)]
   **/
 
+  /* YT changes div attrib to hide sidebar but @media for content width
+   * not sure why
+   * if(window.screen.width > 1276){leftPaneVis=true; guide=true}
+   * else{leftPaneVis=false;guide=false};
+   *  persistent-guide={guide?"":false}
+   *  opened={leftPaneVis?"":false}
+   * https://www.hawatel.com/blog/handle-window-resize-in-react/
+  */
+
   render() {
+    
+
     return (
       <div className="App">
 
         <div className="toolbar"></div>
-
+        
         <div className="pageCont">
 
-          <div className="leftPane"></div>
+          
 
           <div className="page">
-            <div className="content">
+            <div className="pageContent">
 
               <header className="App-header">
                 <div className="App-banner">
@@ -67,7 +78,7 @@ class App extends Component {
           </div>
           
         </div>
-        
+        <div className="leftPane"></div>
       </div>
     );
   }

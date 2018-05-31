@@ -3,6 +3,10 @@
   background-color:transparent;
 }
 
+/*.App[persistent-guide] .pageCont {
+  margin-left:240px;
+}*/
+
 .toolbar {
   position: fixed;
   top: 0;
@@ -16,29 +20,34 @@
 
 .pageCont {
   height:100%;
+  margin-top:56px;
+  margin-left:0px;
 }
 
 .leftPane {
   height:100%; /* height will be auto with max height 100% once content added for scroll*/
   width: 240px;
-  visibility: visible;
+  visibility: hidden;
 
   position:fixed;
-  margin-top:50px;
+  margin-top:56px;
   top:0px;
   left:0px;
   bottom:0px;
-
+  right:auto;
 
   background-color: transparent;
   border-right: 1px solid #e8e8e8;
   box-shadow: none;
 }
 
+/*.leftPane[opened]{
+  visibility: visible;
+}*/
+
 .page {
   height:100%;
-  padding-left:240px;
-  margin-top:50px;
+  /*margin-top:50px;*/
 }
 /*
 @media (min-width: 662px)
@@ -46,10 +55,9 @@ ytd-two-column-browse-results-renderer.ytd-browse {
     width: 642px;
 }
 */
-.content {
+.pageContent {
   height: 100%;
   margin: 0 auto;
-  width: 1056px;
 }
 
 .App-logo {
@@ -73,7 +81,9 @@ ytd-two-column-browse-results-renderer.ytd-browse {
 .App-channel-info {
   height:134px;
 }
-
+.App-body {
+  width:100%;
+}
 .App-title {
   font-size: 1.5em;
 }
@@ -89,7 +99,7 @@ ytd-two-column-browse-results-renderer.ytd-browse {
 .bookcase {
   background-color: #ffffff;
   box-shadow: 0 1px 2px rgba(0,0,0,.1);
-  width:850px;
+  margin: 0 auto;
 }
 
 .shelf {
@@ -105,5 +115,28 @@ ytd-two-column-browse-results-renderer.ytd-browse {
 
 .grid {
   display:flex;
+  overflow: hidden;
+}
 
+.content {
+  min-height: calc(100vh - 56px - 48px - 16px);
+}
+@media (min-width: 662px) {
+  .bookcase {width:642px}
+}
+@media (min-width: 876px) {
+  .bookcase {width:856px}
+}
+@media (min-width: 1090px) {
+  .bookcase {width:1070px}
+}
+@media (min-width: 1276px) {
+  .leftPane { visibility: visible}
+  .pageCont { margin-left: 240px;  }
+  .bookcase {width:856px}
+}
+@media (min-width:1389px) {
+  .leftPane { visibility: visible}
+  .pageCont { margin-left: 240px;  }
+  .bookcase {width:1070px}
 }
