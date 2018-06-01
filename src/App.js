@@ -56,6 +56,10 @@ class App extends Component {
                       <Tile />
                       <Tile />
                       <Tile />
+                      <Tile />
+                      <Tile />
+                      
+                      <Tile />
                     </div>
                   </div>
 
@@ -67,6 +71,10 @@ class App extends Component {
                       <Tile />
                       <Tile />
                       <Tile />
+                      <Tile />
+                      <Tile />
+                      <Tile />
+                      
                       <Tile />
                     </div>
                   </div>

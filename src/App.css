@@ -58,6 +58,7 @@ ytd-two-column-browse-results-renderer.ytd-browse {
 .pageContent {
   height: 100%;
   margin: 0 auto;
+  background-color: #ffffff;
 }
 
 .App-logo {
@@ -135,8 +136,12 @@ ytd-two-column-browse-results-renderer.ytd-browse {
   .pageCont { margin-left: 240px;  }
   .bookcase {width:856px}
 }
-@media (min-width:1389px) {
-  .leftPane { visibility: visible}
-  .pageCont { margin-left: 240px;  }
+@media (min-width:1390px) {
   .bookcase {width:1070px}
+}
+@media (min-width:1390px) {
+  .bookcase {width:1070px}
+}
+@media (min-width:1604px) {
+  .bookcase {width:1284px}
 }

@@ -1,9 +1,15 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto:400,500');
 
 .vidTile {
+    /* this is size yt uses on l570
     height: 174.25px;
-    width: 196px;
+    width: 196px; 
     margin-right: 10px;
+    also ythome uses padding and channel videos use margins...*/
+    height:203px;
+    width:210px;
+    margin-right:4px;
+    margin-bottom: 24px;
     text-align: left;
 }
 .vidThumbCont {
