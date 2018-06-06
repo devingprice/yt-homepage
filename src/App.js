@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
-import Tile from './tile';
+import ChannelHeader from './channelHeader';
+import Bookcase from './Bookcase';
 
 class App extends Component {
   /** TODO: How yt does grid rows/ hidden items
@@ -20,6 +20,7 @@ class App extends Component {
    * https://www.hawatel.com/blog/handle-window-resize-in-react/
   */
 
+  
   render() {
     
 
@@ -29,62 +30,13 @@ class App extends Component {
         <div className="toolbar"></div>
         
         <div className="pageCont">
-
-          
-
           <div className="page">
             <div className="pageContent">
-
-              <header className="App-header">
-                <div className="App-banner">
-                  <img src={logo} className="App-logo" alt="logo" />
-                  <h1 className="App-title">Welcome to React</h1>
-                </div>
-
-                <div className="App-channel-info"></div>
-              </header>
-
               <div className="App-body">
-                <div className="bookcase">
-                  <div className="shelf">
-                    <h2 className="shelfTitle">
-                    The Philip DeFranco Show (Every Mon-Tues-Wed-Thursday!)
-                    </h2>
-                    
-                    <div className="grid">
-                      <Tile />
-                      <Tile />
-                      <Tile />
-                      <Tile />
-                      <Tile />
-                      <Tile />
-                      
-                      <Tile />
-                    </div>
-                  </div>
-
-                  <div className="shelf">
-                    <h2 className="shelfTitle">
-                    The Philip DeFranco Show (Every Mon-Tues-Wed-Thursday!)
-                    </h2>
-                    <div className="grid">
-                      <Tile />
-                      <Tile />
-                      <Tile />
-                      <Tile />
-                      <Tile />
-                      <Tile />
-                      
-                      <Tile />
-                    </div>
-                  </div>
-
-                </div>
+                <Bookcase />
               </div>
-
             </div>
           </div>
-          
         </div>
         <div className="leftPane"></div>
       </div>

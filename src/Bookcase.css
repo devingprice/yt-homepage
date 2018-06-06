@@ -1,0 +1,55 @@
+.bookcase {
+    /* background-color: #ffffff;
+    box-shadow: 0 1px 2px rgba(0,0,0,.1); */
+    margin: 0 auto;
+}
+
+.shelf {
+    /*padding: 15px 18px;*/
+    padding-top: 24px; /* margin top pushes outside this container*/
+    
+}
+.shelf:not(:last-child){
+    border-bottom: 1px solid #e2e2e2;
+}
+
+
+.shelfTitle {
+
+    font-size: 15px;
+    font-weight: 500;
+    margin:0;
+}
+
+.grid {
+    margin-top: 24px;
+    display:flex;
+    overflow: hidden;
+}
+
+.content {
+    min-height: calc(100vh - 56px - 48px - 16px);
+}
+@media (min-width: 662px) {
+    .bookcase {width:642px}
+}
+@media (min-width: 876px) {
+    .bookcase {width:856px}
+}
+@media (min-width: 1090px) {
+    .bookcase {width:1070px}
+}
+@media (min-width: 1276px) {
+    .leftPane { visibility: visible}
+    .pageCont { margin-left: 240px;  }
+    .bookcase {width:856px}
+}
+@media (min-width:1390px) {
+    .bookcase {width:1070px}
+}
+@media (min-width:1390px) {
+    .bookcase {width:1070px}
+}
+@media (min-width:1604px) {
+    .bookcase {width:1284px}
+}
