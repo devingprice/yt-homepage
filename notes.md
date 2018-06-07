@@ -1,3 +1,8 @@
+Need:
+youtube player modal
+settings drop down boxes/dialogs (clicking button can change dialog size)
+    yt uses polymer-dialog
+modal with slide tile to add to collection
 
 ##Front End
 

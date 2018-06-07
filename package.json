@@ -6,6 +6,7 @@
     "react": "^16.4.0",
     "react-dom": "^16.4.0",
     "react-placeholder": "^3.0.1",
+    "react-polymer": "^4.1.0",
     "react-scripts": "1.1.4",
     "wired-elements": "^0.5.6"
   },
