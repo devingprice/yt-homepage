@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import './tile.css';
 
 class Tile extends Component {
-    state = {
+    /*state = {
         channelTitle: "Philip DeFranco",
         channelId: "UClFSU9_bUb4Rc6OYfTt5SPw",
         channelUrl: "https://www.youtube.com/channel/UClFSU9_bUb4Rc6OYfTt5SPw",
@@ -12,6 +12,14 @@ class Tile extends Component {
         published: "2018-05-24T21:24:46+00:00",
         thumbnail: "https://i2.ytimg.com/vi/5dBzB3ssHaU/hqdefault.jpg",
         views: "1013426"
+    }*/
+    constructor(props){
+        super(props);
+        let temp = props.video;
+        temp.id = "5dBzB3ssHaU";
+        temp.channelId = "UClFSU9_bUb4Rc6OYfTt5SPw";
+        temp.channelUrl = "https://www.youtube.com/channel/UClFSU9_bUb4Rc6OYfTt5SPw";
+        this.state= temp;
     }
     render() {
         function timeSinceCalc(date){

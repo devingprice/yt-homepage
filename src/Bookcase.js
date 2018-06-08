@@ -4,46 +4,82 @@ import './Bookcase.css';
 import Tile from './tile';
 
 class Bookcase extends Component {
-    render() {
-        return (
-            
-            <div className="bookcase">
-                <div className="shelf">
-                    <h2 className="shelfTitle">
-                        The Philip DeFranco Show (Every Mon-Tues-Wed-Thursday!)
-                    </h2>
-                
-                    <div className="grid">
-                        <Tile />
-                        <Tile />
-                        <Tile />
-                        <Tile />
-                        <Tile />
-                        <Tile />
-                        <Tile />
-                    </div>
-                </div>
-
-                <div className="shelf">
-                    <h2 className="shelfTitle">
-                        The Philip DeFranco Show (Every Mon-Tues-Wed-Thursday!)
-                    </h2>
-                
-                    <div className="grid">
-                        <Tile />
-                        <Tile />
-                        <Tile />
-                        <Tile />
-                        <Tile />
-                        <Tile />
-                        <Tile />
-                    </div>
-                </div>
-
-            </div>
-            
-
-        )
+    constructor(props){
+        super(props);
     }
+
+    render(){
+        const shelves = this.props.collections;
+        const rssFeeds = this.props.rssFeeds;
+        
+        const ShelfTemp = (props) => {
+            const videoArray = [];
+            props.shelf.channels.forEach(channelItem => {
+                if(channelItem.channelId in rssFeeds){
+                    rssFeeds[channelItem.channelId].forEach(
+                        videoItem => {
+                            videoArray.push({
+                                title: videoItem.title,
+                                thumbnail: videoItem["media:group"]["media:thumbnail"][0]['$']['url'],
+                                channelTitle: videoItem.author,
+                                url: videoItem.link,
+                                published: videoItem.pubDate,
+                                views: videoItem["media:group"]["media:community"][0]["media:statistics"][0]['$']['views'],
+                                keyId: channelItem.uId + " " + videoItem.id
+                            })
+                        }
+                    )
+                }
+            });
+            //TODO: sort video array by date or sort function
+            if(videoArray.length > 0){
+                console.log("shelf ")
+                console.log(videoArray)
+                console.log("/////// end shelf")
+            }
+            /*
+            videoArray.map((video) =>
+                <Tile key={video.keyId} video={video}/>
+            )
+            */
+            /*
+                <Tile />
+                <Tile />
+                <Tile />
+                <Tile />
+                <Tile />
+                <Tile />
+                <Tile />
+            */
+            return (
+                <div className="shelf" id={props.shelf.collectionId}>
+                <h2 className="shelfTitle">
+                    {props.shelf.collectionName}
+                </h2>
+            
+                <div className="grid">
+                    {videoArray.map((video) =>
+                        <Tile key={video.keyId} video={video}/>
+                    )}
+                </div>
+            </div>
+            )
+        };
+        return (
+            <div className="bookcase">
+                {shelves
+                    .filter(
+                        shelf => !shelf.reservedName
+                    )
+                    .map((shelf) => (
+                        <ShelfTemp key={shelf.collectionId} shelf={shelf}/>
+                    ))
+                }
+                
+            </div>
+        )
+        
+    }
+    
 }
 export default Bookcase;

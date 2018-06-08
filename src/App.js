@@ -41,23 +41,6 @@ class App extends Component {
   }
   
   componentDidMount(){
-    //start to get rss feeds
-    /*make array of all unique channels contained in collections
-      
-      promiseAll (wait for all rss feeds to arrive)
-        .then{ this.setState(array[[key]channelIds + rssFeeds])}
-    */
-    /* Just realized that subscription should have all unique channels
-    let uniqueChannels = [];
-    this.state.collections.forEach(function(collection){
-      collection.channels.forEach(function(channel){
-        if (uniqueChannels.indexOf(channel.channelId) === -1){
-          uniqueChannels.push(channel.channelId)
-        }
-      })
-    })
-    */
-   //https://www.youtube.com/feeds/videos.xml?channel_id=UCBcRF18a7Qf58cCRy5xuWwQ
     let channelsArray = [];
     this.state.collections.forEach(function(collection){
       if(collection.reservedName ==="subscriptions"){
@@ -79,24 +62,27 @@ class App extends Component {
       parser.parseURL(url)
     );
     
+    let channelFeeds = {};
     Promise.all(requests)
-      .then(responses => responses.forEach( response =>
-        console.log(response)
-      ))
-    /*
-    (async () => {
- 
-      let feed = await parser.parseURL("https://www.youtube.com/feeds/videos.xml?channel_id=UClFSU9_bUb4Rc6OYfTt5SPw");
-      console.log(feed);
-      console.log(feed.title);
-      console.log(feed["yt:channelId"]);
-     
-    })();*/
+      .then(responses => responses.forEach( response => {
+        //console.log(response);
+        channelFeeds[response["yt:channelId"]] = response.items;
+      })
+      )
+      .then(blank => {
+        //console.log(channelFeeds);
+        this.setState({
+          collections : this.state.collections,
+          rssFeeds : channelFeeds
+        })}
+      )
+    
   }
 
   render() {
-    
-
+    console.log("This is rss state:");
+    console.log(this.state.rssFeeds)
+    console.log(this.state.collections)
     return (
       <div className="App">
 
@@ -106,7 +92,10 @@ class App extends Component {
           <div className="page">
             <div className="pageContent">
               <div className="App-body">
-                <Bookcase />
+                <Bookcase 
+                collections={this.state.collections}
+                rssFeeds={this.state.rssFeeds}
+                />
               </div>
             </div>
           </div>
