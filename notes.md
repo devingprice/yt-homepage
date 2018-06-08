@@ -68,7 +68,7 @@ Collection Editing should be possible
 4)x channel adding should have option to window with topbar as sliding "shelf" of unassociated channels and bottom bar of collections as "tiles"; can drag and drop channels onto tiles 
     maybe like a windows explorer folders
     maybe have channel "tiles" with last video thumbnail with channel icon/name under it
-5) collections have "tags" such as new 
+5)x collections have "tags" such as new 
 
 
 
@@ -76,7 +76,48 @@ Collection Editing should be possible
 
 ##Back End
 
-1) save last 2 login dates and any video since those is "new"
-2) Every user gets 2 default collections
+gfynonce library to create adjadjnoun for url for each collection to share
+    (share boolean + gfynonce; if share turned true and no gfynonce=generate gfynonce)
+collections variables:
+    collectionID: autoincremented
+    userID: what it belongs to
+    gfynonce + share boolean
+    reservedName: to hide from frontpage(subscriptions + nonsubscriptions)
+    
+    collectionName
+    [settings]
+    displayType: one row (arrows), onlyNew, showMore1Row, showMore2Row (2 rows visable with show more button to double)
+    ORDER: order to show on frontpage if selected
+    sort: by order, by new, only new
+
+
+users variables:
+    userId: autoincremented
+    userName
+
+    lastSignOn: most recent sign on time
+    secondSignOn: 2nd most recent sign on
+        (used for calculating new in client)
+    
+    [settings] (not sure if these should be saved on db or on client)
+    showNewTag: display new on videos posted since last sign on
+    defaultPageSort: by order, by new, only new, all subs
+    newCalc: since last login/since 2nd last login/since 1 day(or 2/3/etc)
+
+
+
+channel variables:
+    ID: autoincremented (will have duplicated channels)
+    collectionID: what it belongs to
+    channelName
+    channelId
+    channelThumb
+    
+    [potential setting]
+    highlight: add highlighting to 'key' channels
+
+
+1)x save last 2 login dates and any video since those is "new"
+2)x Every user gets 2 default collections
     1: subs
     2: extra channels (if they add channels they aren't subbed to)
