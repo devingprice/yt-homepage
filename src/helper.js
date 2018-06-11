@@ -1,4 +1,4 @@
-export function timeSinceCalc(date){
+export function timeSinceCalc(date) {
     var seconds = Math.floor((new Date() - date) / 1000);
     var interval = Math.floor(seconds / 31536000);
     if (interval > 1) {
@@ -23,22 +23,22 @@ export function timeSinceCalc(date){
     return Math.floor(seconds) + " seconds ago";
 }
 
-export function viewsSigFig(views){
+export function viewsSigFig(views) {
     function moveDecimal(rawNum) {
         return Math.abs(Number(rawNum)) >= 1.0e+9
-        ? Math.abs(Number(rawNum)) / 1.0e+9 + "B"
-        : Math.abs(Number(rawNum)) >= 1.0e+6
-        ? Math.abs(Number(rawNum)) / 1.0e+6 + "M"
-        : Math.abs(Number(rawNum)) >= 1.0e+3
-        ? Math.abs(Number(rawNum)) / 1.0e+3 + "K"
-        : Math.abs(Number(rawNum));
+            ? Math.abs(Number(rawNum)) / 1.0e+9 + "B"
+            : Math.abs(Number(rawNum)) >= 1.0e+6
+                ? Math.abs(Number(rawNum)) / 1.0e+6 + "M"
+                : Math.abs(Number(rawNum)) >= 1.0e+3
+                    ? Math.abs(Number(rawNum)) / 1.0e+3 + "K"
+                    : Math.abs(Number(rawNum));
     }
-    let viewsInt = parseInt(views,10);
+    let viewsInt = parseInt(views, 10);
     let viewsDec = moveDecimal(viewsInt);
-    return parseFloat(viewsDec).toPrecision(2) + viewsDec.replace(/[^B|M|K]/g,"");
+    return parseFloat(viewsDec).toPrecision(2) + viewsDec.replace(/[^B|M|K]/g, "");
 }
 
-export function addCommas(inputNum){
-    return inputNum.replace(/\B(?=(\d{3})+(?!\d))/g, ",") ;
+export function addCommas(inputNum) {
+    return inputNum.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 
 }

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './tile.css';
-import {timeSinceCalc, addCommas} from './helper';
+import { timeSinceCalc, addCommas } from './helper';
 
 class Tile extends Component {
     /*state = {
@@ -14,54 +14,54 @@ class Tile extends Component {
         thumbnail: "https://i2.ytimg.com/vi/5dBzB3ssHaU/hqdefault.jpg",
         views: "1013426"
     }*/
-    constructor(props){
+    constructor(props) {
         super(props);
-        this.state= {isMouseInside: false};
+        this.state = { isMouseInside: false };
     }
-    mouseEnter = () => {this.setState({isMouseInside: true});}
-    mouseLeave = () => {this.setState({isMouseInside: false});}
+    mouseEnter = () => { this.setState({ isMouseInside: true }); }
+    mouseLeave = () => { this.setState({ isMouseInside: false }); }
 
     render() {
-       let timeSince = timeSinceCalc(Date.parse(this.state.published));
-       let viewsCommas = addCommas(this.props.video.views);
-        
-       let iconStyle = {
-        "pointerEvents": "none",
-        "display": "block",
-        "width": "100%",
-        "height": "100%"
-       }
+        let timeSince = timeSinceCalc(Date.parse(this.state.published));
+        let viewsCommas = addCommas(this.props.video.views);
+
+        let iconStyle = {
+            "pointerEvents": "none",
+            "display": "block",
+            "width": "100%",
+            "height": "100%"
+        }
         return (
             <div className="vidTile" onMouseEnter={this.mouseEnter} onMouseLeave={this.mouseLeave}>
                 <div className="vidThumbCont">
                     <a className="vidThumbLink" aria-hidden="true" rel="null" href={this.props.video.url}>
-                        <img className="vidThumb" alt="" width="210" 
-                        src= {this.props.video.thumbnail}></img>
+                        <img className="vidThumb" alt="" width="210"
+                            src={this.props.video.thumbnail}></img>
 
-                            {this.state.isMouseInside ? 
-                                (
+                        {this.state.isMouseInside ?
+                            (
                                 <div className="mouseover-overlay" >
                                     <div className="overlay">
-                                        
+
                                         <div className="playIcon" icon="play_all">
-                                            <svg viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet" focusable="false"  
-                                            style={iconStyle}>
+                                            <svg viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet" focusable="false"
+                                                style={iconStyle}>
                                                 <g >
-                                                <path d="M8 5v14l11-7z"></path>
+                                                    <path d="M8 5v14l11-7z"></path>
                                                 </g>
                                             </svg>
                                         </div>
                                     </div>
                                 </div>
-                                ):null
-                            } 
-                        
+                            ) : null
+                        }
+
                     </a>
                 </div>
                 <div className="vidDetails">
                     <h3 className="vidTitleCont">
                         <a className="vidTitle" aria-label={this.props.video.title}
-                        href={this.props.video.url} title={this.props.video.title}>{this.props.video.title}</a>
+                            href={this.props.video.url} title={this.props.video.title}>{this.props.video.title}</a>
                     </h3>
                     <div className="vidMetaCont">
                         <div className="channelCont">

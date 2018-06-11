@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import './App.css';
 import ChannelHeader from './channelHeader';
 import Bookcase from './Bookcase';
-import {sampleData} from './sampleData';
+import { sampleData } from './sampleData';
 import Parser from 'rss-parser';
-
+import SortableComponent from './testSort';
 
 class App extends Component {
   /** TODO: How yt does grid rows/ hidden items
@@ -22,29 +22,29 @@ class App extends Component {
    *  opened={leftPaneVis?"":false}
    * https://www.hawatel.com/blog/handle-window-resize-in-react/
   */
-  constructor(props){
+  constructor(props) {
     super(props);
     this.state = {
-      collections : [],
-      rssFeeds : []
+      collections: [],
+      rssFeeds: []
     }
   }
 
-  componentWillMount(){
+  componentWillMount() {
     //gets user collections 
     //***also a possibility to pass those down in props 
     //instead to use oauth component around app.js
     this.setState({
-      collections : sampleData.collectionResponse,
-      rssFeeds : this.state.rssFeeds
+      collections: sampleData.collectionResponse,
+      rssFeeds: this.state.rssFeeds
     });
   }
-  
-  componentDidMount(){
+
+  componentDidMount() {
     let channelsArray = [];
-    this.state.collections.forEach(function(collection){
-      if(collection.reservedName ==="subscriptions"){
-        collection.channels.forEach(function(channel){
+    this.state.collections.forEach(function (collection) {
+      if (collection.reservedName === "subscriptions") {
+        collection.channels.forEach(function (channel) {
           channelsArray.push("https://www.youtube.com/feeds/videos.xml?channel_id=" + channel.channelId)
         })
       }
@@ -52,19 +52,19 @@ class App extends Component {
 
     let parser = new Parser({
       customFields: {
-        feed: [ 'yt:channelId'],
+        feed: ['yt:channelId'],
         item: ["media:group", "yt:videoId", "yt:channelId", "published"]
       }
     });
 
-    
-    let requests = channelsArray.map(url => 
+
+    let requests = channelsArray.map(url =>
       parser.parseURL(url)
     );
-    
+
     let channelFeeds = {};
     Promise.all(requests)
-      .then(responses => responses.forEach( response => {
+      .then(responses => responses.forEach(response => {
         //console.log(response);
         channelFeeds[response["yt:channelId"]] = response.items;
       })
@@ -72,11 +72,12 @@ class App extends Component {
       .then(blank => {
         //console.log(channelFeeds);
         this.setState({
-          collections : this.state.collections,
-          rssFeeds : channelFeeds
-        })}
+          collections: this.state.collections,
+          rssFeeds: channelFeeds
+        })
+      }
       )
-    
+
   }
 
   render() {
@@ -87,15 +88,16 @@ class App extends Component {
       <div className="App">
 
         <div className="toolbar"></div>
-        
+
         <div className="pageCont">
           <div className="page">
             <div className="pageContent">
               <div className="App-body">
-                <Bookcase 
-                collections={this.state.collections}
-                rssFeeds={this.state.rssFeeds}
+                <Bookcase
+                  collections={this.state.collections}
+                  rssFeeds={this.state.rssFeeds}
                 />
+                <SortableComponent/>
               </div>
             </div>
           </div>

@@ -4,18 +4,18 @@ import './Bookcase.css';
 import Tile from './tile';
 
 class Bookcase extends Component {
-    constructor(props){
+    constructor(props) {
         super(props);
     }
 
-    render(){
+    render() {
         const shelves = this.props.collections;
         const rssFeeds = this.props.rssFeeds;
-        
+
         const ShelfTemp = (props) => {
             const videoArray = [];
             props.shelf.channels.forEach(channelItem => {
-                if(channelItem.channelId in rssFeeds){
+                if (channelItem.channelId in rssFeeds) {
                     rssFeeds[channelItem.channelId].forEach(
                         videoItem => {
                             videoArray.push({
@@ -35,24 +35,24 @@ class Bookcase extends Component {
                 }
             });
             //TODO: sort video array by date or sort function
-            if(videoArray.length > 0){
+            if (videoArray.length > 0) {
                 console.log("shelf ")
                 console.log(videoArray)
                 console.log("/////// end shelf")
             }
-            
+
             return (
                 <div className="shelf" id={props.shelf.collectionId}>
-                <h2 className="shelfTitle">
-                    {props.shelf.collectionName}
-                </h2>
-            
-                <div className="grid">
-                    {videoArray.map((video) =>
-                        <Tile key={video.keyId} video={video}/>
-                    )}
+                    <h2 className="shelfTitle">
+                        {props.shelf.collectionName}
+                    </h2>
+
+                    <div className="grid">
+                        {videoArray.map((video) =>
+                            <Tile key={video.keyId} video={video} />
+                        )}
+                    </div>
                 </div>
-            </div>
             )
         };
         return (
@@ -62,14 +62,14 @@ class Bookcase extends Component {
                         shelf => !shelf.reservedName
                     )
                     .map((shelf) => (
-                        <ShelfTemp key={shelf.collectionId} shelf={shelf}/>
+                        <ShelfTemp key={shelf.collectionId} shelf={shelf} />
                     ))
                 }
-                
+
             </div>
         )
-        
+
     }
-    
+
 }
 export default Bookcase;

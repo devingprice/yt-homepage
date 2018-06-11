@@ -1,0 +1,43 @@
+.listWrapper {
+    display: table;
+    margin: 0 auto;
+}
+
+.stylizedList{
+    position: relative;
+    background-color: #f3f3f3;
+    border:1px solid #efefef;
+    border-radius: 3px;
+    outline: none;
+    width: 400px;
+    height:600px;
+    overflow:auto;
+}
+
+.stylizedItem {
+    height:59px;
+    display:flex;
+    align-items: center;
+    width: 100%;
+    padding: 0 20px;
+    background-color: #fff;
+    border-bottom: 1px solid #efefef;
+    box-sizing: border-box;
+    user-select: none;
+    color:#333;
+    font-weight:400;
+    position: relative;
+}
+
+.stylizedHandle {
+    position: relative;
+    top: 1px;
+    display: block;
+    width: 18px;
+    height: 11px;
+    opacity: .25;
+    margin-right: 20px;
+    cursor: row-resize;
+    background: -webkit-linear-gradient(top,#000,#000 20%,#fff 0,#fff 40%,#000 0,#000 60%,#fff 0,#fff 80%,#000 0,#000);
+    background: linear-gradient(180deg,#000,#000 20%,#fff 0,#fff 40%,#000 0,#000 60%,#fff 0,#fff 80%,#000 0,#000);
+}
