@@ -53,7 +53,7 @@ class App extends Component {
     let parser = new Parser({
       customFields: {
         feed: [ 'yt:channelId'],
-        item: ["media:group"]
+        item: ["media:group", "yt:videoId", "yt:channelId", "published"]
       }
     });
 

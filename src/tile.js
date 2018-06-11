@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './tile.css';
+import {timeSinceCalc, addCommas} from './helper';
 
 class Tile extends Component {
     /*state = {
@@ -15,69 +16,56 @@ class Tile extends Component {
     }*/
     constructor(props){
         super(props);
-        let temp = props.video;
-        temp.id = "5dBzB3ssHaU";
-        temp.channelId = "UClFSU9_bUb4Rc6OYfTt5SPw";
-        temp.channelUrl = "https://www.youtube.com/channel/UClFSU9_bUb4Rc6OYfTt5SPw";
-        this.state= temp;
+        this.state= {isMouseInside: false};
     }
-    render() {
-        function timeSinceCalc(date){
-            var seconds = Math.floor((new Date() - date) / 1000);
-            var interval = Math.floor(seconds / 31536000);
-            if (interval > 1) {
-                return interval + " years ago";
-            }
-            interval = Math.floor(seconds / 2592000);
-            if (interval > 1) {
-                return interval + " months ago";
-            }
-            interval = Math.floor(seconds / 86400);
-            if (interval > 1) {
-                return interval + " days ago";
-            }
-            interval = Math.floor(seconds / 3600);
-            if (interval > 1) {
-                return interval + " hours ago";
-            }
-            interval = Math.floor(seconds / 60);
-            if (interval > 1) {
-                return interval + " minutes ago";
-            }
-            return Math.floor(seconds) + " seconds ago";
-        }
-        let timeSince = timeSinceCalc(Date.parse(this.state.published))
-        function viewsSigFig(views){
-            function moveDecimal(rawNum) {
-                return Math.abs(Number(rawNum)) >= 1.0e+9
-                ? Math.abs(Number(rawNum)) / 1.0e+9 + "B"
-                : Math.abs(Number(rawNum)) >= 1.0e+6
-                ? Math.abs(Number(rawNum)) / 1.0e+6 + "M"
-                : Math.abs(Number(rawNum)) >= 1.0e+3
-                ? Math.abs(Number(rawNum)) / 1.0e+3 + "K"
-                : Math.abs(Number(rawNum));
-            }
-            let viewsInt = parseInt(views,10);
-            let viewsDec = moveDecimal(viewsInt);
-            return parseFloat(viewsDec).toPrecision(2) + viewsDec.replace(/[^B|M|K]/g,"");
-        }
-        let viewsReduced = viewsSigFig(this.state.views);
-        let viewsCommas = (this.state.views).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    mouseEnter = () => {this.setState({isMouseInside: true});}
+    mouseLeave = () => {this.setState({isMouseInside: false});}
 
+    render() {
+       let timeSince = timeSinceCalc(Date.parse(this.state.published));
+       let viewsCommas = addCommas(this.props.video.views);
+        
+       let iconStyle = {
+        "pointerEvents": "none",
+        "display": "block",
+        "width": "100%",
+        "height": "100%"
+       }
         return (
-            <div className="vidTile">
+            <div className="vidTile" onMouseEnter={this.mouseEnter} onMouseLeave={this.mouseLeave}>
                 <div className="vidThumbCont">
-                    <img className="vidThumb" alt="" width="210" 
-                    src= {this.state.thumbnail}></img>
+                    <a className="vidThumbLink" aria-hidden="true" rel="null" href={this.props.video.url}>
+                        <img className="vidThumb" alt="" width="210" 
+                        src= {this.props.video.thumbnail}></img>
+
+                            {this.state.isMouseInside ? 
+                                (
+                                <div className="mouseover-overlay" >
+                                    <div className="overlay">
+                                        
+                                        <div className="playIcon" icon="play_all">
+                                            <svg viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet" focusable="false"  
+                                            style={iconStyle}>
+                                                <g >
+                                                <path d="M8 5v14l11-7z"></path>
+                                                </g>
+                                            </svg>
+                                        </div>
+                                    </div>
+                                </div>
+                                ):null
+                            } 
+                        
+                    </a>
                 </div>
                 <div className="vidDetails">
                     <h3 className="vidTitleCont">
-                        <a className="vidTitle" aria-label={this.state.title}
-                        href={this.state.url} title={this.state.title}>{this.state.title}</a>
+                        <a className="vidTitle" aria-label={this.props.video.title}
+                        href={this.props.video.url} title={this.props.video.title}>{this.props.video.title}</a>
                     </h3>
                     <div className="vidMetaCont">
                         <div className="channelCont">
-                            <a className="channel" href={this.state.channelUrl}>{this.state.channelTitle}</a>
+                            <a className="channel" href={this.props.video.channelUrl}>{this.props.video.channelTitle}</a>
                         </div>
                         <div className="vidStats">
                             <span className="views">{viewsCommas + " views"} </span>

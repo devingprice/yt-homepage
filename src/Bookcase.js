@@ -19,11 +19,14 @@ class Bookcase extends Component {
                     rssFeeds[channelItem.channelId].forEach(
                         videoItem => {
                             videoArray.push({
+                                id: videoItem["yt:videoId"],
+                                channelId: videoItem["yt:channelId"],
+                                channelUrl: "https://www.youtube.com/channel/" + videoItem["yt:channelId"],
                                 title: videoItem.title,
                                 thumbnail: videoItem["media:group"]["media:thumbnail"][0]['$']['url'],
                                 channelTitle: videoItem.author,
                                 url: videoItem.link,
-                                published: videoItem.pubDate,
+                                published: videoItem.published,
                                 views: videoItem["media:group"]["media:community"][0]["media:statistics"][0]['$']['views'],
                                 keyId: channelItem.uId + " " + videoItem.id
                             })
@@ -37,20 +40,7 @@ class Bookcase extends Component {
                 console.log(videoArray)
                 console.log("/////// end shelf")
             }
-            /*
-            videoArray.map((video) =>
-                <Tile key={video.keyId} video={video}/>
-            )
-            */
-            /*
-                <Tile />
-                <Tile />
-                <Tile />
-                <Tile />
-                <Tile />
-                <Tile />
-                <Tile />
-            */
+            
             return (
                 <div className="shelf" id={props.shelf.collectionId}>
                 <h2 className="shelfTitle">
