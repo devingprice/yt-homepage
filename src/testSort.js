@@ -2,6 +2,8 @@ import { SortableContainer, SortableElement, arrayMove, SortableHandle} from 're
 import React, { Component } from 'react';
 import './testSort.css'
 
+//https://github.com/clauderic/react-sortable-hoc
+
 const DragHandle = SortableHandle(() => <div className="stylizedHandle"></div>);
 
 const SortableItem = SortableElement(({ value }) =>
@@ -17,7 +19,7 @@ const SortableList = SortableContainer(({ items }) => {
             <div className="stylizedList">
             {   
                 items.map((value, index) => (
-                    <SortableItem key={`item-${index}`} index={index} value={value} />
+                    <SortableItem key={`item-${index}`} index={index} value={value.Id} />
                 ))
             }
             </div>
@@ -29,8 +31,7 @@ const SortableList = SortableContainer(({ items }) => {
 class SortableComponent extends Component {
 
     state = {
-        items: ['Item 1', 'Item 2', 'Item 3', 'Item 4', 'Item 5', 'Item 6']
-        /*items: [
+        items: [
             {Id: 10,
                 order: 1},
             {Id: 20,
@@ -43,16 +44,18 @@ class SortableComponent extends Component {
                 order: 5},
             {Id: 60,
                 order:6}
-        ]*/
+        ]
     };
     onSortEnd = ({ oldIndex, newIndex }) => {
-        console.log(this.state.items);
-        console.log(oldIndex);
-        console.log(newIndex);
-        let temp = arrayMove(this.state.items, oldIndex, newIndex);
-        console.log(temp);
+        let newOrderArr = arrayMove(this.state.items, oldIndex, newIndex);
+        let updatedCollectionsArr = newOrderArr.map((value,index)=> {
+            if (value.order != index +1 ){
+                value.order = index +1 ;
+            }
+            return value;
+        })
         this.setState({
-            items: temp
+            items: updatedCollectionsArr
         });
         
     };
@@ -62,3 +65,7 @@ class SortableComponent extends Component {
 }
 
 export default SortableComponent;
+
+//test is done, 
+// now just need to add toggle for handles 
+// + adapt collections to template
