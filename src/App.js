@@ -80,6 +80,12 @@ class App extends Component {
 
   }
 
+  /*
+  <Bookcase
+    collections={this.state.collections}
+    rssFeeds={this.state.rssFeeds}
+  />
+  */
   render() {
     console.log("This is rss state:");
     console.log(this.state.rssFeeds)
@@ -93,11 +99,11 @@ class App extends Component {
           <div className="page">
             <div className="pageContent">
               <div className="App-body">
-                <Bookcase
+                
+                <SortableComponent
                   collections={this.state.collections}
                   rssFeeds={this.state.rssFeeds}
                 />
-                <SortableComponent/>
               </div>
             </div>
           </div>

@@ -1,0 +1,35 @@
+.shelf {
+    /*padding: 15px 18px;*/
+    padding-top: 24px; /* margin top pushes outside this container*/
+    
+}
+.shelf:not(:last-child){
+    border-bottom: 1px solid #e2e2e2;
+}
+
+
+.shelfTitle {
+
+    font-size: 15px;
+    font-weight: 500;
+    margin:0;
+}
+
+.stylizedHandle {
+    position: relative;
+    top: 1px;
+    display: block;
+    width: 18px;
+    height: 11px;
+    opacity: .25;
+    margin-right: 20px;
+    cursor: row-resize;
+    background: -webkit-linear-gradient(top,#000,#000 20%,#fff 0,#fff 40%,#000 0,#000 60%,#fff 0,#fff 80%,#000 0,#000);
+    background: linear-gradient(180deg,#000,#000 20%,#fff 0,#fff 40%,#000 0,#000 60%,#fff 0,#fff 80%,#000 0,#000);
+}
+
+.grid {
+    margin-top: 24px;
+    display:flex;
+    overflow: hidden;
+}

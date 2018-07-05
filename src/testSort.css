@@ -5,30 +5,42 @@
 
 .stylizedList{
     position: relative;
+    /*
     background-color: #f3f3f3;
     border:1px solid #efefef;
+    */
     border-radius: 3px;
     outline: none;
-    width: 400px;
-    height:600px;
-    overflow:auto;
+    /*width: 400px;
+    height:600px;*/
+    width:100%;
+    
+    overflow:visible;
 }
 
 .stylizedItem {
-    height:59px;
+    min-height:59px;
+    /*
     display:flex;
     align-items: center;
-    width: 100%;
-    padding: 0 20px;
+    
     background-color: #fff;
     border-bottom: 1px solid #efefef;
-    box-sizing: border-box;
-    user-select: none;
     color:#333;
     font-weight:400;
+    */
+    width: 100%;
+    padding: 0;
+    box-sizing: border-box;
+    user-select: none;
+    
     position: relative;
 }
+.stylizedItem:not(:last-child){
+    border-bottom: 1px solid #e2e2e2;
+}
 
+/* moved to shelf
 .stylizedHandle {
     position: relative;
     top: 1px;
@@ -41,3 +53,4 @@
     background: -webkit-linear-gradient(top,#000,#000 20%,#fff 0,#fff 40%,#000 0,#000 60%,#fff 0,#fff 80%,#000 0,#000);
     background: linear-gradient(180deg,#000,#000 20%,#fff 0,#fff 40%,#000 0,#000 60%,#fff 0,#fff 80%,#000 0,#000);
 }
+*/

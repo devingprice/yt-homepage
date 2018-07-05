@@ -1,25 +1,30 @@
-import { SortableContainer, SortableElement, arrayMove, SortableHandle} from 'react-sortable-hoc';
+import { SortableContainer, SortableElement, arrayMove} from 'react-sortable-hoc';
 import React, { Component } from 'react';
-import './testSort.css'
+import './testSort.css';
+//import './Bookcase.css';
+import Shelf from './Shelf';
 
 //https://github.com/clauderic/react-sortable-hoc
 
-const DragHandle = SortableHandle(() => <div className="stylizedHandle"></div>);
 
-const SortableItem = SortableElement(({ value }) =>
+const SortableItem = SortableElement(({ value, rssFeeds }) =>
     <div className="stylizedItem">
-        <DragHandle/>
-        Item {value}
+        
+        <Shelf key={value.collectionId} shelf={value} rssFeeds={rssFeeds}/>
     </div>
 );
 
-const SortableList = SortableContainer(({ items }) => {
+const SortableList = SortableContainer(({ items , rssFeeds}) => {
+    console.log(items);
+    console.log(rssFeeds);
+    //className="listWrapper"
+
     return (
-        <div className="listWrapper">
+        <div className="bookcase">
             <div className="stylizedList">
             {   
                 items.map((value, index) => (
-                    <SortableItem key={`item-${index}`} index={index} value={value.Id} />
+                    <SortableItem key={`item-${index}`} index={index} value={value} rssFeeds={rssFeeds}/>
                 ))
             }
             </div>
@@ -28,8 +33,23 @@ const SortableList = SortableContainer(({ items }) => {
     );
 });
 
+//gets props collections + rssfeeds
 class SortableComponent extends Component {
-
+    constructor(props) {
+        super(props);
+        //if(props.collections !== undefined){
+            this.state = {
+                items : props.collections.filter(collection => collection.order)
+            }
+        /*} else {
+            this.state = {
+                items: [{}]
+            }
+        }*/
+        ;
+        //TODO: Sort after the filter into correct order to start
+    }
+    /*
     state = {
         items: [
             {Id: 10,
@@ -46,6 +66,7 @@ class SortableComponent extends Component {
                 order:6}
         ]
     };
+    */
     onSortEnd = ({ oldIndex, newIndex }) => {
         let newOrderArr = arrayMove(this.state.items, oldIndex, newIndex);
         let updatedCollectionsArr = newOrderArr.map((value,index)=> {
@@ -57,10 +78,11 @@ class SortableComponent extends Component {
         this.setState({
             items: updatedCollectionsArr
         });
-        
     };
     render() {
-        return <SortableList items={this.state.items} onSortEnd={this.onSortEnd} useDragHandle={true}/>;
+        console.log(this.props.rssFeeds);
+        return <SortableList items={this.state.items} onSortEnd={this.onSortEnd} useDragHandle={true}
+        rssFeeds={this.props.rssFeeds}/>;
     }
 }
 

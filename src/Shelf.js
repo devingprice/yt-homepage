@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
-import './Bookcase.css';
+import './Shelf.css';
 import Tile from './tile';
+import {SortableHandle} from 'react-sortable-hoc';
+
+const DragHandle = SortableHandle(() => <div className="stylizedHandle"></div>);
 
 class Shelf extends Component {
     constructor(props) {
@@ -38,6 +41,7 @@ class Shelf extends Component {
         return (
             <div className="shelf" id={this.props.shelf.collectionId}>
                 <h2 className="shelfTitle">
+                    <DragHandle/>
                     {this.props.shelf.collectionName}
                 </h2>
 
