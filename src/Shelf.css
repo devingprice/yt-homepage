@@ -33,3 +33,11 @@
     display:flex;
     overflow: hidden;
 }
+
+.emptyTile {
+    height: 203px;
+    width: 210px;
+    margin-right: 4px;
+    margin-bottom: 24px;
+    background-color: #E0E0E0;
+}

@@ -38,6 +38,7 @@ class Shelf extends Component {
             console.log("/////// end shelf")
         }
 
+        //double emptyTile required or width wont scale correctly
         return (
             <div className="shelf" id={this.props.shelf.collectionId}>
                 <h2 className="shelfTitle">
@@ -46,9 +47,14 @@ class Shelf extends Component {
                 </h2>
 
                 <div className="grid">
-                    {videoArray.map((video) =>
-                        <Tile key={video.keyId} video={video} />
-                    )}
+                    {videoArray.length > 0 ? 
+                        videoArray.map((video) =>
+                            <Tile key={video.keyId} video={video} />
+                        )
+                        : [1,1,1,1,1].map(()=><div className="emptyTile">
+                            <div className="emptyTile"></div> 
+                        </div>)
+                    }
                 </div>
             </div>
         )   

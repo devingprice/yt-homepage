@@ -121,3 +121,26 @@ channel variables:
 2)x Every user gets 2 default collections
     1: subs
     2: extra channels (if they add channels they aren't subbed to)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+open app
+    fetch user collections response
+        if logged in fetch that user + setState to Logged in 
+        else fetch defaultuser + setState to logged out
+        Actually make default user/default collections a default prop that doesnt have to be fetched
+app = 
