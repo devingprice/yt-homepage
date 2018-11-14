@@ -1,27 +1,27 @@
-//import { createStore, applyMiddleware } from 'redux';
-//import { createBrowserHistory } from 'history';
-//import { connectRouter, routerMiddleware } from 'connected-react-router';
-
-//import rootReducer from './reducers';
-
-// configureStore.js
 import { createBrowserHistory } from 'history'
 import { applyMiddleware, compose, createStore } from 'redux'
-import { routerMiddleware } from 'connected-react-router'
+import { routerMiddleware } from 'connected-react-router';
 
-import createRootReducer from './reducers'
+import { createEpicMiddleware } from 'redux-observable';
 
-export const history = createBrowserHistory()
+import rootEpic from './epics';
+import rootReducer from './reducers';
+
+export const history = createBrowserHistory();
+const epicMiddleware = createEpicMiddleware();
+
 
 const store = createStore(
-    createRootReducer(history), // root reducer with router state
+    rootReducer(history), // root reducer with router state
     //initialState,
     compose(
         applyMiddleware(
+            epicMiddleware,
             routerMiddleware(history), // for dispatching history actions
             // ... other middlewares ...
+
         ),
     ),
-)
-
+);
+epicMiddleware.run(rootEpic);
 export default store;
