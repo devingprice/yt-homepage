@@ -56,12 +56,13 @@ const LOGIN = 'LOGIN';
 const LOGOUT = 'LOGOUT';
 const login = () => ({ type: LOGIN });
 const logout = () => ({ type: LOGOUT });
+// in tetsuya3850's repo he imports the (dispatch) function from ./reducers instead of mapping
 const mapDispatchToProps = (dispatch)=>{
     return bindActionCreators({
         ping,
         login,
         logout
-    },dispatch)
+    }, dispatch)
 }
 
 export default connect(mapStateToProps,
