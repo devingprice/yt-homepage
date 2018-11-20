@@ -13,14 +13,14 @@ class Login extends Component {
             password: this.password.value
         };
         /*this.props.dispatch(
-            loginUser(payload, () => {
-                this.clearForm();
-                const { from } = this.props.location.state || {
-                    from: { pathname: "/profile" }
-                };
-                this.props.history.push(from.pathname);
-            })
-        );*/
+         loginUser(payload, () => {
+         this.clearForm();
+         const { from } = this.props.location.state || {
+         from: { pathname: "/profile" }
+         };
+         this.props.history.push(from.pathname);
+         })
+         );*/
         console.log(payload);
         this.props.loginCheck(payload);
         //this.props.login();
@@ -54,7 +54,7 @@ class Login extends Component {
                     />
                     <span style={{ color: "red" }}>*</span>
                     <span style={{ color: "red", marginLeft: 8 }}>
-                        {//loginErrors.email}
+                        {//loginErrors.email
                         }
                     </span>
                     <br />
@@ -71,7 +71,7 @@ class Login extends Component {
                     />
                     <span style={{ color: "red" }}>*</span>
                     <span style={{ color: "red", marginLeft: 8 }}>
-                        {//loginErrors.password}
+                        {/*loginErrors.password*/
                         }
                     </span>
                     <br />
@@ -95,14 +95,14 @@ const LOGINCHECK = 'LOGINCHECK';
 const loginCheck = payload => ({
     type: LOGINCHECK, payload: payload
 });
-const LOGIN = 'LOGIN'
+const LOGIN = 'LOGIN';
 const login = () => ({ type: LOGIN });
 const mapDispatchToProps = (dispatch) => {
     return bindActionCreators({
         loginCheck,
         login
     }, dispatch)
-}
+};
 
 Login = connect(mapStateToProps, mapDispatchToProps)(Login);
 
