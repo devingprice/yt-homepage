@@ -1,25 +1,12 @@
 import { combineReducers } from 'redux'
 import { connectRouter } from 'connected-react-router'
 
-const PING = 'PING';
-const PONG = 'PONG';
+import {ping} from './ping';
+import {authentication} from './authentication';
+import {registration} from './registration';
+import {alert} from './alert.reducer';
 
-const pingReducer = (state = { isPinging: false }, action) => {
-    switch (action.type) {
-        case PING:
-            console.log('ping');
-            return { isPinging: true };
-
-        case PONG:
-            console.log('pong');
-            return { isPinging: false };
-
-        default:
-            console.log(state);
-            return state;
-    }
-};
-
+/*
 const LOGIN = 'LOGIN';
 const LOGOUT = 'LOGOUT';
 const LOGINSUCCESS = 'LOGINSUCCESS';
@@ -72,10 +59,14 @@ const authDummy = (state = { loading: false, loggedIn: false}, action) => {
             return state;
     }
 }
+*/
 
 export default (history) => combineReducers({
     router: connectRouter(history),
-    pingReducer,
-    authDummy
+    ping,
+    //authDummy,
+    authentication,
+    registration,
+    alert
     // rest of your reducers
 })

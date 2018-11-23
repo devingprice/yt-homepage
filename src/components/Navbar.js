@@ -1,66 +1,47 @@
 import React, { Component } from "react";
-import { Link /* , withRouter */} from "react-router-dom";
+import { Link } from "react-router-dom";
 import { connect } from "react-redux";
-//import { bindActionCreators } from 'redux';
+import './Navbar.css';
 
+import { userActions } from '../actions/user.actions';
 
-/*
-const AuthButton = withRouter(
-    ({ history }) =>
-        fakeAuth.isAuthenticated ? 
-        (
-            <p>
-                Welcome!{" "}
-                <button
-                    onClick={() => {
-                        fakeAuth.signout(() => history.push("/"));
-                    }}
-                >Sign out</button>
-            </p>
-        ) : 
-        (<p>You are not logged in.</p>)
-);*/
-const AuthButton = (loggedIn ) => (
-    <li>
-    { loggedIn ?
-        <button onclick={()=>{
-            //signout and push history "/"
-        }}>Logout</button>:
-        <Link to="/login">Login</Link>
-    }
-    </li>
-);
-/* will have to map dispatch to sign out when it matters
-const mapDispatchToProps = (dispatch) => {
-    return bindActionCreators({
-        logout
-    }, dispatch)
-}
-
-AuthButton = connect(null, mapDispatchToProps)(AuthButton);
-*/
 
 class Navbar extends Component {
+    logout = () => {
+        this.props.dispatch(userActions.logout());
+    };
     render() {
-        return (<nav>
-            <div>
-                <ul>
-                    <li>
-                        <Link to="/">Home</Link>
-                    </li>
-                    <li>
-                        <Link to="/about">About</Link>
-                    </li>
-                    <AuthButton/>
-                </ul>
-            </div>
-        </nav>);
+        const { loggedIn, user } = this.props;
+        return (
+            <nav className="navBar">
+                <div className="navBar__left">
+                    <Link to="/">Home</Link>
+                    <Link to="/about">About</Link>
+                </div>
+
+                {!loggedIn ?
+                    <div className="navBar__right">
+                        <Link to="/login" className="btn btn-link">Login</Link>
+                        <Link to="/register" className="btn btn-link">Register</Link>
+                    </div>
+                    :
+                    <div className="navBar__right">
+                        <p>Username: {user.username}</p>
+                        {/*<Link to="/login" className="btn btn-link">Logout</Link>*/}
+                        <button onClick={()=> this.logout() }> Logout </button>
+                    </div>
+                }
+            </nav>
+        );
     }
 }
 
 const mapStateToProps = state => {
+    const { loggedIn, user } = state.authentication;
+
     return {
-        loggedIn: state.authDummy.loggedIn
+        loggedIn,
+        user
     };
 };
 

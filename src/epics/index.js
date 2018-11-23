@@ -2,8 +2,6 @@ import { combineEpics } from 'redux-observable';
 import { delay } from 'rxjs/operators/delay';
 import { mapTo } from 'rxjs/operators/mapTo'
 import { ofType } from 'redux-observable';
-import { mergeMap } from 'rxjs/operators/mergeMap'
-import { Observable } from 'rxjs';
 import 'rxjs/add/observable/of';
 
 const PING = 'PING';
@@ -16,7 +14,7 @@ const pingEpic = (action$) =>
         mapTo({type:PONG})
     );
 
-
+/*
 const LOGIN = 'LOGIN';
 const LOGOUT = 'LOGOUT';
 const LOGINSUCCESS = 'LOGINSUCCESS';
@@ -35,7 +33,7 @@ const logoutEpic = (action$) =>
         delay(1000),
         mapTo({ type: LOGOUTSUCCESS })
     );
-
+*/
 //epic
 /* https://redux-observable.js.org/docs/basics/Epics.html
 mergemap(action=>fetch().pipe(mapTo response))
@@ -47,6 +45,7 @@ const loginFailed = payload => ({
     type: LOGINCHECK, payload: payload
 });
 */
+/*
 const LOGINCHECK = 'LOGINCHECK';
 const LOGINCHECKSUCCESS = 'LOGINCHECKSUCCESS';
 const LOGINFAILURE = 'LOGINFAILURE';
@@ -65,12 +64,12 @@ const loginCheckEpic = (action$) =>
             }
         })
     );
-
+*/
 const rootEpic = combineEpics(
     pingEpic,
-    loginEpic,
-    logoutEpic,
-    loginCheckEpic
+    //loginEpic,
+    //logoutEpic,
+    //loginCheckEpic
 )
 
 

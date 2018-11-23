@@ -1,0 +1,14 @@
+.navBar {
+    display:flex;
+    flex-direction: row;
+    padding: 10px 25px;
+    justify-content: space-between;
+}
+.navBar__left {
+    display: flex;
+    flex-direction: row;
+}
+.navBar__right {
+    display: flex;
+    flex-direction: row;
+}
