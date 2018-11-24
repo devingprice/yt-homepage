@@ -15,20 +15,20 @@ class Navbar extends Component {
         return (
             <nav className="navBar">
                 <div className="navBar__left">
-                    <Link to="/">Home</Link>
-                    <Link to="/about">About</Link>
+                    <Link to="/" className="nav__link">Home</Link>
+                    <Link to="/about" className="nav__link">About</Link>
                 </div>
 
                 {!loggedIn ?
                     <div className="navBar__right">
-                        <Link to="/login" className="btn btn-link">Login</Link>
-                        <Link to="/register" className="btn btn-link">Register</Link>
+                        <Link to="/login" className="nav__link">Login</Link>
+                        <Link to="/register" className="nav__link">Register</Link>
                     </div>
                     :
                     <div className="navBar__right">
-                        <p>Username: {user.username}</p>
+                        <a className="nav__link">Username: {user.username}</a>
                         {/*<Link to="/login" className="btn btn-link">Logout</Link>*/}
-                        <button onClick={()=> this.logout() }> Logout </button>
+                        <a onClick={()=> this.logout() } className="nav__link"> Logout </a>
                     </div>
                 }
             </nav>

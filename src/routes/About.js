@@ -1,6 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
-
+import HomeContent from '../components/testing/HomeContent';
 import { bindActionCreators } from 'redux';
 
 class About extends React.Component {
@@ -11,9 +11,12 @@ class About extends React.Component {
     render(){
         return (
             <div>
+                <div>
                 <h1>is pinging: {this.props.isPinging.toString()}</h1>
                 <button onClick={() => this.clickPing()}>Start PING</button>
                 <button onClick={() => console.log('log')}>Start LOG</button>
+                </div>
+                <HomeContent/>
             </div> 
         )
     }

@@ -2,6 +2,9 @@ import React from 'react';
 import logo from '../logo.svg';
 
 import { connect } from 'react-redux';
+import Search from '../components/channelSearch';
+import Bookcase from "../components/testing/Bookcase";
+import TestYoutube from '../components/testing/testYoutube';
 
 class Home extends React.Component {
     render(){
@@ -13,8 +16,12 @@ class Home extends React.Component {
                         Edit <code>src/App.js</code> and save to reload.
                     </p>
                 </header>
+                <section style={{"display":"flex","flex-direction":"row"}}>
+                    <Search/>
+                    <Bookcase/>
+                </section>
                 <section>
-
+                    <TestYoutube/>
                 </section>
             </div>
         )
