@@ -1,0 +1,51 @@
+$header-bar : rgb(255,255,255);
+$drawer-active : rgb(221,221,221);
+$drawer-background : rgb(246,246,246);
+$drawer-icons : rgb(135,135,135);
+$body-background: rgb(251,251,251);
+
+$drawer-width: 240px;
+
+.gridWrapper {
+    min-height:100%;
+    display: grid;
+    grid-template-areas:
+        "header"
+        "leftPanel"
+        "bodyContent";
+    @media (min-width:500px) {
+        grid-template-columns: min-content auto;
+        grid-template-areas:
+            "header header"
+            "leftPanel bodyContent";
+    }
+}
+.headerControls {
+    position:relative;
+    grid-area:header;
+    background-color:$header-bar;
+    min-height: 50px;
+    &::after {
+        bottom: -5px;
+        box-shadow: inset 0px 4px 8px -3px rgba(17, 17, 17, .06);
+        content: "";
+        height: 5px;
+        left: 0px;
+        opacity: 1;
+        pointer-events: none;
+        position: absolute;
+        right: 0px;
+        width: 100%;
+        z-index: 2050;
+    }
+}
+.channelDrawer {
+    width:$drawer-width;
+    grid-area: leftPanel;
+    background-color:$drawer-background;
+    color: $drawer-icons;
+}
+.bodyContent {
+    grid-area: bodyContent;
+    background-color:$body-background;
+}

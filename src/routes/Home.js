@@ -5,25 +5,19 @@ import { connect } from 'react-redux';
 import Search from '../components/channelSearch';
 import Bookcase from "../components/testing/Bookcase";
 import TestYoutube from '../components/testing/testYoutube';
+import Layout from '../components/fromSP/layout';
 
-class Home extends React.Component {
-    render(){
-        return (
-            <div>
-                <header className="App-header">
-                    <img src={logo} className="App-logo" alt="logo" />
-                    <p>
-                        Edit <code>src/App.js</code> and save to reload.
-                    </p>
-                </header>
-                <section style={{"display":"flex","flex-direction":"row"}}>
+/*
+<TestYoutube/>
+<section style={{"display":"flex","flex-direction":"row"}}>
                     <Search/>
                     <Bookcase/>
                 </section>
-                <section>
-                    <TestYoutube/>
-                </section>
-            </div>
+*/
+class Home extends React.Component {
+    render(){
+        return (
+            <Layout/>
         )
     }
 }

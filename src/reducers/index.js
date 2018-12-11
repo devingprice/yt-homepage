@@ -5,6 +5,11 @@ import {ping} from './ping';
 import {authentication} from './authentication';
 import {registration} from './registration';
 import {alert} from './alert.reducer';
+import {
+    board,
+    boardOrder,
+    panel
+} from './board';
 
 /*
 const LOGIN = 'LOGIN';
@@ -67,6 +72,9 @@ export default (history) => combineReducers({
     //authDummy,
     authentication,
     registration,
-    alert
+    alert,
+    board,
+    boardOrder,
+    panel
     // rest of your reducers
 })

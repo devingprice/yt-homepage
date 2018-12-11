@@ -23,3 +23,9 @@ export const alertConstants = {
     ERROR: 'ALERT_ERROR',
     CLEAR: 'ALERT_CLEAR'
 };
+
+export const boardConstants = {
+    SET_COLUMN: 'SET_COLUMN',
+    SET_ORDERED: 'SET_ORDERED',
+};
+
