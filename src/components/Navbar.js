@@ -26,9 +26,9 @@ class Navbar extends Component {
                     </div>
                     :
                     <div className="navBar__right">
-                        <a className="nav__link">Username: {user.username}</a>
+                        <div className="nav__link">Username: {user.username}</div>
                         {/*<Link to="/login" className="btn btn-link">Logout</Link>*/}
-                        <a onClick={()=> this.logout() } className="nav__link"> Logout </a>
+                        <div onClick={()=> this.logout() } className="nav__link"> Logout </div>
                     </div>
                 }
             </nav>

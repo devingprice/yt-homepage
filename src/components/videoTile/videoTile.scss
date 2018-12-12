@@ -1,0 +1,26 @@
+//$thumbnailHeight: 118px;
+
+.tile{
+    padding-right:4px;
+
+    &__img {
+        height: 118px;
+        width: 210px;
+        background-color: #E0E0E0;
+    }
+
+}
+.details {
+
+    &__title {
+        margin: 12px 0;
+        height: 20px;
+        width: 210px;
+        background-color: #E0E0E0;
+    }
+    &__stats {
+        height: 20px; 
+        width: 130px; 
+        background-color: #E0E0E0;
+    }
+}

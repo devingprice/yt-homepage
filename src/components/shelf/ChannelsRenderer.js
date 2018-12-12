@@ -1,18 +1,11 @@
 import React, { Component } from 'react';
-import '../bookcase.scss';
+import { Droppable } from 'react-beautiful-dnd';
 
-import ChannelPill from '../channelDrawer/channelPill';
-import ChannelItem from '../channelDrawer/channelItem';
+import './shelf.scss';
+import ChannelItem from '../ChannelItem/channelItem';
 
 
-import styled from 'styled-components';
-import { Draggable, Droppable } from 'react-beautiful-dnd';
-
-const Wrapper = styled('div')``;
-const DropZone = styled('div')``;
-const Container = styled('div')``;
-
-class InnerQuoteList extends React.Component {
+class InnerQuoteList extends Component {
     shouldComponentUpdate(nextProps, nextState) {
         if (nextProps.quotes !== this.props.quotes) {
             return true;
@@ -29,22 +22,22 @@ class InnerQuoteList extends React.Component {
 }
 
 
-class QuoteList extends React.Component {
+class ChannelsRenderer extends Component {
     static defaultProps = {
         listId: 'LIST'
     };
     render() {
         const {
             ignoreContainerClipping,
-            internalScroll,
-            scrollContainerStyle,
+            //internalScroll,
+            //scrollContainerStyle,
             isDropDisabled,
             isCombineEnabled,
             //listId,
             listType,
             style,
             //quotes,
-            title
+            //title
         } = this.props;
 
         const listId = this.props.listId;
@@ -63,19 +56,21 @@ class QuoteList extends React.Component {
                     dropProvided,//: DroppableProvided,
                     dropSnapshot //: DroppableStateSnapshot
                 ) => (
-                    <Wrapper
+                    <div //Wrapper dont seem to need styled-component or wrapperlist
                         style={style}
-                        isDraggingOver={dropSnapshot.isDraggingOver}
+                        //isDraggingOver={dropSnapshot.isDraggingOver}
+                        //used for styling
                         isDropDisabled={isDropDisabled}
                         {...dropProvided.droppableProps}>
 
-                        <DropZone className="grid-draggable__container"
+                        <div //DropZone  dont seem to need styled-component or wrapperlist
+                            className="grid-draggable__container"
                             ref={dropProvided.innerRef}>
                             <InnerQuoteList quotes={quotes} />
                             {dropProvided.placeholder}
-                        </DropZone>
+                        </div>
 
-                    </Wrapper>
+                    </div>
                 )}
             </Droppable>
         );
@@ -83,18 +78,4 @@ class QuoteList extends React.Component {
 }
 
 
-
-class ChannelsRenderer extends Component {
-    render() {
-        let channels = this.props.channels;
-        return (
-            <div className="channelsRenderer">
-                {
-                    channels.map((channelItem, index) => ChannelPill(channelItem.name, "X", channelItem.url, index))
-                }
-            </div>
-        )
-    }
-}
-
-export default QuoteList;
+export default ChannelsRenderer;

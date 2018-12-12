@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import '../bookcase.scss';
+import './listRenderer.scss';
 
 import RightArrow from './rightArrow';
 import LeftArrow from './leftArrow';
-import Tile from './videoTile';
+import Tile from '../videoTile';
 
 class ListRenderer extends Component {
     constructor(props) {
@@ -11,9 +11,9 @@ class ListRenderer extends Component {
         this.state = {
             "farLeftItemNumber": 0 //used to keep track of where the scroll is at
         }
-        let containerWidth = document.getElementsByClassName("shelf").offsetWidth;
-        let tileWidth = 214;
-        let itemsVisible = containerWidth / tileWidth;
+        //let containerWidth = document.getElementsByClassName("shelf").offsetWidth;
+        //let tileWidth = 214;
+        //let itemsVisible = containerWidth / tileWidth;
     }
     getNumVisible = () => {
         let shelfWidthString = getComputedStyle(document.getElementsByClassName("shelf")[0]).width
@@ -63,11 +63,11 @@ class ListRenderer extends Component {
                             "display":
                                 this.state.farLeftItemNumber === 0 ? "none" : "flex"
                         }}>
-                            <a className="leftButton">
+                            <div className="arrow-button">
                                 <div className="iconCont" style={{ width: "24px", height: "24px", padding: "auto" }} onClick={this.scrollLeft}>
                                     <LeftArrow />
                                 </div>
-                            </a>
+                            </div>
                         </div>
 
                         : null
@@ -77,7 +77,7 @@ class ListRenderer extends Component {
                 <div className="scrollContainer">
                     <div className="items" style={{ transform: "translateX(-" + offset + "px)" }}>
                         {
-                            emptyArray.map((emp, index) => <Tile num={index + 1} />)
+                            emptyArray.map((emp, index) => <Tile key={"tile-"+index} num={index + 1} />)
                             
                         }
 
@@ -92,11 +92,11 @@ class ListRenderer extends Component {
                             "display":
                                 isRightArrowVisible ? "none" : "flex"
                         }}>
-                            <a className="rightButton">
+                            <div className="arrow-button">
                                 <div className="iconCont" style={{ width: "24px", height: "24px", padding: "auto" }} onClick={this.scrollRight}>
                                     <RightArrow />
                                 </div>
-                            </a>
+                            </div>
                         </div>
 
                         : null

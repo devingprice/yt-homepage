@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import routes from './routes';
+//import routes from './routes';
 
 import { alertActions } from './actions/alert.actions';
 import Navbar from './components/Navbar';
 
-class WrapperApp extends Component {
+class AlertWrapper extends Component {
     constructor(props) {
         super(props);
 
@@ -39,6 +39,6 @@ function mapStateToProps(state) {
     };
 }
 
-const connectedApp = connect(mapStateToProps)(WrapperApp);
+const connectedApp = connect(mapStateToProps)(AlertWrapper);
 
 export default connectedApp;

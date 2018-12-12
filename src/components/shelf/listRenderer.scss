@@ -1,0 +1,54 @@
+$whiteBkGd : #fff;
+$thumbnailHeight: 118px;
+
+.listRenderer{
+    position: relative;
+}
+.scrollContainer{
+    overflow: hidden;
+}
+.items{
+    width:642px;
+    display: flex;
+    flex-direction:row;
+    transition-duration: 0.15s;
+    transition-timing-function: cubic-bezier(0.4, 0.0, 1, 1);
+    will-change: transform;
+}
+%Arrow {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 0;
+    height: $thumbnailHeight;
+}
+.rightArrow {
+    @extend %Arrow;
+    right: -16px;
+    z-index: 200;
+}
+.leftArrow{
+    @extend %Arrow;
+    left: -20px;
+    z-index: 1;
+}
+.arrow-button {
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    border-radius: 24px;
+    background-color: $whiteBkGd;
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.3), 0 0 4px rgba(0, 0, 0, 0.2);
+    display: flex;
+    -ms-flex-direction: column;
+    -webkit-flex-direction: column;
+    flex-direction: column;
+    -ms-flex-align: center;
+    -webkit-align-items: center;
+    align-items: center;
+    -ms-flex-pack: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+}

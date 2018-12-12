@@ -7,7 +7,7 @@ import { ConnectedRouter } from 'connected-react-router';
 import store, { history } from './store';
 import routes from './routes';
 
-import WrapperApp from './AlertWrapper'
+import AlertWrapper from './AlertWrapper'
 
 import {configureFakeBackend } from './helpers/fakeBackend';
 configureFakeBackend();
@@ -20,9 +20,9 @@ class App extends Component {
             <Provider store={store}>
                 <ConnectedRouter history={history}>
                     <div className="App">
-                        <WrapperApp history={history}>
+                        <AlertWrapper history={history}>
                         {routes}
-                        </WrapperApp>
+                        </AlertWrapper>
                     </div>
                 </ConnectedRouter>
             </Provider>

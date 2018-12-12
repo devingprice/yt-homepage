@@ -1,10 +1,7 @@
 import {
-    sampleCollectionsObject, 
-    sampleItems,
     channels,
     collections
 } from '../data';
-//import uuid from 'uuid/v4';
 
 import { boardConstants } from '../actions/actionTypes';
 

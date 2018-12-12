@@ -5,7 +5,7 @@ import React, { Component } from 'react';
 
 //Will scrape youtube channels for a complete list
 // Will remove unused data to make smaller and then minimize file
-import channelArray from './sampleChannels';
+import channelArray from '../helpers/sampleChannels';
 
 
 // https://developer.mozilla.org/en/docs/Web/JavaScript/Guide/Regular_Expressions#Using_Special_Characters
