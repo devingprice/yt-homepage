@@ -46,7 +46,122 @@ export const channels = [
 ];
 
 
-
+export const collections = {
+    [uuid()]: {
+        id: 123,
+        "name": "123",
+        "channels": [
+            {
+                id: uuid(),
+                "name": "Imaqtpie",
+                "channelId": "UCjyNFmk6Ionj9Lw9iIo9LtQ",
+                "thumbnail": "https://yt3.ggpht.com/a-/AN66SAzwZsCNSyRezNFqEaG6Ef9bFcZ-PzN6CxSzEw=s88-mo-c-c0xffffffff-rj-k-no"
+            },
+            {
+                id: uuid(),
+                "name": "videogamedunkey",
+                "channelId": "UCsvn_Po0SmunchJYOWpOxMg",
+                "thumbnail": "https://yt3.ggpht.com/a-/AN66SAzwZsCNSyRezNFqEaG6Ef9bFcZ-PzN6CxSzEw=s88-mo-c-c0xffffffff-rj-k-no"
+            }
+        ],
+        "settings": {
+            "showChannels": true,
+            "numItems": 4,
+            "doneLoading": true,
+        }
+    },
+    [uuid()]: {
+        id: 129,
+        "name": "129",
+        "channels": [
+            {
+                id: uuid(),
+                "name": "PewDiePie",
+                "channelId": "UC-lHJZR3Gqxm24_Vd_AJ5Yw",
+                "thumbnail": "https://yt3.ggpht.com/a-/AN66SAzwZsCNSyRezNFqEaG6Ef9bFcZ-PzN6CxSzEw=s88-mo-c-c0xffffffff-rj-k-no"
+            },
+            {
+                id: uuid(),
+                "name": "videogamedunkey",
+                "channelId": "UCsvn_Po0SmunchJYOWpOxMg",
+                "thumbnail": "https://yt3.ggpht.com/a-/AN66SAzwZsCNSyRezNFqEaG6Ef9bFcZ-PzN6CxSzEw=s88-mo-c-c0xffffffff-rj-k-no"
+            }
+        ],
+        "settings": {
+            "showChannels": true,
+            "numItems": 4,
+            "doneLoading": true,
+        }
+    },
+    [uuid()]: {
+        id: 124,
+        "name": "124",
+        "channels": [
+            {
+                id: uuid(),
+                "name": "PewDiePie",
+                "channelId": "UC-lHJZR3Gqxm24_Vd_AJ5Yw",
+                "thumbnail": "https://yt3.ggpht.com/a-/AN66SAzwZsCNSyRezNFqEaG6Ef9bFcZ-PzN6CxSzEw=s88-mo-c-c0xffffffff-rj-k-no"
+            }
+        ],
+        "settings": {
+            "showChannels": false,
+            "numItems": 7,
+            "doneLoading": true,
+        }
+    },
+    [uuid()]: {
+        id: 125,
+        "name": "125",
+        "channels": [
+            {
+                id: uuid(),
+                "name": "Philip DeFranco",
+                "channelId": "UClFSU9_bUb4Rc6OYfTt5SPw",
+                "thumbnail": "https://yt3.ggpht.com/a-/AN66SAxggAEBzd8inE9QfOrLK5vJkMYtOxAp5SpaGA=s88-mo-c-c0xffffffff-rj-k-no"
+            }
+        ],
+        "settings": {
+            "showChannels": false,
+            "numItems": 3,
+            "doneLoading": true,
+        }
+    },
+    [uuid()]: {
+        id: 126,
+        "name": "126",
+        "channels": [
+            {
+                id: uuid(),
+                "name": "Philip DeFranco",
+                "channelId": "UClFSU9_bUb4Rc6OYfTt5SPw",
+                "thumbnail": "https://yt3.ggpht.com/a-/AN66SAxggAEBzd8inE9QfOrLK5vJkMYtOxAp5SpaGA=s88-mo-c-c0xffffffff-rj-k-no"
+            }
+        ],
+        "settings": {
+            "showChannels": false,
+            "numItems": 11,
+            "doneLoading": true,
+        }
+    },
+    [uuid()]: {
+        id: 127,
+        "name": "127",
+        "channels": [
+            {
+                id: uuid(),
+                "name": "Philip DeFranco",
+                "channelId": "UClFSU9_bUb4Rc6OYfTt5SPw",
+                "thumbnail": "https://yt3.ggpht.com/a-/AN66SAxggAEBzd8inE9QfOrLK5vJkMYtOxAp5SpaGA=s88-mo-c-c0xffffffff-rj-k-no"
+            }
+        ],
+        "settings": {
+            "showChannels": false,
+            "numItems": 12,
+            "doneLoading": true,
+        }
+    }
+};
 
 
 

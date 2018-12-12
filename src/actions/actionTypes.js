@@ -29,3 +29,8 @@ export const boardConstants = {
     SET_ORDERED: 'SET_ORDERED',
 };
 
+export const stateConstants = {
+    SET_HOVER:  'SET_HOVER',
+    SET_SHOW_CHANNELS: 'SET_SHOW_CHANNELS',
+    SET_SHELF_DRAG: 'SET_SHELF_DRAG'
+};

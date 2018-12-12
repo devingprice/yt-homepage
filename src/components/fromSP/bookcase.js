@@ -96,9 +96,10 @@ class Board extends Component {
 
     render() {
         const columns = this.props.reduxColumns;
-        const ordered = exampleShelfs;//this.props.ordered;
+        const ordered = this.props.ordered;//exampleShelfs;//
         const { containerHeight } = this.props;
 
+        console.log(ordered)
         return (
             <Droppable
                 droppableId="board"
@@ -113,13 +114,15 @@ class Board extends Component {
                         {...provided.droppableProps}>
                         {ordered.map((key, index) => (
                             <Shelf 
-                                key={key.index}
-                                index={key.index}
-                                title={key.index}
-                                showChannels={key.showChannels} 
-                                numItems={key.numItems} 
-                                doneLoading={key.doneLoading} 
-                                shelfData={key.shelfData} 
+                                key={key}
+                                index={index}
+                                title={key}
+                                name={columns[key].name}
+                                //showChannels={columns[key].settings.showChannels}
+                                showChannels={this.props.showChannels}
+                                numItems={columns[key].settings.numItems}
+                                doneLoading={columns[key].settings.doneLoading}
+                                shelfData={columns[key].channels}
                                 isScrollable={this.props.withScrollableColumns}
                                 isCombineEnabled={this.props.isCombineEnabled}
                                 />
@@ -147,6 +150,7 @@ const mapStateToProps = state => {
     return {
         reduxColumns: state.board.columns,
         ordered: state.boardOrder.ordered,
+        showChannels: state.showChannels.showChannels
         //collections: state.collections.collections,
         //channels: state.collections.channels
     };

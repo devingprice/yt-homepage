@@ -12,7 +12,6 @@ export function ping(state = { isPinging: false }, action) {
             return { isPinging: false };
 
         default:
-            console.log(state);
             return state;
     }
 }

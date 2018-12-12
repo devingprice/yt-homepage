@@ -22,7 +22,8 @@ export const reorderQuoteMap = ({ quoteMap, source, destination }) => {
             ...quoteMap,
             [source.droppableId]: {
                 "name": quoteMap[source.droppableId].name,
-                "channels": reordered
+                "channels": reordered,
+                "settings": quoteMap[source.droppableId].settings
             }
         };
         return {
@@ -41,11 +42,13 @@ export const reorderQuoteMap = ({ quoteMap, source, destination }) => {
         ...quoteMap,
         [source.droppableId]: {
             "name": quoteMap[source.droppableId].name,
-            "channels": current
+            "channels": current,
+            "settings": quoteMap[source.droppableId].settings
         },
         [destination.droppableId]: {
             "name": quoteMap[destination.droppableId].name,
-            "channels": next
+            "channels": next,
+            "settings": quoteMap[destination.droppableId].settings
         }
     };
 

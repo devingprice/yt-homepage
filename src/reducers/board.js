@@ -1,8 +1,8 @@
-import { combineReducers } from 'redux'
 import {
     sampleCollectionsObject, 
     sampleItems,
-    channels
+    channels,
+    collections
 } from '../data';
 //import uuid from 'uuid/v4';
 
@@ -11,7 +11,7 @@ import { boardConstants } from '../actions/actionTypes';
 
 //**********************  Board */
 
-const columns = sampleCollectionsObject;
+const columns = collections;
 const ordered = Object.keys(columns);
 
 export function board(state = {

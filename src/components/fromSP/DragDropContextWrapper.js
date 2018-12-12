@@ -73,6 +73,9 @@ class DragDropContextWrapper extends Component {
             return;
         }
 
+        console.log(this.props.reduxColumns);
+        console.log(source);
+        console.log(destination);
         //moving inside collection
         const data = reorderQuoteMap({
             quoteMap: this.props.reduxColumns,

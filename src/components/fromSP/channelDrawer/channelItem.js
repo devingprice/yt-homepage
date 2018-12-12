@@ -3,8 +3,13 @@ import { Droppable, Draggable } from 'react-beautiful-dnd';
 import styled from 'styled-components';
 import ChannelPill from './channelPill';
 
+
+import { setHover } from '../../../actions/state.actions';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+
 const Container = styled('div')`
-    
+    width: 240px;
 `;
 
 class ChannelItem extends React.PureComponent {
@@ -24,7 +29,12 @@ class ChannelItem extends React.PureComponent {
                             isGroupedOver={Boolean(dragSnapshot.combineTargetFor)}
                             ref={dragProvided.innerRef}
                             {...dragProvided.draggableProps}
-                            {...dragProvided.dragHandleProps}>
+                            {...dragProvided.dragHandleProps}
+                            onMouseEnter={()=>{
+                                this.props.setHover(quote.name)
+                            }}
+                            onMouseLeave={()=> {this.props.setHover(null)}}
+                        >
                             {
                                 ChannelPill(quote.name, quote.updates, quote.thumbnail, quote.id)
                             }
@@ -36,7 +46,19 @@ class ChannelItem extends React.PureComponent {
         );
     }
 }
-export default ChannelItem;
+
+
+const mapDispatchToProps = (dispatch) => {
+    return bindActionCreators({
+        setHover
+    }, dispatch)
+};
+
+export default connect(null,
+    mapDispatchToProps)(ChannelItem);
+
+//export default ChannelItem;
+
 /*
 class ChannelItem extends React.PureComponent {
     render() {

@@ -54,7 +54,6 @@ class ListRenderer extends Component {
         }
         let emptyArray = [...Array(this.props.items)];
 
-        console.log(emptyArray)
         return (
             <div className="listRenderer">
                 {

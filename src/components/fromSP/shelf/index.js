@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import '../bookcase.scss';
 
+import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { Draggable } from 'react-beautiful-dnd';
 
@@ -11,7 +12,11 @@ export const Container = styled('div')`
 `;
 export const ColumnContainer = styled('div')`
     height: 300px;
+    opacity: ${props => props.opacity}
 `;
+ColumnContainer.defaultProps = {
+    opacity: 1
+};
 
 class Shelf extends Component {
     render() {//, width: "856px" 
@@ -31,24 +36,40 @@ class Shelf extends Component {
         )
     }
 }
+function containsChannel(channelArray, channelKey){
+    //if not hovering anything, everything clear
+    if (channelKey === null) {
+        return true;
+    }
+    //if hovering a channel, if collection doesnt contain channel make greyed out
+    for (let i=0; i < channelArray.length; i++){
+        if (channelArray[i].name === channelKey) {
+            return true;
+        }
+    }
+    return false;
+}
 class ShelfWrapper extends Component {
     render() {
         const title = this.props.title;
-        const quotes = this.props.quotes;
+        //const quotes = this.props.quotes;
         const index = this.props.index;
+        const name = this.props.name;
+
         return (
-            <Draggable draggableId={title} index={index}>
+            <Draggable draggableId={title} index={index} isDragDisabled={!this.props.shelfDrag}>
                 {(
                     provided,//: DraggableProvided,
                     snapshot,//: DraggableStateSnapshot
                 ) => (
                     <ColumnContainer
+                        opacity={containsChannel(this.props.shelfData, this.props.hovering) ? 1 : 0.3}
                         className="shelf"
                         ref={provided.innerRef}
                         {...provided.draggableProps}>
                         <div
                             className="title"
-                            style={{ "max-width": "50px" }}
+                            //style={{ "max-width": "50px" }}
                         //add back if switch div to style-component
                         //isDragging={snapshot.isDragging}
                         >
@@ -57,13 +78,13 @@ class ShelfWrapper extends Component {
                                 //add back if switch div to style-component
                                 //isDragging={snapshot.isDragging}
                                 {...provided.dragHandleProps}>
-                                {title}
+                                {name}
                             </div>
                         </div>
                             <div className="grid">
                                 {
                                     this.props.showChannels ?
-                                        <ChannelsRenderer channels={this.props.shelfData.channels} /> :
+                                        <ChannelsRenderer listId={this.props.title} listType="Quote" channels={this.props.shelfData} /> :
                                         <ListRenderer items={this.props.numItems} showArrows={this.props.doneLoading} />
 
                                 }
@@ -84,7 +105,7 @@ class ShelfWrapper extends Component {
                                     internalScroll={this.props.isScrollable}
                                     isCombineEnabled={this.props.isCombineEnabled}
                                 />
-*/
+
 class Column extends Component {
     render() {
         const title = this.props.title;
@@ -126,6 +147,16 @@ class Column extends Component {
             </Draggable>
         );
     }
-}
+}*/
 
-export default ShelfWrapper;
+
+const mapStateToProps = state => {
+    return {
+        hovering: state.hover.hovering,
+        shelfDrag: state.shelfDrag.shelfDrag
+    };
+};
+export default connect(mapStateToProps,
+    null)(ShelfWrapper);
+
+//export default ShelfWrapper;

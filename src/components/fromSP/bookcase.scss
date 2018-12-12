@@ -23,6 +23,12 @@ $thumbnailHeight: 118px;
     display:flex;
     flex-direction:row;
 }
+.grid-draggable__container {
+    display:flex;
+    flex-direction:row;
+    width:100%;
+    flex-wrap: wrap;
+}
 .rightArrow {
     display: flex;
     flex-direction: column;
