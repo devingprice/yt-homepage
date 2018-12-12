@@ -35,8 +35,8 @@ class Shelf extends Component {
                     snapshot,//: DraggableStateSnapshot
                 ) => (
                     <div //ColumnContainer     dont seem to need styled-component or wrapperlist
-                        opacity={containsChannel(this.props.shelfData, this.props.hovering) ? 1 : 0.3}
-                        className="shelf"
+                        className={"shelf " +(containsChannel(this.props.shelfData, this.props.hovering) ? "" : "shelf--greyed")}
+                        //className="shelf"
                         ref={provided.innerRef}
                         {...provided.draggableProps}>
                         <div
