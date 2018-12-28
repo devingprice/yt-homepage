@@ -14,7 +14,9 @@ class Bookcase extends Component {
     };
 
     render() {
-        const { columns, ordered, containerHeight } = this.props;
+        const { columns, ordered,
+            containerHeight, withScrollableColumns, isCombineEnabled
+        } = this.props;
 
         return (
             <Droppable
@@ -22,7 +24,7 @@ class Bookcase extends Component {
                 type="COLUMN"
                 //direction="horizontal"
                 ignoreContainerClipping={Boolean(containerHeight)}
-                isCombineEnabled={this.props.isCombineEnabled}>
+                isCombineEnabled={isCombineEnabled}>
                 {(provided) => (
                     <div //Container    dont seem to need styled-component or wrapperlist
                         className="bookcase"
@@ -38,9 +40,10 @@ class Bookcase extends Component {
                                 showChannels={this.props.showChannels}
                                 numItems={columns[key].settings.numItems}
                                 doneLoading={columns[key].settings.doneLoading}
-                                shelfData={columns[key].channels}
-                                isScrollable={this.props.withScrollableColumns}
-                                isCombineEnabled={this.props.isCombineEnabled}
+                                channelObjsArray={columns[key].channels}
+
+                                isScrollable={withScrollableColumns}
+                                isCombineEnabled={isCombineEnabled}
                                 />
                         ))}
 

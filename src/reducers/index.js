@@ -13,7 +13,7 @@ import {hover} from './hover';
 import {shelfDrag} from './shelfDrag';
 import {showChannels} from './showChannels';
 
-
+import {feeds } from './feeds';
 
 
 export default (history) => combineReducers({
@@ -28,5 +28,7 @@ export default (history) => combineReducers({
     
     hover,
     shelfDrag,
-    showChannels
+    showChannels,
+
+    feeds
 })

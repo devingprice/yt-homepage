@@ -21,33 +21,42 @@ function containsChannel(channelArray, channelKey){
     }
     return false;
 }
+function containedChannels(channelObjsArray){
+    let channelStringArray = [];
+    for(let i =0; i < channelObjsArray.length; i++){
+        channelStringArray.push(channelObjsArray[i].channelId)
+    }
+    return channelStringArray;
+}
+function feedsToVideoObjArray(channelStringArray, feeds){
+    let arrayOfArrays = [];
+    for(let i =0; i < channelStringArray.length; i++){
+        if(channelStringArray[i] in feeds){
+            arrayOfArrays.push(feeds[channelStringArray[i]])
+        }
+    }
+    return [].concat.apply([],arrayOfArrays);
+}
 class Shelf extends Component {
     render() {
-        const title = this.props.title;
-        //const quotes = this.props.quotes;
-        const index = this.props.index;
-        const name = this.props.name;
+        const {title, index, name } = this.props;
+        const channels= this.props.channelObjsArray;
 
+        //const title = this.props.title;
+        //const quotes = this.props.quotes;
+        //const index = this.props.index;
+        //const name = this.props.name;
         return (
             <Draggable draggableId={title} index={index} isDragDisabled={!this.props.shelfDrag}>
-                {(
-                    provided,//: DraggableProvided,
-                    snapshot,//: DraggableStateSnapshot
-                ) => (
+                {(provided, snapshot,) => (
                     <div //ColumnContainer     dont seem to need styled-component or wrapperlist
-                        className={"shelf " +(containsChannel(this.props.shelfData, this.props.hovering) ? "" : "shelf--greyed")}
-                        //className="shelf"
+                        className={"shelf " +(containsChannel(this.props.channelObjsArray, this.props.hovering) ? "" : "shelf--greyed")}
                         ref={provided.innerRef}
                         {...provided.draggableProps}>
-                        <div
-                            className="title"
-                            //style={{ "max-width": "50px" }}
-                            //add back if switch div to style-component
+                        <div className="title"
                             //isDragging={snapshot.isDragging}
                         >
-                            <div
-                                className="Title"
-                                //add back if switch div to style-component
+                            <div className="Title"
                                 //isDragging={snapshot.isDragging}
                                 {...provided.dragHandleProps}>
                                 {name}
@@ -56,8 +65,9 @@ class Shelf extends Component {
                             <div className="grid">
                                 {
                                     this.props.showChannels ?
-                                        <ChannelsRenderer listId={this.props.title} listType="Quote" channels={this.props.shelfData} /> :
-                                        <ListRenderer items={this.props.numItems} showArrows={this.props.doneLoading} />
+                                        <ChannelsRenderer listId={this.props.title} listType="Quote" channels={channels} /> :
+                                        <ListRenderer items={this.props.numItems} showArrows={this.props.doneLoading}
+                                                      videoArray={feedsToVideoObjArray(containedChannels(channels), this.props.feeds)} />
 
                                 }
                                
@@ -68,11 +78,19 @@ class Shelf extends Component {
         )
     }
 }
+/*
+Shelf takes { hovering / drag states / feeds }  from redux
+    can be called without those besides feeds
+Needs Feeds, name + index + key to work
+
+
+ */
 
 const mapStateToProps = state => {
     return {
         hovering: state.hover.hovering,
-        shelfDrag: state.shelfDrag.shelfDrag
+        shelfDrag: state.shelfDrag.shelfDrag,
+        feeds: state.feeds.feeds
     };
 };
 export default connect(mapStateToProps,

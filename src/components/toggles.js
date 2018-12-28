@@ -31,12 +31,10 @@ class Toggles extends Component {
 
 const Switch = function(props) {
     return (
-        <div className={"switch switch"+ (props.isOn ? "--green" : "--red")}//SwitchDiv 
-            isOn={props.isOn} 
+        <div className={"switch switch"+ (props.isOn ? "--green" : "--red")}//SwitchDiv
             onClick={()=>{props.handleToggle(!props.isOn)}}
             >
             <div className={"toggle-button toggle-button" + (props.isOn ? "--left" : "--right")}//ToggleButton
-                isOn={props.isOn}
             />
         </div>
     );

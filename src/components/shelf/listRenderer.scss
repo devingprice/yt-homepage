@@ -34,6 +34,9 @@ $thumbnailHeight: 118px;
     left: -20px;
     z-index: 1;
 }
+.hide{
+    display:none;
+}
 .arrow-button {
     cursor: pointer;
     width: 40px;
@@ -51,4 +54,10 @@ $thumbnailHeight: 118px;
     -ms-flex-pack: center;
     -webkit-justify-content: center;
     justify-content: center;
+
+    &__iconCont{
+        width: 24px;
+        height: 24px;
+        padding: auto;
+    }
 }

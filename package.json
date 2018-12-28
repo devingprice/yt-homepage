@@ -17,6 +17,7 @@
     "redux": "^4.0.1",
     "redux-observable": "^1.0.0",
     "redux-thunk": "^2.3.0",
+    "rss-parser": "^3.6.0",
     "rxjs": "^6.3.3",
     "rxjs-compat": "^6.3.3",
     "uuid": "^3.3.2"
