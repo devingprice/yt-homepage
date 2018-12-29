@@ -89,34 +89,3 @@ export const move = (source, destination, droppableSource, droppableDestination)
 
     return result;
 };
-
-/* Used instead of styled components for draggable containers
-
-export class WrapperList extends Component {
-    render() {
-        const { header, provided, innerRef, children, classString } = this.props;
-        return (
-            <div className={"wrapperList" + classString}
-                {...provided.droppableProps}
-                ref={innerRef}>
-                <h3>{header}</h3>
-                {children}
-            </div>
-        );
-    }
-}
-export class WrapperItem extends Component {
-    render() {
-        const { provided, innerRef, classString } = this.props;
-        return (
-            <div className={"wrapperItem " + classString}
-                {...provided.draggableProps}
-                {...provided.dragHandleProps}
-                ref={innerRef}
-            >
-                {this.props.children}
-            </div>
-        );
-    }
-}
-*/

@@ -6,7 +6,7 @@ import Layout from '../components/layout';
 class Home extends React.Component {
     render(){
         return (
-            <Layout/>
+            <Layout loggedIn={this.props.loggedIn}/>
         )
     }
 }

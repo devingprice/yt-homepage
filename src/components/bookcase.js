@@ -4,9 +4,11 @@ import { bindActionCreators } from 'redux';
 import { Droppable } from 'react-beautiful-dnd';
 
 import { setColumn, setOrdered } from '../actions/board.actions';
+
 import './bookcase.scss';
 import Shelf from './shelf';
 
+import ShelfAdd from './shelfAdd'
 
 class Bookcase extends Component {
     static defaultProps = {
@@ -46,6 +48,11 @@ class Bookcase extends Component {
                                 isCombineEnabled={isCombineEnabled}
                                 />
                         ))}
+
+                        {this.props.loggedIn ?
+                            <ShelfAdd /> :
+                            null
+                        }
 
                     </div>
                 )}

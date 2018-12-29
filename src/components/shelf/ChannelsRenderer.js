@@ -35,7 +35,6 @@ class ChannelsRenderer extends Component {
             isCombineEnabled,
             //listId,
             listType,
-            style,
             //quotes,
             //title
         } = this.props;
@@ -57,7 +56,6 @@ class ChannelsRenderer extends Component {
                     dropSnapshot //: DroppableStateSnapshot
                 ) => (
                     <div //Wrapper dont seem to need styled-component or wrapperlist
-                        style={style}
                         //isDraggingOver={dropSnapshot.isDraggingOver}
                         //used for styling
                         isDropDisabled={isDropDisabled}

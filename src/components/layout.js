@@ -18,7 +18,7 @@ class Layout extends Component {
                         <ChannelDrawer />
                     </div>
                     <div className="bodyContent">
-                        <Bookcase />
+                        <Bookcase loggedIn={this.props.loggedIn} />
                     </div>
                 </DragDropContextWrapper>
             </div>
