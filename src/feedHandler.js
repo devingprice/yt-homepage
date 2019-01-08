@@ -47,4 +47,5 @@ export default async function fetchFeed(channelId){
     return itemsArray;
 }
 
-//fetchFeed('UC-lHJZR3Gqxm24_Vd_AJ5Yw');
+// uncomment and run to get a sample feed
+// fetchFeed('UC-lHJZR3Gqxm24_Vd_AJ5Yw');

@@ -82,8 +82,6 @@ class Shelf extends Component {
 Shelf takes { hovering / drag states / feeds }  from redux
     can be called without those besides feeds
 Needs Feeds, name + index + key to work
-
-
  */
 
 const mapStateToProps = state => {

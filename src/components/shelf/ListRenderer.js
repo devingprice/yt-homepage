@@ -10,6 +10,7 @@ import Tile from '../videoTile';
 class SlidingScroll extends Component {
     render() {
         const { videoArray, offset, showLeftArrow, showRightArrow, scrollLeft, scrollRight } = this.props;
+        
         return (
             <div className="listRenderer">
 
@@ -25,7 +26,8 @@ class SlidingScroll extends Component {
                     <div className="items" style={{ transform: "translateX(-" + offset + "px)" }}>
                         {
                             videoArray.map((videoObj,index) =>
-                                <Tile key={"tile-"+index} num={videoObj.title} />
+                                <Tile key={"tile-"+index}  
+                                    videoObj={videoObj} />
                             )
                         }
                     </div>
@@ -115,7 +117,7 @@ class SlidingScrollContainer extends Component {
                         <SlidingScroll showLeftArrow={false}
                                        showRightArrow={false}
                                        offset={0}
-                                       videoArray={Array.apply(null, Array(5)).map((x,i)=>{return i+1})}
+                            videoArray={Array.apply(null, Array(5)).map((x, i) => { return null})}//i+1
                                        scrollLeft={()=>{}}
                                        scrollRight={()=>{}}
                         />
