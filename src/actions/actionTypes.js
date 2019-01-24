@@ -34,3 +34,9 @@ export const stateConstants = {
     SET_SHOW_CHANNELS: 'SET_SHOW_CHANNELS',
     SET_SHELF_DRAG: 'SET_SHELF_DRAG'
 };
+
+export const feedsConstants = {
+    FETCH_FEEDS: 'FETCH_FEEDS',
+    SET_FEEDS: 'SET_FEEDS',
+    ERROR_FEEDS: 'ERROR_FEEDS'
+};

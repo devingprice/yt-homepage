@@ -9,14 +9,12 @@ let parser = new Parser({
             ['media:group','mediaGroup',{keepArray:true}]
         ]
     }
-    //rename : [ fromField, toField ]
-    //3rd field : {keepArray: true}
 });
 
-export default async function fetchFeed(channelId){
+export async function fetchFeed(inputChannelId){
     let urlBase = "https://www.youtube.com/feeds/videos.xml?channel_id=";
 
-    let feed = await parser.parseURL( urlBase + channelId );
+    let feed = await parser.parseURL( urlBase + inputChannelId );
 
     let itemsArray = [];
     feed.items.forEach(function(entry) {
@@ -44,8 +42,34 @@ export default async function fetchFeed(channelId){
         itemsArray.push( newItem );
     });
 
-    return itemsArray;
+    //return itemsArray;
+
+
+    let returnObj = {};
+    returnObj[inputChannelId] = itemsArray;
+    return returnObj;
+
 }
+
+//return obj of channelId=key arrayOfVideos=item
+export async function fetchAllFeeds(arrayOfChannelIds) {
+    let pArray = arrayOfChannelIds.map(async channelId => {
+        const itemsArray = await fetchFeed(channelId);
+        return itemsArray;
+    });
+    const feeds = await Promise.all(pArray);
+
+    console.log(feeds);
+
+    let flattenedFeeds = {};
+    feeds.forEach(feedObj => {
+        let key = Object.keys(feedObj)[0];
+        flattenedFeeds[key] = feedObj[key]
+    });
+    console.log(flattenedFeeds);
+    return flattenedFeeds;
+}
+
 
 // uncomment and run to get a sample feed
 // fetchFeed('UC-lHJZR3Gqxm24_Vd_AJ5Yw');

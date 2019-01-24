@@ -22,3 +22,16 @@ export function findShelfWidth() {
     }
     return shelfWidth;
 }
+
+//takes collections obj and returns an array of unique channelIds
+export function filterDistinctChannelIds(collectionsObj){
+    console.log(collectionsObj);
+    let channelIds = [];
+    for (const collection in collectionsObj){
+        collectionsObj[collection].channels.forEach(function(channelObj){
+            channelIds.push(channelObj.channelId)
+        })
+    }
+    let distinctChannelIds = [...new Set(channelIds)];
+    return distinctChannelIds;
+}

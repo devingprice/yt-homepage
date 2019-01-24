@@ -5,6 +5,9 @@ import { Droppable } from 'react-beautiful-dnd';
 
 import { setColumn, setOrdered } from '../actions/board.actions';
 
+import { makeFeedsRequest } from '../actions/feeds.actions';
+import { filterDistinctChannelIds } from '../helpers/utils';
+
 import './bookcase.scss';
 import Shelf from './shelf';
 
@@ -15,11 +18,15 @@ class Bookcase extends Component {
         isCombineEnabled: false
     };
 
+    componentDidMount(){
+        //this.props.makeFeedsRequest( filterDistinctChannelIds(this.props.columns) );
+    }
+
     render() {
         const { columns, ordered,
             containerHeight, withScrollableColumns, isCombineEnabled
         } = this.props;
-
+        this.props.makeFeedsRequest( filterDistinctChannelIds(this.props.columns) );
         return (
             <Droppable
                 droppableId="board"
@@ -72,7 +79,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = (dispatch) => {
     return bindActionCreators({
         setColumn,
-        setOrdered
+        setOrdered,
+        makeFeedsRequest
     }, dispatch)
 };
 

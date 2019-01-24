@@ -16,7 +16,7 @@ class InnerQuoteList extends Component {
 
     render() {
         return this.props.quotes.map((quote, index) => (
-            <ChannelItem quote={quote} index={index}/>
+            <ChannelItem key={index} quote={quote} index={index}/>
         ));
     }
 }
@@ -58,7 +58,7 @@ class ChannelsRenderer extends Component {
                     <div //Wrapper dont seem to need styled-component or wrapperlist
                         //isDraggingOver={dropSnapshot.isDraggingOver}
                         //used for styling
-                        isDropDisabled={isDropDisabled}
+                        //isDropDisabled={isDropDisabled}
                         {...dropProvided.droppableProps}>
 
                         <div //DropZone  dont seem to need styled-component or wrapperlist
