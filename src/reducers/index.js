@@ -4,17 +4,17 @@ import { connectRouter } from 'connected-react-router'
 import {authentication} from './authentication';
 import {registration} from './registration';
 import {alert} from './alert.reducer';
+
 import {
     board,
     boardOrder,
     panel
 } from './board';
-import {hover} from './hover';
-import {shelfDrag} from './shelfDrag';
-import {showChannels} from './showChannels';
+import { collections, collectionOrder, channelList } from './collections.reducer';
 
 import {feeds } from './feeds';
 
+import { settings } from './settings.reducer';
 
 export default (history) => combineReducers({
     router: connectRouter(history),
@@ -25,10 +25,11 @@ export default (history) => combineReducers({
     board,
     boardOrder,
     panel,
-    
-    hover,
-    shelfDrag,
-    showChannels,
 
-    feeds
+    collections,
+    collectionOrder,
+    channelList,
+
+    feeds,
+    settings
 })

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { DragDropContext } from 'react-beautiful-dnd';
 
-import { reorder, reorderQuoteMap, copyObject } from './helpers';
+import { reorder, reorderQuoteMap, copyObject } from '../helpers/DragDropFunctions';
 import { setColumn, setOrdered } from '../actions/board.actions';
 
 import { connect } from 'react-redux';

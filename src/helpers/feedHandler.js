@@ -11,10 +11,12 @@ let parser = new Parser({
     }
 });
 
+const CORS_PROXY = "https://cors-anywhere.herokuapp.com/";
+
 export async function fetchFeed(inputChannelId){
     let urlBase = "https://www.youtube.com/feeds/videos.xml?channel_id=";
 
-    let feed = await parser.parseURL( urlBase + inputChannelId );
+    let feed = await parser.parseURL( CORS_PROXY + urlBase + inputChannelId );
 
     let itemsArray = [];
     feed.items.forEach(function(entry) {
@@ -30,8 +32,8 @@ export async function fetchFeed(inputChannelId){
             title: entry.title,
             thumbnail: entry['mediaGroup'][0]['media:thumbnail'][0]['$']['url'],
             description: entry['mediaGroup'][0]['media:description'][0],
-            published: entry.published,
-            updated: entry.updated,
+            published: Date.parse(entry.published),
+            updated: Date.parse(entry.updated),
             likes: likes,
             dislikes: dislikes,
             views: parseInt(entry['mediaGroup'][0]['media:community'][0]['media:statistics'][0]['$']['views']),

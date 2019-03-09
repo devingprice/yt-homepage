@@ -1,5 +1,5 @@
 import { feedsConstants } from './actionTypes';
-import {fetchFeed, fetchAllFeeds } from '../helpers/feedHandler';
+import { fetchFeed, fetchAllFeeds } from '../helpers/feedHandler';
 
 //export const fetchFeeds = (input) => ({ type: feedsConstants.FETCH_FEEDS, channelIds: input });
 export const setFeeds = (feeds) => ({ type: feedsConstants.SET_FEEDS, feeds: feeds });

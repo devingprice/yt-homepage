@@ -18,15 +18,11 @@ class Bookcase extends Component {
         isCombineEnabled: false
     };
 
-    componentDidMount(){
-        //this.props.makeFeedsRequest( filterDistinctChannelIds(this.props.columns) );
-    }
-
     render() {
         const { columns, ordered,
             containerHeight, withScrollableColumns, isCombineEnabled
         } = this.props;
-        this.props.makeFeedsRequest( filterDistinctChannelIds(this.props.columns) );
+
         return (
             <Droppable
                 droppableId="board"
@@ -46,7 +42,7 @@ class Bookcase extends Component {
                                 title={key}
                                 name={columns[key].name}
                                 //showChannels={columns[key].settings.showChannels}
-                                showChannels={this.props.showChannels}
+                                //showChannels={this.props.showChannelPills}
                                 numItems={columns[key].settings.numItems}
                                 doneLoading={columns[key].settings.doneLoading}
                                 channelObjsArray={columns[key].channels}
@@ -73,7 +69,8 @@ const mapStateToProps = state => {
     return {
         columns: state.board.columns,
         ordered: state.boardOrder.ordered,
-        showChannels: state.showChannels.showChannels
+        //showChannels: state.showChannels.showChannels
+        showChannelPills: state.settings.showChannelPills
     };
 };
 const mapDispatchToProps = (dispatch) => {

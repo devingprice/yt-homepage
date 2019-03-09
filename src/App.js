@@ -10,11 +10,9 @@ import routes from './routes';
 import AlertWrapper from './AlertWrapper'
 
 import {configureFakeBackend } from './helpers/fakeBackend';
-configureFakeBackend();
-
+//configureFakeBackend();
 
 class App extends Component {
-
     render() {
         return (
             <Provider store={store}>

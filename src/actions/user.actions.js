@@ -3,6 +3,9 @@ import { userService } from '../helpers/user.service';
 import { alertActions } from './alert.actions';
 import { history } from '../store';
 
+import {setColumn, setOrdered } from './board.actions';
+import {tempColl} from '../data';
+
 export const userActions = {
     login,
     logout,
@@ -18,6 +21,10 @@ function login(username, password) {
         userService.login(username, password)
             .then(
                 user => {
+                    console.log('setting');
+                    dispatch(setColumn(tempColl));
+                    dispatch(setOrdered(Object.keys(tempColl)));
+
                     dispatch(success(user));
                     history.push('/');
                 },

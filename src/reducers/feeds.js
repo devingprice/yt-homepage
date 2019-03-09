@@ -5,7 +5,7 @@ import { feedsConstants } from '../actions/actionTypes';
 
 
 export function feeds(state = {
-    feeds: sampleFeeds
+    feeds: {}//sampleFeeds
 }, action) {
     switch (action.type) {
         case feedsConstants.SET_FEEDS:

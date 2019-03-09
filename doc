@@ -1,0 +1,157 @@
+State:
+
+authentication
+registration
+
+shelfDrag
+showChannels
+hover
+
+board
+feeds
+
+
+
+
+
+
+
+
+App
+Routes
+    Home
+    About
+    Login
+    Register
+    Collection
+
+
+
+
+
+
+Lifecycle
+1.
+HomePage
+    If logged in:
+    Fetch Collections
+        then:
+        Fetch Feeds
+
+    if logged out:
+    Use default collections
+        then:
+        Fetch Feeds
+2.
+Collection
+
+
+
+WHAT IM WORKING ON RIGHT NOW
+
+getAllUserCOllections is currently returning the collection info and users, not actual collection channels
+Add fetch usercollections to lifecycle (on start, on update)
+Server Collections format does not match front-end
+
+User is logged in locally but token is timed out, need to require login if user is timed out
+
+make index load app out of components/containers folder
+remove fakebackend
+move all helpers to same file to condense
+
+QUESTIONS
+in serialize, can i add settings to the usercollection table
+need to implement a gfycat "dogcatperson" style url generator to use as links to collections
+
+
+
+
+
+
+
+
+
+AM GOING TO WRITE A CODESANDBOX.IO OF actions/reducers/app
+going to have just overview of functions to lay out flow
+    for example, i think app should always check login status/token so i should move that out of routes
+
+
+
+
+
+
+
+Understanding redux example
+
+https://redux.js.org/advanced/async-actions
+https://codesandbox.io/s/github/reduxjs/redux/tree/master/examples/async
+
+STATE TREE
+{
+  selectedSubreddit: 'frontend',
+  entities: {
+    users: {
+      2: {
+        id: 2,
+        name: 'Andrew'
+      }
+    },
+    posts: {
+      42: {
+        id: 42,
+        title: 'Confusion about Flux and Relay',
+        author: 2
+      },
+      100: {
+        id: 100,
+        title: 'Creating a Simple Application Using React JS and Flux Architecture',
+        author: 2
+      }
+    }
+  },
+  postsBySubreddit: {
+    frontend: {
+      isFetching: true,
+      didInvalidate: false,
+      items: []
+    },
+    reactjs: {
+      isFetching: false,
+      didInvalidate: false,
+      lastUpdated: 1439478405547,
+      items: [ 42, 100 ]
+    }
+  }
+}
+
+
+index loads app
+->
+reducers:
+    postsBySub
+        no default state
+    selectedSub
+        reactjs as default
+
+App:
+    did mount
+        fetchpostsifneeded (selected sub)
+    did update
+        if prevProps diff
+            fetch posts if needed
+    handle change
+        dispatch select sub
+    handle refresh click
+        invalidate sub
+        fetch posts if needed
+
+
+
+
+
+
+
+
+
+
+

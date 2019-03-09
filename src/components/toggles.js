@@ -11,14 +11,14 @@ class Toggles extends Component {
             <div className="toggles">
                 <div> Shelf Drag </div>
                 <Switch
-                    isOn={this.props.shelfDrag}
+                    isOn={this.props.draggableShelves}
                     handleToggle={(newState) => {
                         this.props.setShelfDrag(newState)
                     }}
                 />
                 <div> Show Channels </div>
                 <Switch
-                    isOn={this.props.showChannels}
+                    isOn={this.props.showChannelPills}
                     handleToggle={(newState) => {
                         this.props.setShowChannels(newState)
                     }}
@@ -42,8 +42,8 @@ const Switch = function(props) {
 
 const mapStateToProps = state => {
     return {
-        shelfDrag: state.shelfDrag.shelfDrag,
-        showChannels: state.showChannels.showChannels
+        showChannelPills: state.settings.showChannelPills,
+        draggableShelves: state.settings.draggableShelves
     };
 };
 const mapDispatchToProps = (dispatch) => {

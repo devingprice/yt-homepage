@@ -5,6 +5,7 @@ import Home from './Home';
 import About from './About';
 import Login from './Login';
 import Register from './Register';
+import Collection from './Collection';
 
 
 const routes = (
@@ -13,6 +14,7 @@ const routes = (
         <Route path="/about" component={About} />
         <Route path="/login" component={Login} />
         <Route path="/register" component={Register} />
+        <Route path="/123" component={Collection} />
     </Switch>
 );
 

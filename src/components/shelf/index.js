@@ -47,7 +47,7 @@ class Shelf extends Component {
         //const index = this.props.index;
         //const name = this.props.name;
         return (
-            <Draggable draggableId={title} index={index} isDragDisabled={!this.props.shelfDrag}>
+            <Draggable draggableId={title} index={index} isDragDisabled={!this.props.draggableShelves}>
                 {(provided, snapshot,) => (
                     <div //ColumnContainer     dont seem to need styled-component or wrapperlist
                         className={"shelf " +(containsChannel(this.props.channelObjsArray, this.props.hovering) ? "" : "shelf--greyed")}
@@ -64,7 +64,7 @@ class Shelf extends Component {
                         </div>
                             <div className="grid">
                                 {
-                                    this.props.showChannels ?
+                                    this.props.showChannelPills ?
                                         <ChannelsRenderer listId={this.props.title} listType="Quote" channels={channels} /> :
                                         <ListRenderer items={this.props.numItems} showArrows={this.props.doneLoading}
                                                       videoArray={feedsToVideoObjArray(containedChannels(channels), this.props.feeds)} />
@@ -86,8 +86,9 @@ Needs Feeds, name + index + key to work
 
 const mapStateToProps = state => {
     return {
-        hovering: state.hover.hovering,
-        shelfDrag: state.shelfDrag.shelfDrag,
+        hovering: state.settings.hovering,
+        showChannelPills: state.settings.showChannelPills,
+        draggableShelves: state.settings.draggableShelves,
         feeds: state.feeds.feeds
     };
 };

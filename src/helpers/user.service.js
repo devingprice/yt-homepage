@@ -12,6 +12,31 @@ export const userService = {
 };
 
 function login(username, password) {
+    const emailUser = {
+        "email": username,
+        "password": password
+    };
+    const requestOptions = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(emailUser)
+    };
+
+    return fetch(`${config.apiUrl}/v1/users/login`, requestOptions)
+        .then(handleResponse)
+        .then(userRes => {
+            // login successful if there's a jwt token in the response
+            console.log(userRes);
+            if (userRes.token) {
+                // store user details and jwt token in local storage to keep user logged in between page refreshes
+                localStorage.setItem('user', JSON.stringify(userRes));
+            }
+
+            return userRes;
+        });
+}
+/*
+function login(username, password) {
     const requestOptions = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -22,6 +47,7 @@ function login(username, password) {
         .then(handleResponse)
         .then(user => {
             // login successful if there's a jwt token in the response
+            console.log(user);
             if (user.token) {
                 // store user details and jwt token in local storage to keep user logged in between page refreshes
                 localStorage.setItem('user', JSON.stringify(user));
@@ -30,7 +56,7 @@ function login(username, password) {
             return user;
         });
 }
-
+*/
 function logout() {
     // remove user from local storage to log user out
     localStorage.removeItem('user');
@@ -55,13 +81,18 @@ function getById(id) {
 }
 
 function register(user) {
+    const emailUser = {
+        "email": user.username,
+        "password": user.password
+    };
     const requestOptions = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(user)
+        body: JSON.stringify(emailUser)
     };
 
-    return fetch(`${config.apiUrl}/users`, requestOptions).then(handleResponse);
+    //return fetch(`${config.apiUrl}/users`, requestOptions).then(handleResponse);
+    return fetch(`${config.apiUrl}/v1/users`, requestOptions).then(handleResponse);
 }
 
 function update(user) {

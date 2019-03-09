@@ -1,19 +1,28 @@
 import {
-    channels,
+    formattedChannels as channels,
     collections
 } from '../data';
 
 import { boardConstants } from '../actions/actionTypes';
 
 
+
+let localCollections = {}; //JSON.parse(localStorage.getItem('collections'));
+const boardInitialState = localCollections ? localCollections : {};
+const orderInitialState = localCollections ? Object.keys(localCollections) : {};
+
+//console.log(boardInitialState);
+//console.log(orderInitialState);
+
 //**********************  Board */
 
-const columns = collections;
-const ordered = Object.keys(columns);
+//const columns = collections;
+//const ordered = Object.keys(columns);
 
 export function board(state = {
-    columns: columns
-}, action) {
+    columns: boardInitialState //columns
+                      }
+, action) {
     switch (action.type) {
         case boardConstants.SET_COLUMN:
             console.log("set columns");
@@ -29,8 +38,9 @@ export function board(state = {
 
 
 export function boardOrder(state = {
-    ordered: ordered
-}, action) {
+    ordered: orderInitialState //ordered
+                           }
+, action) {
     switch (action.type) {
         case boardConstants.SET_ORDERED:
             console.log("set ordered");

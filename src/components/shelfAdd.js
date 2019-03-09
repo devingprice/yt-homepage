@@ -6,9 +6,11 @@ import { bindActionCreators } from 'redux';
 
 import { setColumn, setOrdered } from '../actions/board.actions';
 
+import { serverActions } from '../actions/server.actions';
+
 class ShelfAdd extends Component {
     createNewCollection = () => {
-        const { columns, ordered, setColumn, setOrdered } = this.props;
+        const { columns, ordered, setColumn, setOrdered, create } = this.props;
 
         let newId = uuid();
         let reColumns = {
@@ -30,6 +32,10 @@ class ShelfAdd extends Component {
         reOrdered.splice(reOrdered.length, 0, newId);
         setOrdered(reOrdered);
 
+        //const { dispatch } = this.props;
+        //dispatch(serverActions.create(newId))
+        create(newId);
+
     };
     render() {
         return (
@@ -49,12 +55,17 @@ const mapStateToProps = state => {
         ordered: state.boardOrder.ordered
     };
 };
+
 const mapDispatchToProps = (dispatch) => {
+    const create = serverActions.create;
     return bindActionCreators({
         setColumn,
-        setOrdered
+        setOrdered,
+        create
     }, dispatch)
+
 };
 
 export default connect(mapStateToProps,
-    mapDispatchToProps)(ShelfAdd);
+    mapDispatchToProps
+)(ShelfAdd);

@@ -99,6 +99,12 @@ class SlidingScrollContainer extends Component {
 
     render() {
         const {videoArray} = this.props;
+
+        //SORT by function later
+        const sortedVideoArray = videoArray.sort(function(a,b){
+            return b.published - a.published;
+        });
+
         let showLeftArrow = this.state.farLeftItemNumber !== 0;
         let showRightArrow = (this.state.farLeftItemNumber + this.getNumVisible()) < this.numberOfItems ;
         let offset = this.state.farLeftItemNumber * this.tileWidth;
@@ -110,7 +116,7 @@ class SlidingScrollContainer extends Component {
                         <SlidingScroll showLeftArrow={showLeftArrow}
                                        showRightArrow={showRightArrow}
                                        offset={offset}
-                                       videoArray={videoArray}
+                                       videoArray={sortedVideoArray}
                                        scrollLeft={this.scrollLeft}
                                        scrollRight={this.scrollRight}
                         /> :

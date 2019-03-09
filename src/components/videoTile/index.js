@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 //import '../bookcase.scss';
 import './videoTile.scss';
+import { timeSince, viewsSigFigs } from '../../helpers/utils';
 
 class Tile extends Component {
     placeholder = (title) => {
@@ -15,7 +16,8 @@ class Tile extends Component {
                 </div>
             </React.Fragment>
         )
-    }
+    };
+
 
     render() {
         const videoObj = this.props.videoObj;
@@ -30,6 +32,9 @@ class Tile extends Component {
         }
         
         const {id,link,title,thumbnail,published,views,channelTitle,channelId} = videoObj;
+
+        const viewsText = viewsSigFigs(views);
+        const date = timeSince(published); //dateUnformatted.toUTCString();
 
         return (
             <div className="tile">
@@ -51,8 +56,8 @@ class Tile extends Component {
                             <a href={channelId}>{channelTitle}</a>
                         </div>
                         <div className="line-container">
-                            <span>{views + ' - '}</span>
-                            <span>{published}</span>
+                            <span>{viewsText + ' - '}</span>
+                            <span>{date}</span>
                         </div>
                     </div>
                 </div>

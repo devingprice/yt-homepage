@@ -35,3 +35,50 @@ export function filterDistinctChannelIds(collectionsObj){
     let distinctChannelIds = [...new Set(channelIds)];
     return distinctChannelIds;
 }
+
+// time prop in ISO, return text
+export function timeSince(timeRecorded){
+    let seconds = Math.floor ( ( new Date() - timeRecorded )/ 1000 );
+    let interval = Math.floor(seconds / 31536000);
+
+    if (interval > 1) {
+        return interval + " years ago";
+    }
+    interval = Math.floor(seconds / 2592000);
+    if (interval > 1) {
+        return interval + " months ago";
+    }
+    interval = Math.floor(seconds / 86400);
+    if (interval > 1) {
+        return interval + " days ago";
+    }
+    interval = Math.floor(seconds / 3600);
+    if (interval > 1) {
+        return interval + " hours ago";
+    }
+    interval = Math.floor(seconds / 60);
+    if (interval > 1) {
+        return interval + " minutes ago";
+    }
+    return Math.floor(seconds) + " seconds ago";
+}
+
+// takes int views, returns text
+export function viewsSigFigs(views){
+    //fastest solution according to https://stackoverflow.com/questions/6665997/switch-statement-for-greater-than-less-than
+    if( views >= 10000000){
+        return Math.round(views/1000000) + "M views";
+    }
+    else if( views >= 1000000){
+        return (Math.round(views/1000000 * 10) / 10 ) + "M views";
+    }
+    else if( views >= 10000){
+        return Math.round(views/1000) + "K views";
+    }
+    else if( views >= 1000){
+        return (Math.round(views/1000 * 10) / 10 ) + "K views";
+    }
+    else {
+        return views + " views";
+    }
+}

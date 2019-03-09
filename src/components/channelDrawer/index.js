@@ -8,13 +8,13 @@ import ChannelItem from '../ChannelItem/channelItem';
 
 class InnerQuoteList extends Component {
     shouldComponentUpdate(nextProps, nextState) {
-        if (nextProps.quotes !== this.props.quotes) {
+        if (nextProps.channelList !== this.props.channelList) {
             return true;
         }
         return false;
     }
     render() {
-        return this.props.quotes.map((quote, index) => (
+        return this.props.channelList.map((quote, index) => (
             <ChannelItem key={"channelDrawer-"+index} quote={quote} index={index}/>
         ));
     }
@@ -30,8 +30,7 @@ class Panel extends Component {
             ignoreContainerClipping,
             isCombineEnabled,
             style,
-            quotes,
-            //title
+            channelList
         } = this.props;
 
         return (
@@ -54,7 +53,7 @@ class Panel extends Component {
                         <div //DropZone 
                             ref={dropProvided.innerRef}>
                             <div className="drawer__Channels">
-                                <InnerQuoteList quotes={quotes} />
+                                <InnerQuoteList channelList={channelList} />
                                 {dropProvided.placeholder}
                             </div>
                         </div>
@@ -68,7 +67,7 @@ class Panel extends Component {
 
 const mapStateToProps = state => {
     return {
-        quotes: state.panel.quotes //state.panel.quotes
+        channelList: state.channelList //state.panel.quotes
     };
 };
 

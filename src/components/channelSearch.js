@@ -3,7 +3,7 @@ import AutosuggestHighlightParse from 'autosuggest-highlight/parse';
 import AutosuggestHighlightMatch from 'autosuggest-highlight/match';
 import React, { Component } from 'react';
 
-//Will scrape youtube channels for a complete list
+// Will scrape youtube channels for a complete list
 // Will remove unused data to make smaller and then minimize file
 import channelArray from '../helpers/sampleChannels';
 
