@@ -1,61 +1,32 @@
-.App,
-#root {
-  height: 100%;
-  background-color: transparent;
+.App {
+  /*text-align: center;*/
 }
 
-/*.App[persistent-guide] .pageCont {
-  margin-left:240px;
-}*/
-
-.toolbar {
-  position: fixed;
-  top: 0;
-  right: 0;
-  left: 0;
-  z-index: 1999999999;
-  height: 56px;
-  background-color: #ffffff;
-  border-bottom: 1px solid #e8e8e8;
+.App-logo {
+  animation: App-logo-spin infinite 20s linear;
+  height: 40vmin;
 }
 
-.pageCont {
-  height: 100%;
-  margin-top: 56px;
-  margin-left: 0px;
+.App-header {
+  background-color: #282c34;
+  min-height: 15vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
 }
 
-.leftPane {
-  height: 100%;
-  /* height will be auto with max height 100% once content added for scroll*/
-  width: 240px;
-  visibility: hidden;
-  position: fixed;
-  margin-top: 56px;
-  top: 0px;
-  left: 0px;
-  bottom: 0px;
-  right: auto;
-  background-color: transparent;
-  border-right: 1px solid #e8e8e8;
-  box-shadow: none;
+.App-link {
+  color: #61dafb;
 }
 
-/*.leftPane[opened]{
-  visibility: visible;
-}*/
-
-.page {
-  height: 100%;
-  /*margin-top:50px;*/
-}
-
-.pageContent {
-  height: 100%;
-  margin: 0 auto;
-  background-color: rgb(250, 250, 249);
-}
-
-.App-body {
-  width: 100%;
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
