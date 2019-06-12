@@ -9,7 +9,7 @@ import routes from './routes';
 
 import AlertWrapper from './AlertWrapper'
 
-import {configureFakeBackend } from './helpers/fakeBackend';
+//import {configureFakeBackend } from './helpers/fakeBackend';
 //configureFakeBackend();
 
 class App extends Component {
