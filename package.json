@@ -4,22 +4,22 @@
   "private": true,
   "dependencies": {
     "autosuggest-highlight": "^3.1.1",
-    "connected-react-router": "^5.0.1",
-    "dotenv": "^6.1.0",
-    "prop-types": "^15.6.2",
-    "react": "^16.6.3",
-    "react-autosuggest": "^9.4.2",
-    "react-beautiful-dnd": "^10.0.2",
-    "react-dom": "^16.6.3",
-    "react-redux": "^5.1.1",
-    "react-router-dom": "^4.3.1",
-    "react-scripts": "2.1.1",
+    "connected-react-router": "^6.4.0",
+    "dotenv": "^8.0.0",
+    "prop-types": "^15.7.2",
+    "react": "^16.8.6",
+    "react-autosuggest": "^9.4.3",
+    "react-beautiful-dnd": "^11.0.4",
+    "react-dom": "^16.8.6",
+    "react-redux": "^7.1.0",
+    "react-router-dom": "^5.0.1",
+    "react-scripts": "^3.0.1",
     "redux": "^4.0.1",
-    "redux-observable": "^1.0.0",
+    "redux-observable": "^1.1.0",
     "redux-thunk": "^2.3.0",
-    "rss-parser": "^3.6.0",
-    "rxjs": "^6.3.3",
-    "rxjs-compat": "^6.3.3",
+    "rss-parser": "^3.7.1",
+    "rxjs": "^6.5.2",
+    "rxjs-compat": "^6.5.2",
     "uuid": "^3.3.2"
   },
   "scripts": {
@@ -38,6 +38,6 @@
     "not op_mini all"
   ],
   "devDependencies": {
-    "node-sass": "^4.10.0"
+    "node-sass": "^4.12.0"
   }
 }
