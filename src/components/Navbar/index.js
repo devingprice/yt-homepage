@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import './Navbar.css';
 
-import { userActions } from '../actions/user.actions';
+import { userActions } from '../../actions/user.actions';
 
 
 class Navbar extends Component {

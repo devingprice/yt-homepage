@@ -7,7 +7,6 @@ import Login from './Login';
 import Register from './Register';
 import Collection from './Collection';
 
-
 const routes = (
     <Switch>
         <Route path="/" exact component={Home} />
@@ -17,7 +16,5 @@ const routes = (
         <Route path="/123" component={Collection} />
     </Switch>
 );
-
-//    
 
 export default routes;
