@@ -18,7 +18,7 @@ function create(collectionName) {
         body: JSON.stringify({"name":collectionName})
     };
 
-    return fetch(`${config.apiUrl}/v1/collection`, requestOptions)
+    return fetch(`${config.apiUrl}/collection`, requestOptions)
         .then(handleResponse)
         .then(collectionRes => {
             // login successful if there's a jwt token in the response
@@ -41,7 +41,7 @@ function getAllForUser() {
         }
     };
 
-    const url = `${config.apiUrl}/v1/collections/`+ userId;
+    const url = `${config.apiUrl}/collections/`+ userId;
     return fetch( url , requestOptions)
         .then(handleResponse)
         .then(collectionRes => {
