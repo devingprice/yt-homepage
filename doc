@@ -1,32 +1,93 @@
-State:
+Things I should be able to do://////////////////////////////
 
-authentication
-registration
+Move drag Handle Out of shelf header (make it float to left of shelf
+Edit header
+Link to go to collection page
+Submit reorder on shelf drop
 
-shelfDrag
-showChannels
-hover
+deleteCollection
+    if Owned, request server delete
+    if followed, remove linker        !!! To Add Later On
+Rename Collection
+Change Collection Settings
+    DisplayType
 
-board
-feeds
+ReorderCollections
+    Would love to store order on userCollection table on server, dunno if possible
+    Add user setting for order on server
+    Load this order with userCollections
+    make initialLoad use this order
+
+Delete Channel
+    Frontend doesn't pass around server dhannelId's to request this with
+    May have to rewrite server side to use collectionId + yt channelId
+    Need to add UI to do this with
+        Trashcan appear while dragging, or x in pill
+Move Channel
+    write a server side function to both remove and add channel
+
+Change User Settings  *works locally at the moment, just need to look over it
+    draggable shelves
+        Could make this a user setting, not for now though
+    show channels
+
+
+Fetch all youtube channels
+Make channel search work
+
+Add X to delete collection
+Add button to edit collection name
+
+FINISHED ACTIONS: //////////////////////////////////////
+createCollection    locally made and lets the server know through serverAction
+Add Channel     Works
+Login
+Logout
+Register
+Request User's Collections
+Request Single Collection
+Request Feeds for User's Collections
+Request Feeds for Single Collection
+Make Collection take route :collectionId in order to load correct
+
+EXTENSIONS: /////////////////////////////////////////////
+Add gfycat-like "dogcatfish" style links to db and use this for collection route
+Add "follow collection" functionality
+    If not owned collection, collection page has follow button
+    Can't edit channels in followed collection
+Add other "sections" than just collections, like youtube "stories" from mobile app
+Allow link to youtube account, pulls subscriptions for subscriptionsComponent
+
+Make a mobile friend version
 
 
 
+Reducers = {
+    authentication: {
+        user: loadToken()
+    }
+}
+App = {
+    makeUserRequest( userId, token );//collections are "user's" collections, not collection page
+    if(success){
+        setStateToCollections(response);
+    } else if ( failure ) {
+        logOut()
+    }
+}
 
+Home = {
+    if(loggedIn){
+        loadFeeds(collectionsChannels);
+    } else {
+        loadFeeds(defaultCollectionsChannels);
+    }
 
+}
 
-
-
-App
-Routes
-    Home
-    About
-    Login
-    Register
-    Collection
-
-
-
+Collection = {
+    loadFeeds(collectionFromURL)
+}
 
 
 
@@ -62,90 +123,6 @@ move all helpers to same file to condense
 QUESTIONS
 in serialize, can i add settings to the usercollection table
 need to implement a gfycat "dogcatperson" style url generator to use as links to collections
-
-
-
-
-
-
-
-
-
-AM GOING TO WRITE A CODESANDBOX.IO OF actions/reducers/app
-going to have just overview of functions to lay out flow
-    for example, i think app should always check login status/token so i should move that out of routes
-
-
-
-
-
-
-
-Understanding redux example
-
-https://redux.js.org/advanced/async-actions
-https://codesandbox.io/s/github/reduxjs/redux/tree/master/examples/async
-
-STATE TREE
-{
-  selectedSubreddit: 'frontend',
-  entities: {
-    users: {
-      2: {
-        id: 2,
-        name: 'Andrew'
-      }
-    },
-    posts: {
-      42: {
-        id: 42,
-        title: 'Confusion about Flux and Relay',
-        author: 2
-      },
-      100: {
-        id: 100,
-        title: 'Creating a Simple Application Using React JS and Flux Architecture',
-        author: 2
-      }
-    }
-  },
-  postsBySubreddit: {
-    frontend: {
-      isFetching: true,
-      didInvalidate: false,
-      items: []
-    },
-    reactjs: {
-      isFetching: false,
-      didInvalidate: false,
-      lastUpdated: 1439478405547,
-      items: [ 42, 100 ]
-    }
-  }
-}
-
-
-index loads app
-->
-reducers:
-    postsBySub
-        no default state
-    selectedSub
-        reactjs as default
-
-App:
-    did mount
-        fetchpostsifneeded (selected sub)
-    did update
-        if prevProps diff
-            fetch posts if needed
-    handle change
-        dispatch select sub
-    handle refresh click
-        invalidate sub
-        fetch posts if needed
-
-
 
 
 

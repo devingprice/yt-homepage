@@ -19,7 +19,7 @@ class Bookcase extends Component {
     };
 
     render() {
-        const { columns, ordered,
+        const { collections, collectionOrder,
             containerHeight, withScrollableColumns, isCombineEnabled
         } = this.props;
 
@@ -35,21 +35,15 @@ class Bookcase extends Component {
                         className="bookcase"
                         ref={provided.innerRef}
                         {...provided.droppableProps}>
-                        {ordered.map((key, index) => (
-                            <Shelf 
+                        {collectionOrder.map((key, index) => (
+
+                            <Shelf
                                 key={key}
                                 index={index}
-                                title={key}
-                                name={columns[key].name}
-                                //showChannels={columns[key].settings.showChannels}
-                                //showChannels={this.props.showChannelPills}
-                                numItems={columns[key].settings.numItems}
-                                doneLoading={columns[key].settings.doneLoading}
-                                channelObjsArray={columns[key].channels}
+                                draggableId={key}
+                                collection={collections[key]}
+                            />
 
-                                isScrollable={withScrollableColumns}
-                                isCombineEnabled={isCombineEnabled}
-                                />
                         ))}
 
                         {this.props.loggedIn ?
@@ -67,10 +61,10 @@ class Bookcase extends Component {
 
 const mapStateToProps = state => {
     return {
-        columns: state.board.columns,
-        ordered: state.boardOrder.ordered,
-        //showChannels: state.showChannels.showChannels
-        showChannelPills: state.settings.showChannelPills
+        stateSettings: state.settings, //
+        feeds: state.feeds, //
+        collections: state.collections,
+        collectionOrder: state.collectionOrder
     };
 };
 const mapDispatchToProps = (dispatch) => {

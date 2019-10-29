@@ -137,8 +137,8 @@ class CollectionPageWrapper extends React.Component {
 
 function mapStateToProps(state) {
     return {
-        feeds: state.feeds.feeds,
-        collections: state.board.columns
+        feeds: state.feeds,
+        collections: state.collections
     };
 }
 const mapDispatchToProps = (dispatch) => {

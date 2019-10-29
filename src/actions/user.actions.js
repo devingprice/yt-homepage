@@ -3,7 +3,7 @@ import { userService } from '../helpers/user.service';
 import { alertActions } from './alert.actions';
 import { history } from '../store';
 
-import {setColumn, setOrdered } from './board.actions';
+import { newBoard } from './board.actions';
 import {tempColl} from '../data';
 
 export const userActions = {
@@ -21,9 +21,8 @@ function login(username, password) {
         userService.login(username, password)
             .then(
                 user => {
-                    console.log('setting');
-                    dispatch(setColumn(tempColl));
-                    dispatch(setOrdered(Object.keys(tempColl)));
+                    console.log('logging In');
+                    dispatch(newBoard(tempColl));
 
                     dispatch(success(user));
                     history.push('/');
@@ -41,8 +40,14 @@ function login(username, password) {
 }
 
 function logout() {
-    userService.logout();
-    return { type: userConstants.LOGOUT };
+    return dispatch => {
+        dispatch(newBoard({})); //clear board state
+        userService.logout(); //remove token
+        dispatch(logOut()); //set user state
+    };
+    function logOut() { return { type: userConstants.LOGOUT } }
+    //userService.logout();
+    //return { type: userConstants.LOGOUT };
 }
 
 function register(user) {

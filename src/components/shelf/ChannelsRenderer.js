@@ -7,7 +7,7 @@ import ChannelItem from '../ChannelItem/channelItem';
 
 class InnerQuoteList extends Component {
     shouldComponentUpdate(nextProps, nextState) {
-        if (nextProps.quotes !== this.props.quotes) {
+        if (nextProps.channelList !== this.props.channelList) {
             return true;
         }
 
@@ -15,8 +15,8 @@ class InnerQuoteList extends Component {
     }
 
     render() {
-        return this.props.quotes.map((quote, index) => (
-            <ChannelItem key={index} quote={quote} index={index}/>
+        return this.props.channelList.map((channelData, index) => (
+            <ChannelItem key={index} channelData={channelData} index={index}/>
         ));
     }
 }
@@ -29,18 +29,12 @@ class ChannelsRenderer extends Component {
     render() {
         const {
             ignoreContainerClipping,
-            //internalScroll,
-            //scrollContainerStyle,
             isDropDisabled,
             isCombineEnabled,
-            //listId,
             listType,
-            //quotes,
-            //title
+            listId,
+            channelList
         } = this.props;
-
-        const listId = this.props.listId;
-        const quotes = this.props.channels;
 
         return (
             <Droppable
@@ -64,7 +58,7 @@ class ChannelsRenderer extends Component {
                         <div //DropZone  dont seem to need styled-component or wrapperlist
                             className="grid-draggable__container"
                             ref={dropProvided.innerRef}>
-                            <InnerQuoteList quotes={quotes} />
+                            <InnerQuoteList channelList={channelList} />
                             {dropProvided.placeholder}
                         </div>
 

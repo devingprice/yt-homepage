@@ -8,12 +8,15 @@ import { filterDistinctChannelIds } from '../helpers/utils';
 
 import { serverActions } from '../actions/server.actions';
 
-class Home extends React.Component {
-    // I don't know where to put the "startup" actions so I'm going to do it on the routes
 
+class Home extends React.Component {
     componentDidMount(){
         const { makeFeedsRequest, collections, getAllForUser } = this.props;
-        getAllForUser();
+
+        if( this.props.user && this.props.user.user ) { //if user locally saved
+            getAllForUser()
+        }
+
         makeFeedsRequest( filterDistinctChannelIds(collections) );
     }
     componentDidUpdate(prevProps){
@@ -41,12 +44,12 @@ class Home extends React.Component {
 const mapStateToProps = state => {
     const { loggingIn, loggedIn, user } = state.authentication;
 
-    console.log(state)
+    console.log(state);
     return {
         loggingIn,
         loggedIn,
         user,
-        collections: state.board.columns,
+        collections: state.collections
     };
 };
 const mapDispatchToProps = (dispatch) => {

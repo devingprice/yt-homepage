@@ -10,11 +10,11 @@ import { serverActions } from '../actions/server.actions';
 
 class ShelfAdd extends Component {
     createNewCollection = () => {
-        const { columns, ordered, setColumn, setOrdered, create } = this.props;
+        const { collections, collectionOrder, setColumn, setOrdered, createCollection } = this.props;
 
         let newId = uuid();
-        let reColumns = {
-            ...columns,
+        let newcollections = {
+            ...collections,
             [newId]: {
                 id: newId,
                 "name": newId,
@@ -26,16 +26,15 @@ class ShelfAdd extends Component {
                 }
             }
         };
-        setColumn(reColumns);
 
-        const reOrdered = Array.from(ordered);
+        //TODO: may use function newBoard instead of manually doing this
+
+        setColumn(newcollections);
+        const reOrdered = Array.from(collectionOrder);
         reOrdered.splice(reOrdered.length, 0, newId);
         setOrdered(reOrdered);
 
-        //const { dispatch } = this.props;
-        //dispatch(serverActions.create(newId))
-        create(newId);
-
+        createCollection(newId);
     };
     render() {
         return (
@@ -51,17 +50,17 @@ class ShelfAdd extends Component {
 
 const mapStateToProps = state => {
     return {
-        columns: state.board.columns,
-        ordered: state.boardOrder.ordered
+        collections: state.collections,
+        collectionOrder: state.collectionOrder
     };
 };
 
 const mapDispatchToProps = (dispatch) => {
-    const create = serverActions.create;
+    const createCollection = serverActions.createCollection;
     return bindActionCreators({
         setColumn,
         setOrdered,
-        create
+        createCollection
     }, dispatch)
 
 };

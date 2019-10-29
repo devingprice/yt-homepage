@@ -9,6 +9,10 @@ const orderInitialState = localCollections ? Object.keys(localCollections) : {};
 
 export function collections(state = boardInitialState, action) {
     switch (action.type) {
+        case boardConstants.NEW_BOARD:
+            console.log("new board");
+            return action.data ;
+
         case boardConstants.SET_COLUMN:
             console.log("set columns");
             console.log(action.columns);
@@ -22,6 +26,9 @@ export function collections(state = boardInitialState, action) {
 
 export function collectionOrder(state = orderInitialState, action) {
     switch (action.type) {
+        case boardConstants.NEW_BOARD:
+            return Object.keys(action.data) ;
+
         case boardConstants.SET_ORDERED:
             console.log("set order");
             return action.ordered;

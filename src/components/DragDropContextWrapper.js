@@ -3,6 +3,7 @@ import { DragDropContext } from 'react-beautiful-dnd';
 
 import { reorder, reorderQuoteMap, copyObject } from '../helpers/DragDropFunctions';
 import { setColumn, setOrdered } from '../actions/board.actions';
+import { serverActions } from '../actions/server.actions';
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -14,20 +15,22 @@ class DragDropContextWrapper extends Component {
     };
 
     onDragEnd = (result) => { //DropResult
+
+        console.log('ran on drag end')
         //if combine turned on and item dropped on another
         if (result.combine) {
             if (result.type === 'COLUMN') {
-                const shallow = [...this.props.ordered];
+                const shallow = [...this.props.collectionOrder];
                 shallow.splice(result.source.index, 1);
                 this.props.setOrdered(shallow);
                 return;
             }
 
-            const column = this.props.reduxColumns[result.source.droppableId];
+            const column = this.props.collections[result.source.droppableId];
             const withQuoteRemoved = [...column];
             withQuoteRemoved.splice(result.source.index, 1);
             const columns = {
-                ...this.props.reduxColumns,
+                ...this.props.collections,
                 [result.source.droppableId]: withQuoteRemoved
             };
             this.props.setColumn(columns);
@@ -41,7 +44,7 @@ class DragDropContextWrapper extends Component {
             return;
         }
 
-        // did not move anywhere - can bail early
+        // did not move anywhere
         if (
             source.droppableId === destination.droppableId &&
             source.index === destination.index
@@ -49,11 +52,16 @@ class DragDropContextWrapper extends Component {
             return;
         }
 
-        // copying from panel
+        console.log(source);
+        console.log(destination);
+
+        // copying from channelList
         if (source.droppableId === 'PANEL') {
+            console.log('copying: ' + this.props.channelList[source.index].name + ' to '+ this.props.collections[destination.droppableId].name);
+            this.props.addChannel(this.props.channelList[source.index], this.props.collections[destination.droppableId].id);
             const columns = copyObject(
-                this.props.quotes,
-                this.props.reduxColumns,
+                this.props.channelList,
+                this.props.collections,
                 source,
                 destination
             );
@@ -61,10 +69,10 @@ class DragDropContextWrapper extends Component {
             return;
         }
 
-        // reordering column
+        // reordering collections
         if (result.type === 'COLUMN') {
             const ordered = reorder(
-                this.props.ordered,
+                this.props.collectionOrder,
                 source.index,
                 destination.index
             );
@@ -73,12 +81,13 @@ class DragDropContextWrapper extends Component {
             return;
         }
 
-        console.log(this.props.reduxColumns);
-        console.log(source);
-        console.log(destination);
-        //moving inside collection
+        // reordering between or within collections
+        console.log('copying: ' +  this.props.collections[source.droppableId].channels[source.index].name +
+                ' from ' + this.props.collections[source.droppableId].name +
+            ' to '+ this.props.collections[destination.droppableId].name);
+
         const data = reorderQuoteMap({
-            quoteMap: this.props.reduxColumns,
+            quoteMap: this.props.collections,
             source,
             destination
         });
@@ -87,8 +96,6 @@ class DragDropContextWrapper extends Component {
     };
 
     render() {
-        //const columns = this.props.reduxColumns;
-        //const ordered = this.props.ordered;
         const { containerHeight } = this.props;
 
 
@@ -109,15 +116,17 @@ class DragDropContextWrapper extends Component {
 
 const mapStateToProps = state => {
     return {
-        reduxColumns: state.board.columns,
-        ordered: state.boardOrder.ordered,
-        quotes: state.panel.quotes
+        collections: state.collections,
+        collectionOrder: state.collectionOrder,
+        channelList: state.channelList
     };
 };
 const mapDispatchToProps = (dispatch) => {
+    const addChannel = serverActions.addChannel;
     return bindActionCreators({
         setColumn,
-        setOrdered
+        setOrdered,
+        addChannel
     }, dispatch)
 };
 

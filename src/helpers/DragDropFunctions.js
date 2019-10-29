@@ -72,6 +72,7 @@ export const copyObject = (source, destination, droppableSource, droppableDestin
     const destClone = JSON.parse(JSON.stringify(destination)); //hacky cloning
     const item = sourceClone[droppableSource.index];
 
+    console.log(item)
     destClone[droppableDestination.droppableId].channels.splice(droppableDestination.index, 0, { ...item, id: uuid() });
     return destClone;
 };

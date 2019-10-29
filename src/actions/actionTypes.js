@@ -27,6 +27,7 @@ export const alertConstants = {
 export const boardConstants = {
     SET_COLUMN: 'SET_COLUMN',
     SET_ORDERED: 'SET_ORDERED',
+    NEW_BOARD: 'NEW_BOARD'
 };
 
 export const stateConstants = {
@@ -42,11 +43,12 @@ export const feedsConstants = {
 };
 
 export const serverConstants = {
-    CREATE_REQUEST: 'CREATE_REQUEST',
-    CREATE_SUCCESS: 'CREATE_SUCCESS',
-    CREATE_FAILURE: 'CREATE_FAILURE',
-
     GETALLFORUSER_REQUEST: 'GETALLFORUSER_REQUEST',
     GETALLFORUSER_SUCCESS: 'GETALLFORUSER_SUCCESS',
-    GETALLFORUSER_FAILURE: 'GETALLFORUSER_FAILURE'
+    GETALLFORUSER_FAILURE: 'GETALLFORUSER_FAILURE',
+
+    // this is updated locally, i may not need these
+    ADD_CHANNEL: 'ADD_CHANNEL',
+    REMOVE_CHANNEL: 'REMOVE_CHANNEL',
+    MOVE_CHANNEL: 'MOVE_CHANNEL', //not sure if will use
 };
