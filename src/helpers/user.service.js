@@ -22,7 +22,7 @@ function login(username, password) {
         body: JSON.stringify(emailUser)
     };
 
-    return fetch(`${config.apiUrl}/v1/users/login`, requestOptions)
+    return fetch(`${config.apiUrl}/users/login`, requestOptions)
         .then(handleResponse)
         .then(userRes => {
             // login successful if there's a jwt token in the response
@@ -93,7 +93,7 @@ function register(user) {
     };
 
     //return fetch(`${config.apiUrl}/users`, requestOptions).then(handleResponse);
-    return fetch(`${config.apiUrl}/v1/users`, requestOptions).then(handleResponse);
+    return fetch(`${config.apiUrl}/users`, requestOptions).then(handleResponse);
 }
 
 function update(user) {

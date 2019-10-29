@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 
 import { alertActions } from '../actions/alert.actions';
 import Navbar from './Navbar';
+import Navigation from './components/Navigation/Navigation';
 
 class AlertWrapper extends Component {
     constructor(props) {
@@ -29,7 +30,8 @@ class AlertWrapper extends Component {
                     alert.message &&
                     <div className={`alert ${alert.type}`}>{alert.message}</div>
                 }
-                <Navbar/>
+                <Navbar />
+                <Navigation />
                 {this.props.children}
             </div>
         );

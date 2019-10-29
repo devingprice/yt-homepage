@@ -3,15 +3,15 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Droppable } from 'react-beautiful-dnd';
 
-import { setColumn, setOrdered } from '../actions/board.actions';
+import { setColumn, setOrdered } from '../../actions/board.actions';
 
-import { makeFeedsRequest } from '../actions/feeds.actions';
-import { filterDistinctChannelIds } from '../helpers/utils';
+import { makeFeedsRequest } from '../../actions/feeds.actions';
+import { filterDistinctChannelIds } from '../../helpers/utils';
 
 import './bookcase.scss';
-import Shelf from './shelf';
+import Shelf from '../shelf';
 
-import ShelfAdd from './shelfAdd'
+import ShelfAdd from '../shelfAdd'
 
 class Bookcase extends Component {
     static defaultProps = {

@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import './layout.scss';
 
-import ChannelDrawer from './channelDrawer';
-import Bookcase from './bookcase';
-import DragDropContextWrapper from './DragDropContextWrapper'
-import Toggles from './toggles';
+import ChannelDrawer from '../channelDrawer';
+import Bookcase from '../bookcase';
+import DragDropContextWrapper from '../DragDropContextWrapper'
+import Toggles from '../toggles';
 
 class Layout extends Component {
     render() {
