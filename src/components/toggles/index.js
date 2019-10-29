@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { setShelfDrag, setShowChannels } from '../actions/state.actions';
+import { setShelfDrag, setShowChannels } from '../../actions/state.actions';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
