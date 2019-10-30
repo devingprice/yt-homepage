@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 
 import { alertActions } from '../actions/alert.actions';
 import Navbar from './Navbar';
-import Navigation from './components/Navigation/Navigation';
+import Navigation from './Navigation/Navigation';
 
 class AlertWrapper extends Component {
     constructor(props) {
