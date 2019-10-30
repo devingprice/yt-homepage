@@ -14,8 +14,8 @@ class InnerQuoteList extends Component {
         return false;
     }
     render() {
-        return this.props.channelList.map((quote, index) => (
-            <ChannelItem key={"channelDrawer-"+index} quote={quote} index={index}/>
+        return this.props.channelList.map((channelData, index) => (
+            <ChannelItem key={"channelDrawer-"+index} channelData={channelData} index={index}/>
         ));
     }
 }
@@ -67,7 +67,7 @@ class Panel extends Component {
 
 const mapStateToProps = state => {
     return {
-        channelList: state.channelList //state.panel.quotes
+        channelList: state.channelList
     };
 };
 

@@ -10,11 +10,11 @@ import { setHover } from '../../actions/state.actions';
 
 class ChannelItem extends React.PureComponent {
     render() {
-        const { quote, index } = this.props;
+        const { channelData, index } = this.props;
 
         return (
 
-            <Draggable key={quote.id} draggableId={quote.id} index={index}>
+            <Draggable key={channelData.id} draggableId={channelData.id} index={index}>
                 {(
                     dragProvided,//: DraggableProvided,
                     dragSnapshot,//: DraggableStateSnapshot
@@ -28,12 +28,12 @@ class ChannelItem extends React.PureComponent {
                             {...dragProvided.draggableProps}
                             {...dragProvided.dragHandleProps}
                             onMouseEnter={()=>{
-                                this.props.setHover(quote.name)
+                                this.props.setHover(channelData.name)
                             }}
                             onMouseLeave={()=> {this.props.setHover(null)}}
                         >
                             {
-                                ChannelPill(quote.name, quote.updates, quote.thumbnail, quote.id)
+                                ChannelPill(channelData.name, channelData.updates, channelData.thumbnail, channelData.id)
                             }
                         </div>
                     )}

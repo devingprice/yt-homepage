@@ -82,3 +82,33 @@ export function viewsSigFigs(views){
         return views + " views";
     }
 }
+
+export function containsChannel(channelArray, channelKey){
+    //if not hovering anything, everything clear
+    if (channelKey === null) {
+        return true;
+    }
+    //if hovering a channel, if collection doesnt contain channel make greyed out
+    for (let i=0; i < channelArray.length; i++){
+        if (channelArray[i].name === channelKey) {
+            return true;
+        }
+    }
+    return false; //grey out
+}
+export function containedChannels(channelObjsArray){
+    let channelStringArray = [];
+    for(let i =0; i < channelObjsArray.length; i++){
+        channelStringArray.push(channelObjsArray[i].channelId)
+    }
+    return channelStringArray;
+}
+export function feedsToVideoObjArray(channelStringArray, feeds){
+    let arrayOfArrays = [];
+    for(let i =0; i < channelStringArray.length; i++){
+        if(channelStringArray[i] in feeds){
+            arrayOfArrays.push(feeds[channelStringArray[i]])
+        }
+    }
+    return [].concat.apply([],arrayOfArrays);
+}

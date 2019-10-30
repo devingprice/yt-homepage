@@ -6,6 +6,7 @@ $thumbnailHeight: 118px;
     height:300px;
     display:flex;
     flex-direction:column;
+    position:relative;
 }
 
 .shelf--greyed {
@@ -15,6 +16,23 @@ $thumbnailHeight: 118px;
     border-bottom: 1px solid #e2e2e2;
 }
 
+.floatHandle{
+    height:100%;
+    position:absolute;
+    left:-40px;
+    top:50%;
+}
+.shelf__header {
+    padding: 20px 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.shelf__title {
+    display: flex;
+    flex-direction: row;
+}
 .channelsRenderer {
     //width:240px;
     margin:auto;

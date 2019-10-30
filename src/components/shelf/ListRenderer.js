@@ -54,7 +54,8 @@ class SlidingScrollContainer extends Component {
         super(props);
 
         this.tileWidth = 214;
-        this.numberOfItems = this.props.videoArray.length;
+        //this.numberOfItems = this.props.videoArray.length;
+        //if initialzed before videoArray processed it doesnt have any number of items
 
         this.state = {
             "farLeftItemNumber": 0 //used to keep track of where the scroll is at
@@ -83,12 +84,13 @@ class SlidingScrollContainer extends Component {
     };
     scrollRight = () => {
         let numberVisible = this.getNumVisible();
+        const numberOfItems = this.props.videoArray.length;
         let farRightItemNumber = this.state.farLeftItemNumber + numberVisible - 1; //calcs index of rightmost item
 
         // if scrollRight would leave blank space by scrolling per numberVisible, dont scroll all the way
-        if ((farRightItemNumber + numberVisible) >= this.numberOfItems) {
+        if ((farRightItemNumber + numberVisible) >= numberOfItems) {
             this.setState({
-                "farLeftItemNumber": this.numberOfItems - numberVisible
+                "farLeftItemNumber": numberOfItems - numberVisible
             })
         } else { // full scroll
             this.setState({
@@ -99,6 +101,7 @@ class SlidingScrollContainer extends Component {
 
     render() {
         const {videoArray} = this.props;
+        const numberOfItems = this.props.videoArray.length;
 
         //SORT by function later
         const sortedVideoArray = videoArray.sort(function(a,b){
@@ -106,7 +109,7 @@ class SlidingScrollContainer extends Component {
         });
 
         let showLeftArrow = this.state.farLeftItemNumber !== 0;
-        let showRightArrow = (this.state.farLeftItemNumber + this.getNumVisible()) < this.numberOfItems ;
+        let showRightArrow = (this.state.farLeftItemNumber + this.getNumVisible()) < numberOfItems ;
         let offset = this.state.farLeftItemNumber * this.tileWidth;
 
         return (

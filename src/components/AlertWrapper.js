@@ -3,9 +3,9 @@ import { connect } from 'react-redux';
 
 //import routes from './routes';
 
-import { alertActions } from './actions/alert.actions';
-import Navbar from './components/Navbar';
-import Navigation from './components/Navigation/Navigation';
+import { alertActions } from '../actions/alert.actions';
+import Navbar from './Navbar';
+import Navigation from './Navigation/Navigation';
 
 class AlertWrapper extends Component {
     constructor(props) {
@@ -19,7 +19,11 @@ class AlertWrapper extends Component {
     }
     render() {
         const { alert } = this.props;
-        console.log(alert);
+
+        if(alert.message){
+            console.log(alert);
+        }
+
         return (
             <div className="wrapperApp">
                 {
