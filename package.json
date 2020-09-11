@@ -15,11 +15,8 @@
     "react-router-dom": "^5.0.1",
     "react-scripts": "^3.0.1",
     "redux": "^4.0.5",
-    "redux-observable": "^1.1.0",
     "redux-thunk": "^2.3.0",
     "rss-parser": "^3.7.1",
-    "rxjs": "^6.5.2",
-    "rxjs-compat": "^6.5.2",
     "uuid": "^3.4.0"
   },
   "scripts": {
