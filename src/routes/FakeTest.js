@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { collectionService } from '../helpers/collection.service';
+import { collectionService } from '../services';
 import { makeFeedsRequest } from '../actions/feeds.actions';
 import { filterDistinctChannelIds } from '../helpers/utils';
 

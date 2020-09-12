@@ -8,7 +8,6 @@ export const collectionService = {
     addChannel
 };
 
-
 function handleResponse(response) {
     return response.text().then(text => {
         const data = text && JSON.parse(text);
@@ -41,7 +40,7 @@ function getAllForUser() {
         }
     };
 
-    const url = `${config.apiUrl}/v1/collections/`+ userId;
+    const url = `${config.apiUrl}/collections/`+ userId;
     return fetch( url , requestOptions)
         .then(handleResponse)
         .then(collectionRes => {
@@ -93,28 +92,34 @@ function createCollection(collectionName) {
             'Authorization': authHead.Authorization
 
         },
-        body: JSON.stringify({"name":collectionName})
+        body: JSON.stringify({"name": collectionName })
     };
 
     return fetch(`${config.apiUrl}/v1/collection`, requestOptions)
         .then(handleResponse)
-        .then(collectionRes => {
-            if(!collectionRes.success){
+        .then(responseJson => {
+            if(!responseJson.success){
                 console.log("Failed Create Collection")
             }
-            return collectionRes;
+            return responseJson;
         },
         error => {
             console.log("Failed Create Collection")
         });
 }
 
+const newFuncs = {
+    createCollection: (name) => {},
+    getAllForUser: (userId_until_i_make_server_do_it_with_tokens) => {},
+    getCollection: (collectionUid) => {},
+    updateCollection: (collectionUid, data) => {},
+    deleteCollection: (collectionUid) => {},
+    updateOrder: (arrayofCollectionUidsAndOrderInt) => {},
+    addFollow: (parentCollectionUid, childCollectionUid) => {},
+    deleteFollow: (parentCollectionUid, childCollectionUid) => {},
+}
 
-
-
-
-
-
+//#region channels //TODO delete and change references to channel.service
 function addChannel(channel, addToCollectionID){
     let authHead = authHeader();
     const requestOptions = {
@@ -133,44 +138,32 @@ function addChannel(channel, addToCollectionID){
 
     console.log('adding channel');
 
-    const url = `${config.apiUrl}/v1/channel/` + addToCollectionID;
+    const url = `${config.apiUrl}/channel/` + addToCollectionID;
     return fetch( url , requestOptions)
-        .then(handleResponse)
-        .then(collectionRes => {
-            return collectionRes;
-        });
+        .then(handleResponse);
 }
 
-
-//TODO: ///////////////////////////////////////////////////////////////
-function moveChannel(channel, addTo, deleteFrom){}
-function deleteChannel( channel, deleteFrom ){
+function deleteChannel(channelId, collectionUid){
     let authHead = authHeader();
     const requestOptions = {
         method: 'DELETE',
         headers: {
             'Content-Type': 'application/json',
             'Authorization': authHead.Authorization
-
         },
-        body: JSON.stringify({})
     };
 
-    const url = `${config.apiUrl}/v1/channel/`;
+    console.log('deleting channel');
+
+    const url = `${config.apiUrl}/channel/${channelId}/${collectionUid}`;
     return fetch( url , requestOptions)
-        .then(handleResponse)
-        .then(collectionRes => {
-            return collectionRes;
-        });
+        .then(handleResponse);
 }
+//#endregion
 
-function renameCollection(collectionId, newName){}
-function deleteCollection(collectionId){}
-function changeCollectionSettings(collectionId, newSettings){}
-
-
-//TODO: not currently in use, not sure that it will be since this isnt currently a bottleneck
+//#region TODO: not currently in use, not sure that it will be since this isnt currently a bottleneck
 function saveCollections(collectionsToSave){
     localStorage.removeItem('collections');
     localStorage.setItem('collections', JSON.stringify(collectionsToSave));
 }
+//#endregion

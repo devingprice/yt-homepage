@@ -1,5 +1,5 @@
 import { serverConstants } from './actionTypes';
-import { collectionService } from '../helpers/collection.service';
+import { collectionService } from '../services';
 import { alertActions } from './alert.actions';
 
 import { newBoard } from './board.actions';
