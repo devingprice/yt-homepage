@@ -1,13 +1,6 @@
 import config from '../config';
 import { authHeader } from './auth.header';
 
-export const collectionService = {
-    createCollection,
-    getAllForUser,
-    requestSingleCollection,
-    addChannel
-};
-
 function handleResponse(response) {
     return response.text().then(text => {
         const data = text && JSON.parse(text);
@@ -26,7 +19,33 @@ function handleResponse(response) {
     });
 }
 
-function getAllForUser() {
+const createCollection = (name) => {
+    let authHead = authHeader();
+    const requestOptions = {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': authHead.Authorization
+
+        },
+        body: JSON.stringify({"name": name })
+    };
+
+    return fetch(`${config.apiUrl}/collection`, requestOptions)
+        .then(handleResponse)
+        .then(responseJson => {
+            if(!responseJson.success){
+                console.log("Failed Create Collection")
+            }
+            return responseJson;
+        },
+        error => {
+            console.log("Failed Create Collection")
+        });
+}
+
+const getAllForUser = () => {
+    //userId until i make server do it with tokens
     const authHead = authHeader();
     const user = JSON.parse(localStorage.getItem('user'));
     const userId = user.user.id;
@@ -50,7 +69,7 @@ function getAllForUser() {
         });
 }
 
-function requestSingleCollection(collectionId){
+const getCollection = (collectionUid) => {
     //TODO: need to test || should work even if not logged in
     const authHead = authHeader();
 
@@ -58,12 +77,11 @@ function requestSingleCollection(collectionId){
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
-            'Authorization': authHead.Authorization
-
+            'Authorization': authHead.Authorization,
         }
     };
 
-    const url = `${config.apiUrl}/v1/collection/`+ collectionId;
+    const url = `${config.apiUrl}/collection/`+ collectionUid;
     return fetch( url , requestOptions)
         .then(handleResponse)
         .then(collectionRes => {
@@ -78,88 +96,37 @@ function requestSingleCollection(collectionId){
             return collectionObj;
         });
 }
-/* OLD COMMENT, made action in server.action
-if I would like to dispatch a collection failed action to remove the locally made collection from the state :
- I could return the action: { type: serverConstants.CREATE_COLLECTION_FAILURE, collectionIdSubmitted }
- and bind the function as an action creator, then in my reducer have a newBoard made with this id spliced out
- */
-function createCollection(collectionName) {
-    let authHead = authHeader();
-    const requestOptions = {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': authHead.Authorization
 
-        },
-        body: JSON.stringify({"name": collectionName })
-    };
+const updateCollection = (collectionUid, data) => {
 
-    return fetch(`${config.apiUrl}/v1/collection`, requestOptions)
-        .then(handleResponse)
-        .then(responseJson => {
-            if(!responseJson.success){
-                console.log("Failed Create Collection")
-            }
-            return responseJson;
-        },
-        error => {
-            console.log("Failed Create Collection")
-        });
 }
 
-const newFuncs = {
-    createCollection: (name) => {},
-    getAllForUser: (userId_until_i_make_server_do_it_with_tokens) => {},
-    getCollection: (collectionUid) => {},
-    updateCollection: (collectionUid, data) => {},
-    deleteCollection: (collectionUid) => {},
-    updateOrder: (arrayofCollectionUidsAndOrderInt) => {},
-    addFollow: (parentCollectionUid, childCollectionUid) => {},
-    deleteFollow: (parentCollectionUid, childCollectionUid) => {},
+const deleteCollection = (collectionUid) => {
+
 }
 
-//#region channels //TODO delete and change references to channel.service
-function addChannel(channel, addToCollectionID){
-    let authHead = authHeader();
-    const requestOptions = {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': authHead.Authorization
+const updateOrder = (arrayofCollectionUidsAndOrderInt) => {
 
-        },
-        body: JSON.stringify({
-            "name": channel.name,
-            "ytId": channel.channelId, //TODO: will update to channelID later
-            "thumbnail": '' //TODO: will add serverside later
-        })
-    };
-
-    console.log('adding channel');
-
-    const url = `${config.apiUrl}/channel/` + addToCollectionID;
-    return fetch( url , requestOptions)
-        .then(handleResponse);
 }
 
-function deleteChannel(channelId, collectionUid){
-    let authHead = authHeader();
-    const requestOptions = {
-        method: 'DELETE',
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': authHead.Authorization
-        },
-    };
+const addFollow = (parentCollectionUid, childCollectionUid) => {
 
-    console.log('deleting channel');
-
-    const url = `${config.apiUrl}/channel/${channelId}/${collectionUid}`;
-    return fetch( url , requestOptions)
-        .then(handleResponse);
 }
-//#endregion
+
+const deleteFollow = (parentCollectionUid, childCollectionUid) => {
+
+}
+
+export const collectionService = {
+    createCollection,
+    getAllForUser,
+    getCollection,
+    updateCollection,
+    deleteCollection,
+    updateOrder,
+    addFollow,
+    deleteFollow,
+};
 
 //#region TODO: not currently in use, not sure that it will be since this isnt currently a bottleneck
 function saveCollections(collectionsToSave){

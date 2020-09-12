@@ -63,7 +63,7 @@ class CollectionPage extends React.Component {
         const id = this.props.match.params.id;
         const activeCollection = this.checkForCollectionInCollections(id);
         if(!activeCollection){
-            collectionService.requestSingleCollection(id)
+            collectionService.getCollection(id)
                 .then( collectionRes => {
                     this.setState(collectionRes);
                     this.requestFeeds(collectionRes);

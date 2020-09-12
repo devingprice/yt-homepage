@@ -1,5 +1,5 @@
 import { serverConstants } from './actionTypes';
-import { collectionService } from '../services';
+import { collectionService, channelService } from '../services';
 import { alertActions } from './alert.actions';
 
 import { newBoard } from './board.actions';
@@ -45,7 +45,6 @@ function formatServerResponse(serverRes){
 
 function getAllForUser() {
     //runs when logging in to app, or to update
-
     console.log('created action for getAllForUser');
 
     return dispatch => {
@@ -54,8 +53,6 @@ function getAllForUser() {
             .then(
                 collectionRes => {
                     console.log('received all users collections response from server');
-
-                    //console.log(collectionRes);
 
                     const receivedColl = formatServerResponse(collectionRes);
                     console.log(receivedColl);
@@ -97,13 +94,14 @@ function createCollection(collectionName){
     };
 
 }
+
 /*
 Channel is added through other actions in DragDropContext, this is just to let server know
 But if server fails, it needs to remove from state
- */
+*/
 function addChannel(channel, addToCollectionID) {
     return dispatch => {
-        collectionService.addChannel(channel, addToCollectionID)
+        channelService.addChannel(channel, addToCollectionID)
             .then(
                 response => {
                     //do nothing

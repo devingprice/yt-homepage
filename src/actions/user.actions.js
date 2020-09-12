@@ -4,7 +4,7 @@ import { alertActions } from './alert.actions';
 import { history } from '../store';
 
 import { newBoard } from './board.actions';
-import {tempColl} from '../data';
+import { tempColl } from '../data';
 
 export const userActions = {
     login,

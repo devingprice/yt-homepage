@@ -1,5 +1,10 @@
 let Parser = require('rss-parser');
 
+export const feedService = {
+    fetchFeed,
+    fetchAllFeeds
+};
+
 let parser = new Parser({
     customFields: {
         item: [

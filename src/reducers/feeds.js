@@ -14,9 +14,3 @@ export function feeds(state = {}, action) {
             return state;
     }
 }
-
-
-/* TODO: could locally save feeds, with a "requested time" field
- then only update if requestedTime exceeds a threshold
- solves: refreshing page would send a TON of requests to youtube for same info
- */
