@@ -16,7 +16,7 @@ const routes = (
         <Route path="/about" component={About} />
         <Route path="/login" component={Login} />
         <Route path="/register" component={Register} />
-        <Route path="/123" component={Collection} />
+        <Route path="/collection/:collectionId" component={Collection} />
         <Route path="/:id" component={FakeTest} />
     </Switch>
 );

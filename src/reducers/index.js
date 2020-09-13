@@ -1,13 +1,14 @@
 import { combineReducers } from 'redux'
 import { connectRouter } from 'connected-react-router'
 
-import {authentication} from './authentication';
-import {registration} from './registration';
-import {alert} from './alert.reducer';
+import { authentication } from './authentication';
+import { registration } from './registration';
+import { alert } from './alert.reducer';
 
 import { collections, collectionOrder, channelList } from './collections.reducer';
-import {feeds } from './feeds';
+import { feeds } from './feeds';
 import { settings } from './settings.reducer';
+import { youtubeSearch } from './youtube.reducer';
 
 export default (history) => combineReducers({
     router: connectRouter(history),
@@ -20,5 +21,6 @@ export default (history) => combineReducers({
     channelList,
 
     feeds,
-    settings
+    settings,
+    youtubeSearch,
 })

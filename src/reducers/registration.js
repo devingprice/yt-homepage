@@ -1,13 +1,18 @@
 import { userConstants } from '../actions/actionTypes';
 
-export function registration(state = {}, action) {
+const initialState = {
+    loading: false,
+    success: false,
+};
+
+export function registration(state = initialState, action) {
     switch (action.type) {
         case userConstants.REGISTER_REQUEST:
-            return { registering: true };
+            return { loading: true, success: false };
         case userConstants.REGISTER_SUCCESS:
-            return {};
+            return { loading: false, success: true };
         case userConstants.REGISTER_FAILURE:
-            return {};
+            return { loading: false, success: false };
         default:
             return state
     }

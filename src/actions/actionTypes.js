@@ -53,3 +53,9 @@ export const serverConstants = {
     REMOVE_CHANNEL: 'REMOVE_CHANNEL',
     MOVE_CHANNEL: 'MOVE_CHANNEL', //not sure if will use
 };
+
+export const youtubeConstants = {
+    SEARCH_REQUEST: 'SEARCH_REQUEST',
+    SEARCH_SUCCESS: 'SEARCH_SUCCESS',
+    SEARCH_FAILURE: 'SEARCH_FAILURE',
+}

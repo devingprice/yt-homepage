@@ -51,13 +51,12 @@ export async function fetchFeed(inputChannelId){
 
     //return itemsArray;
 
-
     let returnObj = {};
     returnObj[inputChannelId] = itemsArray;
     return returnObj;
-
 }
 
+//todo, the await inside of map may be holding it up, the map should be an array of promises
 //return obj of channelId=key arrayOfVideos=item
 export async function fetchAllFeeds(arrayOfChannelIds) {
     let pArray = arrayOfChannelIds.map(async channelId => {
@@ -66,14 +65,15 @@ export async function fetchAllFeeds(arrayOfChannelIds) {
     });
     const feeds = await Promise.all(pArray);
 
-    console.log(feeds);
+    const now = Date.now();
 
     let flattenedFeeds = {};
     feeds.forEach(feedObj => {
         let key = Object.keys(feedObj)[0];
-        flattenedFeeds[key] = feedObj[key]
+        flattenedFeeds[key] = feedObj[key];
+        flattenedFeeds[key].lastUpdated = now;
     });
-    console.log(flattenedFeeds);
+    
     return flattenedFeeds;
 }
 

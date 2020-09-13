@@ -23,7 +23,6 @@ export function collections(state = boardInitialState, action) {
     }
 }
 
-
 export function collectionOrder(state = orderInitialState, action) {
     switch (action.type) {
         case boardConstants.NEW_BOARD:
