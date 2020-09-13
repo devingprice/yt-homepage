@@ -2,6 +2,7 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { makeFeedsRequest } from '../actions/feeds.actions';
+import { serverActions } from '../actions/server.actions';
 import Shelf from '../components/shelf';
 
 import DragDropContextWrapper from '../components/DragDropContextWrapper';
@@ -10,43 +11,63 @@ import { filterDistinctChannelIds } from '../helpers/utils';
 
 export default (props) => {
     const dispatch = useDispatch();
+    const auth = useSelector(state => state.authentication);
     const feeds = useSelector(state => state.feeds);
-    const collections = useSelector(state => state.collections)
+    // const collections = useSelector(state => state.collections);
     
+    //#region collection/feeds
     const collectionId = props.match.params.collectionId;
-    const collectionExists = collections[collectionId] ? true : false;
-    let collection = collectionExists ? collections[collectionId] : null;
+    // const collectionExists = collections[collectionId] ? true : false;
+    // let collection = collectionExists ? collections[collectionId] : null;
+    const collection = useSelector(state => state.collections[collectionId])
+    const collectionExists = collection ? true : false;
     
-    if ( !collectionExists ) {
-        //request collection info from server
-        const sampleCollection = {
-            channels: [
-                {
-                    channelId: "UCjyNFmk6Ionj9Lw9iIo9LtQ",
-                    id: "6eeaf41d-86df-4965-a802-b8d6a7b076f6",
-                    name: "Imaqtpie",
-                    thumbnail: "https://yt3.ggpht.com/a-/AN66SAzwZsCNSyRezNFqEaG6Ef9bFcZ-PzN6CxSzEw=s88-mo-c-c0xffffffff-rj-k-no"
-                },
-                {
-                    channelId: "UCsvn_Po0SmunchJYOWpOxMg",
-                    id: "94c0de20-09c3-41aa-8623-7a2aa386fc52",
-                    name: "videogamedunkey",
-                    thumbnail: "https://yt3.ggpht.com/a-/AN66SAzwZsCNSyRezNFqEaG6Ef9bFcZ-PzN6CxSzEw=s88-mo-c-c0xffffffff-rj-k-no"
-                }
-            ],
-            id: 123,
-            name: "123",
-            doneLoading: true,
-            numItems: 4,
-            showChannels: true,
-        }
-        collection = sampleCollection;
+    const sampleCollection = {
+        channels: [
+            {
+                channelId: "UCjyNFmk6Ionj9Lw9iIo9LtQ",
+                id: "6eeaf41d-86df-4965-a802-b8d6a7b076f6",
+                name: "Imaqtpie",
+                thumbnail: "https://yt3.ggpht.com/a-/AN66SAzwZsCNSyRezNFqEaG6Ef9bFcZ-PzN6CxSzEw=s88-mo-c-c0xffffffff-rj-k-no"
+            },
+            {
+                channelId: "UCsvn_Po0SmunchJYOWpOxMg",
+                id: "94c0de20-09c3-41aa-8623-7a2aa386fc52",
+                name: "videogamedunkey",
+                thumbnail: "https://yt3.ggpht.com/a-/AN66SAzwZsCNSyRezNFqEaG6Ef9bFcZ-PzN6CxSzEw=s88-mo-c-c0xffffffff-rj-k-no"
+            }
+        ],
+        id: 123,
+        name: "123",
+        doneLoading: true,
+        numItems: 4,
+        showChannels: true,
     }
 
-    const uniqueChannels = filterDistinctChannelIds( { collection } )
-    dispatch( makeFeedsRequest(uniqueChannels) );
+    if ( !collectionExists ) {
+        //request collection info from server
+        // collection = sampleCollection;
+        
+        dispatch( serverActions.getAllForUser() );
+    } else {
+        const uniqueChannels = filterDistinctChannelIds( { collection } )
+        dispatch( makeFeedsRequest(uniqueChannels) );
+    }
+    
+    //#endregion collection/feeds
 
     console.log(collection);
+    console.log(auth);
+
+    //#region user
+    let ownership = false;
+    if (auth.loggedIn) {
+        if (auth.user && auth.user.id === collectionId){
+            ownership = true;
+        }
+    }
+    console.log(`collection owned ${ownership}`)
+    //#endregion
 
     return (
         <div className="">
@@ -70,7 +91,7 @@ export default (props) => {
                                 key={123}
                                 index={123}
                                 draggableId={"142536"}
-                                collection={collection}
+                                collection={collectionExists ? collection: sampleCollection}
                                 feeds={feeds}
                             />
 
@@ -83,3 +104,16 @@ export default (props) => {
         </div>
     );
 };
+
+/*
+Needs collections[collectionId], userId, feeds
+dispatches request for update if necessary on collection
+calcs needed channels
+makes request for feeds (only updates those needed)
+
+worry about this later:
+checks for ownership
+    if owned, show shelf
+    channels at top and controls different
+
+*/

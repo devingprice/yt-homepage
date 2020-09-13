@@ -39,7 +39,7 @@ const Navigation = () => {
                 </ul>
                 <ul className='navbar-user'>
                     {loggedIn
-                        ? <AuthDropdown user={user.user} onClick={toggleCollapse} />
+                        ? <AuthDropdown user={user} onClick={toggleCollapse} />
                         : <>
                         <li className='nav-item'>
                             <Link className='nav-link' to='/login' onClick={toggleCollapse}>Login</Link>

@@ -48,7 +48,7 @@ const getAllForUser = () => {
     //userId until i make server do it with tokens
     const authHead = authHeader();
     const user = JSON.parse(localStorage.getItem('user'));
-    const userId = user.user.id;
+    const userId = user.id;
 
     const requestOptions = {
         method: 'GET',

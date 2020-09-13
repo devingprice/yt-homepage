@@ -24,7 +24,7 @@ function login(username, password) {
                     console.log('logging In');
                     dispatch(newBoard(tempColl));
 
-                    dispatch(success(user));
+                    dispatch(success(user.user));
                     history.push('/');
                 },
                 error => {

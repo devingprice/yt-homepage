@@ -13,7 +13,7 @@ class Home extends React.Component {
     componentDidMount(){
         const { makeFeedsRequest, collections, getAllForUser } = this.props;
 
-        if( this.props.user && this.props.user.user ) { //if user locally saved
+        if( this.props.user && this.props.user ) { //if user locally saved
             getAllForUser()
         }
 

@@ -29,34 +29,14 @@ function login(username, password) {
             console.log(userRes);
             if (userRes.token) {
                 // store user details and jwt token in local storage to keep user logged in between page refreshes
-                localStorage.setItem('user', JSON.stringify(userRes));
+                const userWithToken = {...userRes.user, token: userRes.token};
+                localStorage.setItem('user', JSON.stringify(userWithToken));
             }
 
             return userRes;
         });
 }
-/*
-function login(username, password) {
-    const requestOptions = {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username, password })
-    };
 
-    return fetch(`${config.apiUrl}/users/login`, requestOptions)
-        .then(handleResponse)
-        .then(user => {
-            // login successful if there's a jwt token in the response
-            console.log(user);
-            if (user.token) {
-                // store user details and jwt token in local storage to keep user logged in between page refreshes
-                localStorage.setItem('user', JSON.stringify(user));
-            }
-
-            return user;
-        });
-}
-*/
 function logout() {
     // remove user from local storage to log user out
     localStorage.removeItem('user');
