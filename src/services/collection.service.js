@@ -1,4 +1,5 @@
 import config from '../config';
+import { collections } from '../data';
 import { authHeader } from './auth.header';
 
 function handleResponse(response) {
@@ -9,6 +10,7 @@ function handleResponse(response) {
                 // auto logout if 401 response returned from api
                 //logout();
                 //location.reload(true);
+                console.log('got a 401');
             }
 
             const error = (data && data.message) || response.statusText;
@@ -32,16 +34,7 @@ const createCollection = (name) => {
     };
 
     return fetch(`${config.apiUrl}/collection`, requestOptions)
-        .then(handleResponse)
-        .then(responseJson => {
-            if(!responseJson.success){
-                console.log("Failed Create Collection")
-            }
-            return responseJson;
-        },
-        error => {
-            console.log("Failed Create Collection")
-        });
+        .then(handleResponse);
 }
 
 const getAllForUser = () => {
@@ -55,18 +48,12 @@ const getAllForUser = () => {
         headers: {
             'Content-Type': 'application/json',
             'Authorization': authHead.Authorization
-
         }
     };
 
     const url = `${config.apiUrl}/collections/`+ userId;
     return fetch( url , requestOptions)
-        .then(handleResponse)
-        .then(collectionRes => {
-            // login successful if there's a jwt token in the response
-            console.log(collectionRes);
-            return collectionRes;
-        });
+        .then(handleResponse);
 }
 
 const getCollection = (collectionUid) => {
@@ -85,6 +72,7 @@ const getCollection = (collectionUid) => {
     return fetch( url , requestOptions)
         .then(handleResponse)
         .then(collectionRes => {
+            console.log(collectionRes)
             let collectionObj = collectionRes.company;
             collectionObj.channels = collectionObj.channels.map(serverChannel => {
                 return {
@@ -115,6 +103,24 @@ const addFollow = (parentCollectionUid, childCollectionUid) => {
 
 const deleteFollow = (parentCollectionUid, childCollectionUid) => {
 
+}
+
+//todo: testing generic
+function request(method, url, body) {
+    const authHead = authHeader();
+
+    const requestOptions = {
+        method,
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': authHead.Authorization,
+        }
+    };
+    if(body) 
+        requestOptions.headers.body = JSON.stringify(body)
+
+    return fetch(`${config.apiUrl}${url}`, requestOptions)
+        .then(handleResponse)
 }
 
 export const collectionService = {
