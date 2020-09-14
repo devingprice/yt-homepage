@@ -26,3 +26,5 @@ yarn-error.log*
 
 planning.md
 notes.md
+
+/src/keys.js

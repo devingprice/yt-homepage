@@ -6,7 +6,6 @@ import { makeFeedsRequest } from '../actions/feeds.actions';
 import { filterDistinctChannelIds, objectEmpty, objectEquivalent } from '../helpers/utils';
 
 import { collectionActions } from '../actions/collection.actions';
-import { searchYoutube } from '../actions/youtube.actions';
 
 function usePrevious(value) {
     const ref = useRef();

@@ -1,3 +1,5 @@
+import { keys } from '../keys';
+
 //#region sample Data
 const data = {
     "kind": "youtube#searchListResponse",
@@ -731,7 +733,6 @@ function handleResponse(response) {
     });
 }
 
-
 function extractChannels(data) {
     return data.items.map(item => {
         return {
@@ -741,8 +742,6 @@ function extractChannels(data) {
         }
     })
 }
-
-const apiKey = "AIzaSyBAbATUlOZ9eGkEQUnlb5xC1X3VWgigc0A";
 
 function search(searchTerm){
     const requestOptions = {
@@ -754,7 +753,7 @@ function search(searchTerm){
 
     const url = "https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=25" + 
         "&order=viewCount&q=" + searchTerm +
-        "&type=channel&key=" + apiKey;
+        "&type=channel&key=" + keys.youtubeAPI;
     
     console.log(url)
 
