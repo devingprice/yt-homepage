@@ -712,6 +712,25 @@ const data = {
     ]
 }
 //#endregion sample data
+function handleResponse(response) {
+    return response.text().then(text => {
+        const data = text && JSON.parse(text);
+        if (!response.ok) {
+            if (response.status === 401) {
+                // auto logout if 401 response returned from api
+                //logout();
+                //location.reload(true);
+                console.log('got a 401');
+            }
+
+            const error = (data && data.message) || response.statusText;
+            return Promise.reject(error);
+        }
+
+        return data;
+    });
+}
+
 
 function extractChannels(data) {
     return data.items.map(item => {
@@ -723,11 +742,27 @@ function extractChannels(data) {
     })
 }
 
+const apiKey = "AIzaSyBAbATUlOZ9eGkEQUnlb5xC1X3VWgigc0A";
+
+function search(searchTerm){
+    const requestOptions = {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+        }
+    };
+
+    const url = "https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=25" + 
+        "&order=viewCount&q=" + searchTerm +
+        "&type=channel&key=" + apiKey;
+    
+    console.log(url)
+
+    return fetch(url, requestOptions)
+        .then(handleResponse)
+        .then(data => extractChannels(data));
+}
+
 export const youtubeService = {
-    search: () => Promise.resolve(data).then(data => extractChannels(data))
+    search
 };
-/*
-GET https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=25&order=viewCount&q=surfing&type=channel&key=[YOUR_API_KEY] HTTP/1.1
-Authorization: Bearer [YOUR_ACCESS_TOKEN]
-Accept: application/json
-*/

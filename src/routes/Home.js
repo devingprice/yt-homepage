@@ -1,62 +1,56 @@
-import React from 'react';
-import { connect } from 'react-redux';
+import React, { useEffect, useRef } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
-import { bindActionCreators } from 'redux';
 import Layout from '../components/layout';
 import { makeFeedsRequest } from '../actions/feeds.actions';
-import { filterDistinctChannelIds } from '../helpers/utils';
+import { filterDistinctChannelIds, objectEmpty, objectEquivalent } from '../helpers/utils';
 
 import { collectionActions } from '../actions/collection.actions';
+import { searchYoutube } from '../actions/youtube.actions';
 
-
-class Home extends React.Component {
-    componentDidMount(){
-        const { makeFeedsRequest, collections, getAllForUser } = this.props;
-
-        if( this.props.user && this.props.user ) { //if user locally saved
-            getAllForUser()
-        }
-
-        makeFeedsRequest( filterDistinctChannelIds(collections) );
-    }
-    componentDidUpdate(prevProps){
-        const { makeFeedsRequest, collections, getAllForUser } = this.props;
-        const prevFeeds = filterDistinctChannelIds(prevProps.collections);
-        const currFeeds = filterDistinctChannelIds(collections);
-        // prevFeeds !== currFeeds is always evaluating to true, since this happens every update i'm just going to check for add / remove
-        if(prevFeeds.length !== currFeeds.length){
-            console.log("updated");
-            makeFeedsRequest( currFeeds );
-        }
-    }
-
-    render(){
-        return (
-            <Layout loggedIn={this.props.loggedIn}/>
-        )
-    }
+function usePrevious(value) {
+    const ref = useRef();
+    useEffect(() => {
+      ref.current = value;
+    });
+    return ref.current;
 }
 
-// may add wrapper component in between home and layout in order to use logged in status to fetch collections + feeds
-// i think feed requests may be sent by collections that needs them
+export default (props) => {
+    const dispatch = useDispatch();
+    const auth = useSelector(state => state.authentication); //loggedIn loggingIn user
+    const collections = useSelector(state => state.collectionsBoard);
+    const prevCollections = usePrevious(collections);
 
-const mapStateToProps = state => {
-    const { loggingIn, loggedIn, user } = state.authentication;
+    // TODO this is a hacky comparison. 
+    // redux has some way of doing it with useSelector's second argument function
+    // || !objectEquivalent(prevCollections, collections)
+    //and apparently it doesnt work, im regenerating uuid every time so they're not the same
+    
+    // currently only doing it the first load
+    if ( objectEmpty(collections) ){
+        console.log('***********NEW COLLECTIONS')
+        if ( auth.user ) {
+            dispatch( collectionActions.getAll() );
+        }
+        
+    } else { 
+        console.log("^^^^^^^^^^^^^^^^^^^^^^^^^NOT REQUESTING")
+    }
 
-    console.log(state);
-    return {
-        loggingIn,
-        loggedIn,
-        user,
-        collections: state.collectionsBoard
-    };
-};
-const mapDispatchToProps = (dispatch) => {
-    const getAllForUser = collectionActions.getAll;
-    return bindActionCreators({
-        makeFeedsRequest,
-        getAllForUser
-    }, dispatch)
-};
+    const uniqueChannels = filterDistinctChannelIds( collections )
+    if (uniqueChannels.length > 0)
+        dispatch( makeFeedsRequest(uniqueChannels) );
 
-export default connect(mapStateToProps, mapDispatchToProps)(Home);
+    console.log(prevCollections)
+    console.log(collections)
+
+    console.log(auth);
+
+    return (
+        <div className="">
+            <Layout loggedIn={auth.user.loggedIn}/>
+        </div>
+    );
+}
+//

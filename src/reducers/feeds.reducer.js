@@ -12,7 +12,7 @@ export function feeds(state = {}, action) {
 
         case feedTypes.ERROR_FEEDS:
             console.log("error in feeds");
-            return {};
+            return state;
 
         default:
             return state;

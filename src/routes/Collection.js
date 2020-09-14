@@ -13,12 +13,9 @@ export default (props) => {
     const dispatch = useDispatch();
     const auth = useSelector(state => state.authentication);
     const feeds = useSelector(state => state.feeds);
-    // const collections = useSelector(state => state.collections);
     
     //#region collection/feeds
     const collectionId = props.match.params.collectionId;
-    // const collectionExists = collections[collectionId] ? true : false;
-    // let collection = collectionExists ? collections[collectionId] : null;
     const collection = useSelector(state => state.collections[collectionId])
     const collectionExists = collection ? true : false;
     
@@ -45,18 +42,13 @@ export default (props) => {
     }
 
     if ( !collectionExists ) {
-        //request collection info from server
-        //collection = sampleCollection;
-        
+        console.log('collection doesnt exist')
         dispatch( collectionActions.get(collectionId) );
     } else {
         console.log('collection exists')
         const uniqueChannels = filterDistinctChannelIds( { collection } )
         dispatch( makeFeedsRequest(uniqueChannels) );
     }
-    // const uniqueChannels = filterDistinctChannelIds( { collection } )
-    // const uniqueChannels = ['UCsvn_Po0SmunchJYOWpOxMg']
-    // dispatch( makeFeedsRequest(uniqueChannels) );
     
     //#endregion collection/feeds
 

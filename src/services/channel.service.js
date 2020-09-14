@@ -9,7 +9,7 @@ export const channelService = {
 function handleResponse(response) {
     return response.text().then(text => {
         const data = text && JSON.parse(text);
-        if (!response.ok) {
+        if (!response.ok || !data.success ) {
             if (response.status === 401) {
                 // auto logout if 401 response returned from api
                 //logout();

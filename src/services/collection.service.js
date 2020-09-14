@@ -57,6 +57,22 @@ const getAllForUser = () => {
 }
 
 const getCollection = (collectionUid) => {
+    return request('GET', `/collection/${collectionUid}`)
+        .then(response => {
+            console.log(response);
+            let returnObj = response.collection;
+            returnObj.channels = returnObj.channels.map(item => {
+                return {
+                    ytId: item.ytId,
+                    name: item.name,
+                    channelId: item.ytId
+                }
+            })
+            return returnObj;
+        });
+}
+
+const getCollectionOld = (collectionUid) => {
     //TODO: need to test || should work even if not logged in
     const authHead = authHeader();
 
@@ -86,23 +102,35 @@ const getCollection = (collectionUid) => {
 }
 
 const updateCollection = (collectionUid, data) => {
-
+    return request('PUT', `/collection/${collectionUid}`, data)
+        .then(response => {
+            console.log(response);
+            let returnObj = response.collection;
+            returnObj.channels = returnObj.channels.map(item => {
+                return {
+                    ytId: item.ytId,
+                    name: item.name,
+                    channelId: item.ytId
+                }
+            })
+            return returnObj;
+        });
 }
 
 const deleteCollection = (collectionUid) => {
-
+    return request('DELETE', `/collection/${collectionUid}`);
 }
 
-const updateOrder = (arrayofCollectionUidsAndOrderInt) => {
-
+const updateOrder = (userId, arrayofCollectionUidsAndOrderInt) => {
+    return request('PUT', `/order/${userId}`, arrayofCollectionUidsAndOrderInt);
 }
 
 const addFollow = (parentCollectionUid, childCollectionUid) => {
-
+    return request('POST', `/follow/${parentCollectionUid}/${childCollectionUid}`);
 }
 
 const deleteFollow = (parentCollectionUid, childCollectionUid) => {
-
+    return request('DELETE', `/follow/${parentCollectionUid}/${childCollectionUid}`);
 }
 
 //todo: testing generic

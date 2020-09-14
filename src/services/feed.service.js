@@ -49,14 +49,12 @@ export async function fetchFeed(inputChannelId){
         itemsArray.push( newItem );
     });
 
-    //return itemsArray;
-
     let returnObj = {};
     returnObj[inputChannelId] = itemsArray;
     return returnObj;
 }
 
-//todo, the await inside of map may be holding it up, the map should be an array of promises
+//TODO the await inside of map may be holding it up, the map should be an array of promises
 //return obj of channelId=key arrayOfVideos=item
 export async function fetchAllFeeds(arrayOfChannelIds) {
     let pArray = arrayOfChannelIds.map(async channelId => {
@@ -76,7 +74,3 @@ export async function fetchAllFeeds(arrayOfChannelIds) {
     
     return flattenedFeeds;
 }
-
-
-// uncomment and run to get a sample feed
-// fetchFeed('UC-lHJZR3Gqxm24_Vd_AJ5Yw');

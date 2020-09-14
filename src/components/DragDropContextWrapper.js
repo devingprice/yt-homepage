@@ -57,8 +57,9 @@ class DragDropContextWrapper extends Component {
 
         // copying from channelList
         if (source.droppableId === 'PANEL') {
+            console.log(this.props.collections)
             console.log('copying: ' + this.props.channelList[source.index].name + ' to '+ this.props.collections[destination.droppableId].name);
-            this.props.addChannel(this.props.channelList[source.index], this.props.collections[destination.droppableId].id);
+            this.props.addChannel(this.props.channelList[source.index], this.props.collections[destination.droppableId].uniqueid);
             const columns = copyObject(
                 this.props.channelList,
                 this.props.collections,

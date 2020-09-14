@@ -15,14 +15,16 @@ export const collectionActions = {
     //reorder,
 };
 
-function formatServerResponse(serverRes){
+function formatServerResponse(response){
+    console.log(response)
     let returnResponse = {};
-    for(let i=0; i < serverRes.collections.length;i++){
+    for(let i=0; i < response.collections.length;i++){
 
-        let newChannels = serverRes.collections[i].Channels.map( serverChannel => {
+        let newChannels = response.collections[i].Channels.map( serverChannel => {
             return {
+                ...serverChannel,
                 id: uuid(),
-                "name": serverChannel.name,
+                "serverId": serverChannel.id,
                 "channelId": serverChannel.ytId,
                 "thumbnail": "https://yt3.ggpht.com/a-/AN66SAzwZsCNSyRezNFqEaG6Ef9bFcZ-PzN6CxSzEw=s88-mo-c-c0xffffffff-rj-k-no"
                 //server doesnt have thumbnails atm
@@ -30,8 +32,9 @@ function formatServerResponse(serverRes){
         });
 
         returnResponse[uuid()] = {
-            id: serverRes.collections[i].id,
-            "name": serverRes.collections[i].name,
+            ...response.collections[i],
+            // id: response.collections[i].id,
+            // "name": response.collections[i].name,
             "channels": newChannels,
             "settings": {
                 "showChannels": false,
