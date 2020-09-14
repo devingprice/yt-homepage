@@ -2,7 +2,11 @@ import { collectionTypes } from './actionTypes';
 import { collectionService } from '../services';
 import { alertActions } from './alert.actions';
 
-export const channelActions = {
+import { newBoard } from './board.actions';
+import uuid from 'uuid/v4';
+import { collections } from '../data';
+
+export const collectionActions = {
     create,
     get,
     getAll,
@@ -61,6 +65,7 @@ function create(collectionName){
 }
 
 function get(collectionId){
+    console.log(`get collection ${collectionId}`)
     return dispatch => {
         dispatch(request(collectionId));
         collectionService.getCollection( collectionId )

@@ -61,9 +61,9 @@ class Bookcase extends Component {
 
 const mapStateToProps = state => {
     return {
-        stateSettings: state.settings, //
+        stateSettings: state.visual, //
         feeds: state.feeds, //
-        collections: state.collections,
+        collections: state.collectionsBoard,
         collectionOrder: state.collectionOrder
     };
 };

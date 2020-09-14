@@ -6,7 +6,7 @@ import Layout from '../components/layout';
 import { makeFeedsRequest } from '../actions/feeds.actions';
 import { filterDistinctChannelIds } from '../helpers/utils';
 
-import { serverActions } from '../actions/server.actions';
+import { collectionActions } from '../actions/collection.actions';
 
 
 class Home extends React.Component {
@@ -30,7 +30,6 @@ class Home extends React.Component {
         }
     }
 
-
     render(){
         return (
             <Layout loggedIn={this.props.loggedIn}/>
@@ -49,11 +48,11 @@ const mapStateToProps = state => {
         loggingIn,
         loggedIn,
         user,
-        collections: state.collections
+        collections: state.collectionsBoard
     };
 };
 const mapDispatchToProps = (dispatch) => {
-    const getAllForUser = serverActions.getAllForUser;
+    const getAllForUser = collectionActions.getAll;
     return bindActionCreators({
         makeFeedsRequest,
         getAllForUser

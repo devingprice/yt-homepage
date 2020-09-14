@@ -95,7 +95,7 @@ class Shelf extends Component {
 
 const mapStateToProps = state => {
     return {
-        stateSettings: state.settings,
+        stateSettings: state.visual,
         feeds: state.feeds
     };
 };

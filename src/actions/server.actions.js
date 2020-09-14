@@ -1,4 +1,4 @@
-import { serverConstants } from './actionTypes';
+// import { serverConstants } from './actionTypes';
 import { collectionService, channelService } from '../services';
 import { alertActions } from './alert.actions';
 
@@ -8,9 +8,9 @@ import { userActions } from './user.actions';
 import uuid from 'uuid/v4';
 
 export const serverActions = {
-    getAllForUser,
-    createCollection,
-    addChannel
+    // getAllForUser,
+    // createCollection,
+    // addChannel
 };
 
 //server responds with array of collections, but i need a uuid key'd obj
@@ -42,13 +42,12 @@ function formatServerResponse(serverRes){
     return returnResponse;
 }
 
-
 function getAllForUser() {
     //runs when logging in to app, or to update
     console.log('created action for getAllForUser');
 
     return dispatch => {
-        dispatch(request({}));
+        // dispatch(request({}));
         collectionService.getAllForUser()
             .then(
                 collectionRes => {
@@ -62,20 +61,20 @@ function getAllForUser() {
                     //dispatch(setOrdered(Object.keys(receivedColl)));
                     dispatch(newBoard(receivedColl));
 
-                    dispatch(success(collectionRes));
+                    // dispatch(success(collectionRes));
                 },
                 error => {
                     // not logged in: logout(set user state to {}, remove local token)
                     dispatch(userActions.logout());
-                    dispatch(failure(error.toString()));
+                    // dispatch(failure(error.toString()));
                 }
             );
     };
 
     //TODO: these do nothing atm
-    function request(empty) { return { type: serverConstants.GETALLFORUSER_SUCCESS, empty } }
-    function success(collectionRes) { return { type: serverConstants.GETALLFORUSER_SUCCESS, collectionRes } }
-    function failure(error) { return { type: serverConstants.GETALLFORUSER_FAILURE, error } }
+    // function request(empty) { return { type: serverConstants.GETALLFORUSER_SUCCESS, empty } }
+    // function success(collectionRes) { return { type: serverConstants.GETALLFORUSER_SUCCESS, collectionRes } }
+    // function failure(error) { return { type: serverConstants.GETALLFORUSER_FAILURE, error } }
 }
 
 function createCollection(collectionName){

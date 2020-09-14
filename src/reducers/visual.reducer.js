@@ -1,4 +1,4 @@
-import { stateConstants } from '../actions/actionTypes';
+import { visualTypes } from '../actions/actionTypes';
 
 const initialState = {
     hovering: null,
@@ -6,15 +6,15 @@ const initialState = {
     showChannelPills: false
 };
 
-export function settings(state = initialState, action) {
+export function visual(state = initialState, action) {
     switch (action.type) {
-        case stateConstants.SET_SHELF_DRAG:
+        case visualTypes.SET_SHELF_DRAG:
             return { ...state, draggableShelves: action.draggableShelves };
 
-        case stateConstants.SET_HOVER:
+        case visualTypes.SET_HOVER:
             return { ...state, hovering: action.hovering };
 
-        case stateConstants.SET_SHOW_CHANNELS:
+        case visualTypes.SET_SHOW_CHANNELS:
             return { ...state, showChannelPills: action.showChannelPills };
 
         default:

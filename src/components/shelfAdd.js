@@ -50,7 +50,7 @@ class ShelfAdd extends Component {
 
 const mapStateToProps = state => {
     return {
-        collections: state.collections,
+        collections: state.collectionsBoard,
         collectionOrder: state.collectionOrder
     };
 };

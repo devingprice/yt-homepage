@@ -116,9 +116,9 @@ class CollectionPage extends React.Component {
 
 function mapStateToProps(state) {
     return {
-        stateSettings: state.settings, //testing
+        stateSettings: state.visual, //testing
         feeds: state.feeds,
-        collections: state.collections
+        collections: state.collectionsBoard
     };
 }
 const mapDispatchToProps = (dispatch) => {

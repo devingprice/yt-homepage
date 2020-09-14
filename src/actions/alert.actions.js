@@ -1,7 +1,7 @@
-import { alertConstants } from './actionTypes';
+import { alertTypes } from './actionTypes';
 
 export const alertActions = {
-    success: (message) => ({ type: alertConstants.SUCCESS, message }),
-    error: (message) => ({ type: alertConstants.ERROR, message }),
-    clear: () => ({ type: alertConstants.CLEAR }),
+    success: (message) => ({ type: alertTypes.SUCCESS, message }),
+    error: (message) => ({ type: alertTypes.ERROR, message }),
+    clear: () => ({ type: alertTypes.CLEAR }),
 }

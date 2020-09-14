@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import ChannelPill from './channelPill';
-import { setHover } from '../../actions/state.actions';
+import { setHover } from '../../actions/visual.actions';
 
 
 
@@ -38,7 +38,6 @@ class ChannelItem extends React.PureComponent {
                         </div>
                     )}
             </Draggable>
-
             
         );
     }

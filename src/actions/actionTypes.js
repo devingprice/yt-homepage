@@ -1,4 +1,4 @@
-export const userConstants = {
+export const userTypes = {
     REGISTER_REQUEST: 'USERS_REGISTER_REQUEST',
     REGISTER_SUCCESS: 'USERS_REGISTER_SUCCESS',
     REGISTER_FAILURE: 'USERS_REGISTER_FAILURE',
@@ -14,47 +14,52 @@ export const userConstants = {
     GETALL_SUCCESS: 'USERS_GETALL_SUCCESS',
     GETALL_FAILURE: 'USERS_GETALL_FAILURE',
 
+    //TODO Update
+
     DELETE_REQUEST: 'USERS_DELETE_REQUEST',
     DELETE_SUCCESS: 'USERS_DELETE_SUCCESS',
     DELETE_FAILURE: 'USERS_DELETE_FAILURE'
 };
 
-export const alertConstants = {
+export const alertTypes = {
     SUCCESS: 'ALERT_SUCCESS',
     ERROR: 'ALERT_ERROR',
     CLEAR: 'ALERT_CLEAR'
 };
 
-export const boardConstants = {
+export const boardTypes = {
     SET_COLUMN: 'SET_COLUMN',
     SET_ORDERED: 'SET_ORDERED',
     NEW_BOARD: 'NEW_BOARD'
 };
 
-export const stateConstants = {
+export const visualTypes = {
     SET_HOVER:  'SET_HOVER',
     SET_SHOW_CHANNELS: 'SET_SHOW_CHANNELS',
     SET_SHELF_DRAG: 'SET_SHELF_DRAG'
 };
 
-export const feedsConstants = {
+export const feedTypes = {
     FETCH_FEEDS: 'FETCH_FEEDS',
     SET_FEEDS: 'SET_FEEDS',
     ERROR_FEEDS: 'ERROR_FEEDS'
 };
 
-export const serverConstants = {
-    GETALLFORUSER_REQUEST: 'GETALLFORUSER_REQUEST',
-    GETALLFORUSER_SUCCESS: 'GETALLFORUSER_SUCCESS',
-    GETALLFORUSER_FAILURE: 'GETALLFORUSER_FAILURE',
+// export const serverConstants = {
+//     GETALLFORUSER_REQUEST: 'GETALLFORUSER_REQUEST',
+//     GETALLFORUSER_SUCCESS: 'GETALLFORUSER_SUCCESS',
+//     GETALLFORUSER_FAILURE: 'GETALLFORUSER_FAILURE',
 
-    // this is updated locally, i may not need these
-    ADD_CHANNEL: 'ADD_CHANNEL',
-    REMOVE_CHANNEL: 'REMOVE_CHANNEL',
-    MOVE_CHANNEL: 'MOVE_CHANNEL', //not sure if will use
-};
+//     // this is updated locally, i may not need these
+//     ADD_CHANNEL: 'ADD_CHANNEL',
+//     REMOVE_CHANNEL: 'REMOVE_CHANNEL',
+//     MOVE_CHANNEL: 'MOVE_CHANNEL', //not sure if will use
+// };
 
-export const youtubeConstants = {
+
+
+
+export const youtubeTypes = {
     SEARCH_REQUEST: 'SEARCH_REQUEST',
     SEARCH_SUCCESS: 'SEARCH_SUCCESS',
     SEARCH_FAILURE: 'SEARCH_FAILURE',
@@ -79,7 +84,6 @@ export const followTypes = {
     FOLLOW_DELETE_SUCCESS: 'FOLLOW_DELETE_SUCCESS',
     FOLLOW_DELETE_FAILURE: 'FOLLOW_DELETE_FAILURE',
 }
-
 
 export const collectionTypes = {
     COLLECTION_CREATE_REQUEST: 'COLLECTION_CREATE_REQUEST',

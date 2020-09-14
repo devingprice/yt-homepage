@@ -1,3 +1,3 @@
-export * from './board.actions';
+export * as boardActions from './board.actions';
 export * from './alert.actions';
 

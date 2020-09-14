@@ -3,7 +3,7 @@ import { DragDropContext } from 'react-beautiful-dnd';
 
 import { reorder, reorderQuoteMap, copyObject } from '../helpers/DragDropFunctions';
 import { setColumn, setOrdered } from '../actions/board.actions';
-import { serverActions } from '../actions/server.actions';
+import { channelActions } from '../actions/channel.actions';
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -116,13 +116,13 @@ class DragDropContextWrapper extends Component {
 
 const mapStateToProps = state => {
     return {
-        collections: state.collections,
+        collections: state.collectionsBoard,
         collectionOrder: state.collectionOrder,
         channelList: state.channelList
     };
 };
 const mapDispatchToProps = (dispatch) => {
-    const addChannel = serverActions.addChannel;
+    const addChannel = channelActions.add;
     return bindActionCreators({
         setColumn,
         setOrdered,

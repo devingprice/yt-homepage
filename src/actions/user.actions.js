@@ -1,4 +1,4 @@
-import { userConstants } from './actionTypes';
+import { userTypes } from './actionTypes';
 import { userService } from '../services';
 import { alertActions } from './alert.actions';
 import { history } from '../store';
@@ -34,9 +34,9 @@ function login(username, password) {
             );
     };
 
-    function request(user) { return { type: userConstants.LOGIN_REQUEST, user } }
-    function success(user) { return { type: userConstants.LOGIN_SUCCESS, user } }
-    function failure(error) { return { type: userConstants.LOGIN_FAILURE, error } }
+    function request(user) { return { type: userTypes.LOGIN_REQUEST, user } }
+    function success(user) { return { type: userTypes.LOGIN_SUCCESS, user } }
+    function failure(error) { return { type: userTypes.LOGIN_FAILURE, error } }
 }
 
 function logout() {
@@ -45,9 +45,9 @@ function logout() {
         userService.logout(); //remove token
         dispatch(logOut()); //set user state
     };
-    function logOut() { return { type: userConstants.LOGOUT } }
+    function logOut() { return { type: userTypes.LOGOUT } }
     //userService.logout();
-    //return { type: userConstants.LOGOUT };
+    //return { type: userTypes.LOGOUT };
 }
 
 function register(user) {
@@ -68,9 +68,9 @@ function register(user) {
             );
     };
 
-    function request(user) { return { type: userConstants.REGISTER_REQUEST, user } }
-    function success(user) { return { type: userConstants.REGISTER_SUCCESS, user } }
-    function failure(error) { return { type: userConstants.REGISTER_FAILURE, error } }
+    function request(user) { return { type: userTypes.REGISTER_REQUEST, user } }
+    function success(user) { return { type: userTypes.REGISTER_SUCCESS, user } }
+    function failure(error) { return { type: userTypes.REGISTER_FAILURE, error } }
 }
 
 function getAll() {
@@ -84,9 +84,9 @@ function getAll() {
             );
     };
 
-    function request() { return { type: userConstants.GETALL_REQUEST } }
-    function success(users) { return { type: userConstants.GETALL_SUCCESS, users } }
-    function failure(error) { return { type: userConstants.GETALL_FAILURE, error } }
+    function request() { return { type: userTypes.GETALL_REQUEST } }
+    function success(users) { return { type: userTypes.GETALL_SUCCESS, users } }
+    function failure(error) { return { type: userTypes.GETALL_FAILURE, error } }
 }
 
 // prefixed function name with underscore because delete is a reserved word in javascript
@@ -101,7 +101,7 @@ function _delete(id) {
             );
     };
 
-    function request(id) { return { type: userConstants.DELETE_REQUEST, id } }
-    function success(id) { return { type: userConstants.DELETE_SUCCESS, id } }
-    function failure(id, error) { return { type: userConstants.DELETE_FAILURE, id, error } }
+    function request(id) { return { type: userTypes.DELETE_REQUEST, id } }
+    function success(id) { return { type: userTypes.DELETE_SUCCESS, id } }
+    function failure(id, error) { return { type: userTypes.DELETE_FAILURE, id, error } }
 }

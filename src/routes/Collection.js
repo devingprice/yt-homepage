@@ -2,7 +2,7 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { makeFeedsRequest } from '../actions/feeds.actions';
-import { serverActions } from '../actions/server.actions';
+import { collectionActions } from '../actions/collection.actions';
 import Shelf from '../components/shelf';
 
 import DragDropContextWrapper from '../components/DragDropContextWrapper';
@@ -46,13 +46,17 @@ export default (props) => {
 
     if ( !collectionExists ) {
         //request collection info from server
-        // collection = sampleCollection;
+        //collection = sampleCollection;
         
-        dispatch( serverActions.getAllForUser() );
+        dispatch( collectionActions.get(collectionId) );
     } else {
+        console.log('collection exists')
         const uniqueChannels = filterDistinctChannelIds( { collection } )
         dispatch( makeFeedsRequest(uniqueChannels) );
     }
+    // const uniqueChannels = filterDistinctChannelIds( { collection } )
+    // const uniqueChannels = ['UCsvn_Po0SmunchJYOWpOxMg']
+    // dispatch( makeFeedsRequest(uniqueChannels) );
     
     //#endregion collection/feeds
 

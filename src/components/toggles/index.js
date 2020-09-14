@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { setShelfDrag, setShowChannels } from '../../actions/state.actions';
+import { setShelfDrag, setShowChannels } from '../../actions/visual.actions';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
@@ -42,8 +42,8 @@ const Switch = function(props) {
 
 const mapStateToProps = state => {
     return {
-        showChannelPills: state.settings.showChannelPills,
-        draggableShelves: state.settings.draggableShelves
+        showChannelPills: state.visual.showChannelPills,
+        draggableShelves: state.visual.draggableShelves
     };
 };
 const mapDispatchToProps = (dispatch) => {

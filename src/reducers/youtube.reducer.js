@@ -1,4 +1,4 @@
-import { youtubeConstants } from '../actions/actionTypes';
+import { youtubeTypes } from '../actions/actionTypes';
 
 const initialState = {
     searchTerm: "",
@@ -9,7 +9,7 @@ const initialState = {
 
 export function youtubeSearch(state = initialState, action) {
     switch (action.type) {
-        case youtubeConstants.SEARCH_REQUEST:
+        case youtubeTypes.SEARCH_REQUEST:
             return {
                 ...state,
                 searchTerm: action.searchTerm,
@@ -17,7 +17,7 @@ export function youtubeSearch(state = initialState, action) {
                 invalid: false,
             };
 
-        case youtubeConstants.SEARCH_SUCCESS:
+        case youtubeTypes.SEARCH_SUCCESS:
             return {
                 ...state,
                 loading: false,
@@ -25,7 +25,7 @@ export function youtubeSearch(state = initialState, action) {
                 items: action.channels,
             };
         
-        case youtubeConstants.SEARCH_FAILURE:
+        case youtubeTypes.SEARCH_FAILURE:
             return {
                 ...state,
                 loading: false,

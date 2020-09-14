@@ -1,5 +1,5 @@
 import config from '../config';
-import { collections } from '../data';
+// import { collections } from '../data';
 import { authHeader } from './auth.header';
 
 function handleResponse(response) {
@@ -51,7 +51,7 @@ const getAllForUser = () => {
         }
     };
 
-    const url = `${config.apiUrl}/collections/`+ userId;
+    const url = `${config.apiUrl}/collections/${userId}`;
     return fetch( url , requestOptions)
         .then(handleResponse);
 }
@@ -68,20 +68,20 @@ const getCollection = (collectionUid) => {
         }
     };
 
-    const url = `${config.apiUrl}/collection/`+ collectionUid;
+    const url = `${config.apiUrl}/collection/${collectionUid}`;
     return fetch( url , requestOptions)
         .then(handleResponse)
-        .then(collectionRes => {
-            console.log(collectionRes)
-            let collectionObj = collectionRes.company;
-            collectionObj.channels = collectionObj.channels.map(serverChannel => {
+        .then(response => {
+            console.log(response);
+            let returnObj = response.collection;
+            returnObj.channels = returnObj.channels.map(item => {
                 return {
-                    id: serverChannel.id,
-                    name: serverChannel.name,
-                    channelId: serverChannel.ytId
+                    ytId: item.ytId,
+                    name: item.name,
+                    channelId: item.ytId
                 }
-            });
-            return collectionObj;
+            })
+            return returnObj;
         });
 }
 

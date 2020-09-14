@@ -1,4 +1,4 @@
-import { userConstants } from '../actions/actionTypes';
+import { userTypes } from '../actions/actionTypes';
 
 let user = JSON.parse(localStorage.getItem('user'));
 
@@ -13,19 +13,19 @@ const initialState = {
 
 export function authentication(state = initialState, action) {
     switch (action.type) {
-        case userConstants.LOGIN_REQUEST:
+        case userTypes.LOGIN_REQUEST:
             return {
                 loggingIn: true,
                 user: action.user
             };
-        case userConstants.LOGIN_SUCCESS:
+        case userTypes.LOGIN_SUCCESS:
             return {
                 loggedIn: true,
                 user: action.user
             };
-        case userConstants.LOGIN_FAILURE:
+        case userTypes.LOGIN_FAILURE:
             return { loggedIn: false, user: undefined };
-        case userConstants.LOGOUT:
+        case userTypes.LOGOUT:
             return { loggedIn: false, user: undefined };
         default:
             return state

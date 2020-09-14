@@ -1,9 +1,9 @@
-import { youtubeConstants } from './actionTypes';
+import { youtubeTypes } from './actionTypes';
 import { youtubeService } from '../services';
 
-export const searchStart = (searchTerm) => ({ type: youtubeConstants.SEARCH_REQUEST, searchTerm});
-export const searchSuccess = (channels) => ({ type: youtubeConstants.SEARCH_SUCCESS, channels});
-export const searchFailure = (error) => ({ type: youtubeConstants.SEARCH_FAILURE, error});
+export const searchStart = (searchTerm) => ({ type: youtubeTypes.SEARCH_REQUEST, searchTerm});
+export const searchSuccess = (channels) => ({ type: youtubeTypes.SEARCH_SUCCESS, channels});
+export const searchFailure = (error) => ({ type: youtubeTypes.SEARCH_FAILURE, error});
 
 function isSearchDuplicate (state, searchTerm) {
     const prevSearchTerm = state.searchTerm;

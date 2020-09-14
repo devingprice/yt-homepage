@@ -1,13 +1,13 @@
-import { feedsConstants } from './actionTypes';
+import { feedTypes } from './actionTypes';
 import { feedService } from '../services';
 
-//export const fetchFeeds = (input) => ({ type: feedsConstants.FETCH_FEEDS, channelIds: input });
-export const setFeeds = (feeds) => ({ type: feedsConstants.SET_FEEDS, feeds: feeds });
-export const errorFeeds = (error) => ({ type: feedsConstants.ERROR_FEEDS, payload: error });
+//export const fetchFeeds = (input) => ({ type: feedTypes.FETCH_FEEDS, channelIds: input });
+export const setFeeds = (feeds) => ({ type: feedTypes.SET_FEEDS, feeds: feeds });
+export const errorFeeds = (error) => ({ type: feedTypes.ERROR_FEEDS, payload: error });
 
 export function makeFeedsRequest(channelIds) {
     return (dispatch, getState) => {
-
+        console.log(channelIds)
         const staleFeeds = filterToFeedsThatNeedUpdates(getState(), channelIds);
         if(staleFeeds.length === 0) return null;
 
