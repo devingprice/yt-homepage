@@ -1,31 +1,33 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { setShelfDrag, setShowChannels } from '../../actions/visual.actions';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
+
+import { useDispatch, useSelector } from 'react-redux';
 
 import './toggles.scss';
 
-class Toggles extends Component {
-    render() {
-        return (
-            <div className="toggles">
-                <div> Shelf Drag </div>
-                <Switch
-                    isOn={this.props.draggableShelves}
-                    handleToggle={(newState) => {
-                        this.props.setShelfDrag(newState)
-                    }}
-                />
-                <div> Show Channels </div>
-                <Switch
-                    isOn={this.props.showChannelPills}
-                    handleToggle={(newState) => {
-                        this.props.setShowChannels(newState)
-                    }}
-                />
-            </div>
-        );
-    }
+export default (props) => {
+    const dispatch = useDispatch();
+    const showChannelPills = useSelector(state => state.visual.showChannelPills);
+    const draggableShelves = useSelector(state => state.visual.draggableShelves);
+
+    return (
+        <div className="toggles">
+            <div> Shelf Drag </div>
+            <Switch
+                isOn={draggableShelves}
+                handleToggle={(newState) => {
+                    dispatch( setShelfDrag(newState) )
+                }}
+            />
+            <div> Show Channels </div>
+            <Switch
+                isOn={showChannelPills}
+                handleToggle={(newState) => {
+                    dispatch( setShowChannels(newState) )
+                }}
+            />
+        </div>
+    );
 }
 
 
@@ -39,19 +41,3 @@ const Switch = function(props) {
         </div>
     );
 };
-
-const mapStateToProps = state => {
-    return {
-        showChannelPills: state.visual.showChannelPills,
-        draggableShelves: state.visual.draggableShelves
-    };
-};
-const mapDispatchToProps = (dispatch) => {
-    return bindActionCreators({
-        setShelfDrag,
-        setShowChannels
-    }, dispatch)
-};
-
-export default connect(mapStateToProps,
-    mapDispatchToProps)(Toggles);
