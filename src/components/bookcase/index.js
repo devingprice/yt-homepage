@@ -1,80 +1,61 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
+import React from 'react';
+import { useSelector } from 'react-redux';
+
 import { Droppable } from 'react-beautiful-dnd';
-
-import { setColumn, setOrdered } from '../../actions/board.actions';
-
-import { makeFeedsRequest } from '../../actions/feeds.actions';
-import { filterDistinctChannelIds } from '../../helpers/utils';
+import { uuidOrderFromCollections } from '../../helpers/utils'
 
 import './bookcase.scss';
 import Shelf from '../shelf';
-
 import ShelfAdd from '../shelfAdd'
 
-class Bookcase extends Component {
-    static defaultProps = {
-        isCombineEnabled: false
-    };
+export default (props) => {
+    const collections = useSelector(state => state.collectionsBoard);
+    // const collectionOrder = useSelector(state => state.collectionOrder);
+    const collectionOrder = uuidOrderFromCollections(collections);
+    const loggedIn = useSelector(state => state.authentication.loggedIn);
+    // const stateSettings = useSelector(state => state.visual);
+    // const feeds = useSelector(state => state.feeds);
+    /*
+        
+    */
 
-    render() {
-        const { collections, collectionOrder,
-            containerHeight, withScrollableColumns, isCombineEnabled
-        } = this.props;
+    if (props.isCombineEnabled === null) props.isCombineEnabled = false;
 
-        return (
-            <Droppable
-                droppableId="board"
-                type="COLUMN"
-                //direction="horizontal"
-                ignoreContainerClipping={Boolean(containerHeight)}
-                isCombineEnabled={isCombineEnabled}>
-                {(provided) => (
-                    <div //Container    dont seem to need styled-component or wrapperlist
-                        className="bookcase"
-                        ref={provided.innerRef}
-                        {...provided.droppableProps}>
-                        {collectionOrder.map((key, index) => (
+    console.log('rendering bookcase')
+    console.log(collections)
+    console.log(collectionOrder)
 
-                            <Shelf
-                                key={key}
-                                index={index}
-                                draggableId={key}
-                                collection={collections[key]}
-                            />
+    return (
+        <Droppable
+            droppableId="board"
+            type="COLUMN"
+            //direction="horizontal"
+            ignoreContainerClipping={Boolean(props.containerHeight)}
+            isCombineEnabled={props.isCombineEnabled}>
+            {(provided) => (
+                <div //Container    dont seem to need styled-component or wrapperlist
+                    className="bookcase"
+                    ref={provided.innerRef}
+                    {...provided.droppableProps}>
+                    {collectionOrder.map((key, index) => (
 
-                        ))}
+                        <Shelf
+                            key={key}
+                            index={index}
+                            draggableId={key}
+                            collection={collections[key]}
+                        />
 
-                        {this.props.loggedIn ?
-                            <ShelfAdd /> :
-                            null
-                        }
+                    ))}
 
-                    </div>
-                )}
-            </Droppable>
-        );
-    }
+                    {loggedIn ?
+                        <ShelfAdd /> :
+                        null
+                    }
+
+                </div>
+            )}
+        </Droppable>
+    );
+
 }
-
-
-const mapStateToProps = state => {
-    return {
-        stateSettings: state.visual, //
-        feeds: state.feeds, //
-        collections: state.collectionsBoard,
-        collectionOrder: state.collectionOrder,
-        loggedIn: state.authentication.loggedIn,
-    };
-};
-const mapDispatchToProps = (dispatch) => {
-    return bindActionCreators({
-        setColumn,
-        setOrdered,
-        makeFeedsRequest
-    }, dispatch)
-};
-
-export default connect(mapStateToProps,
-    mapDispatchToProps)(Bookcase);

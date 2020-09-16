@@ -6,6 +6,7 @@ export const setFeeds = (feeds) => ({ type: feedTypes.SET_FEEDS, feeds: feeds })
 export const errorFeeds = (error) => ({ type: feedTypes.ERROR_FEEDS, payload: error });
 
 export function makeFeedsRequest(channelIds) {
+    console.log('requesting feeds')
     return (dispatch, getState) => {
         console.log(channelIds)
         const staleFeeds = filterToFeedsThatNeedUpdates(getState(), channelIds);

@@ -44,6 +44,7 @@ export default (props) => {
     }
 
     const uniqueChannels = filterDistinctChannelIds( collections )
+    
     if (uniqueChannels.length > 0)
         dispatch( makeFeedsRequest(uniqueChannels) );
 

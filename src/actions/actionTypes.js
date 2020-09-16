@@ -28,6 +28,8 @@ export const alertTypes = {
 };
 
 export const boardTypes = {
+    NEW_COLUMN: 'NEW_COLUMN',
+    
     SET_COLUMN: 'SET_COLUMN',
     SET_ORDERED: 'SET_ORDERED',
     NEW_BOARD: 'NEW_BOARD'

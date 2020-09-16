@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
-import { connect } from 'react-redux';
 import { Draggable } from 'react-beautiful-dnd';
 
 import './shelf.scss';
@@ -9,106 +9,75 @@ import ListRenderer from './ListRenderer';
 
 import { containsChannel, containedChannels, feedsToVideoObjArray } from '../../helpers/utils';
 
-class ShelfTitle extends Component {
-    //TODO: https://codepen.io/FinalTriumph/pen/gLvWxO
-    constructor(props) {
-        super(props);
-        this.state = {
-            editing: false,
-            text: props.title
-        };
-        this.changeText = this.changeText.bind(this);
+import { collectionActions } from '../../actions/collection.actions';
+
+const ShelfTitle = (props) => {
+    const [editing, setEditing] = useState(false);
+    const [text, setText] = useState(props.title);
+
+    const changeText = (e) => setText(e.target.value);
+    const clickEdit = () => setEditing(!editing);
+    const clickSave = () => {
+        console.log('rename ' + props.collectionId + ' to ' + text);
+        setEditing(false);
     }
-    changeText(event){
-        this.setState({ text: event.target.value })
-    };
-    clickEdit = () => {
-        this.setState({
-            editing: true
-        })
-    };
-    clickSave = () => {
-        this.changeNameRequest(this.props.collectionId, this.state.text);
-        this.setState({
-            editing: false
-        })
-    };
-    changeNameRequest = (collectionId, newName) => {
-        console.log('rename ' + collectionId + ' to ' + newName)
-    };
-    render(){
-        return (
-            <div className="shelf__title">
-                <p style={ this.state.editing ? { display: "none" } : {} }>{this.state.text}</p>
-                <textarea style={ this.state.editing ? {} : { display: "none" } } onChange={this.changeText} value={this.state.text}/>
-                {
-                    !this.state.editing ?
-                        <button className="edit_icon" onClick={()=>{this.clickEdit()}}>edit</button> :
-                        <button className="save_icon" onClick={()=>{this.clickSave()}}>save</button>
-                }
-            </div>
-        )
-    }
+    return (
+        <div className="shelf__title">
+            <p style={ editing ? { display: "none" } : {} }>{text}</p>
+            <textarea style={ editing ? {} : { display: "none" } } onChange={changeText} value={text}/>
+            {
+                !editing ?
+                    <button className="edit_icon" onClick={clickEdit}>edit</button> :
+                    <button className="save_icon" onClick={clickSave}>save</button>
+            }
+        </div>
+    )
 }
 
-class Shelf extends Component {
-    deleteCollection = (collectionId) => {
-        console.log('delete ' + collectionId)
-    };
-    render() {
-        const { draggableId, index, stateSettings, collection, feeds }= this.props;
-        //{...provided.dragHandleProps}
-        return (
-            <Draggable draggableId={draggableId} index={index} isDragDisabled={!stateSettings.draggableShelves}>
-                {(provided, snapshot,) => (
-                    <div className={"shelf " +(containsChannel(collection.channels, stateSettings.hovering) ? "" : "shelf--greyed")}
-                         ref={provided.innerRef}
-                         {...provided.draggableProps}>
-                        <div className="shelf__header">
-                            <div className="Title" >
-                                {collection.name}
-                            </div>
-                            <ShelfTitle collectionId={collection.id} title={collection.name}/>
-                            <button onClick={()=>this.deleteCollection(collection.id)}>x</button>
-                        </div>
-                        <div className="grid">
-                            {
-                                stateSettings.showChannelPills ?
-                                    <ChannelsRenderer listId={draggableId} listType="Quote" channelList={collection.channels} /> :
-                                    <ListRenderer videoArray={feedsToVideoObjArray(containedChannels(collection.channels), feeds)} />
-                            }
+export default (props) => {
+    const dispatch = useDispatch();
+    const stateSettings = useSelector(state => state.visual);
+    const feeds = useSelector(state => state.feeds);
+    const { draggableId, index, collection }= props;
 
+    const deleteCollection = (collectionId) => {
+        console.log('delete ' + collectionId);
+        dispatch(collectionActions.delete(collectionId));
+    };
+
+    return (
+        <Draggable draggableId={draggableId} index={index} isDragDisabled={!stateSettings.draggableShelves}>
+            {(provided, snapshot,) => (
+                <div className={"shelf " +(containsChannel(collection.channels, stateSettings.hovering) ? "" : "shelf--greyed")}
+                        ref={provided.innerRef}
+                        {...provided.draggableProps}>
+                    <div className="shelf__header">
+                        <div className="Title" >
+                            {collection.name}
                         </div>
-                        {
-                            stateSettings.draggableShelves ?
-                                <div className="floatHandle" {...provided.dragHandleProps}>^v</div> :
-                                null
-                        }
+                        <ShelfTitle collectionId={collection.id} title={collection.name}/>
+                        <button onClick={()=>deleteCollection(collection.uniqueid)}>x</button>
                     </div>
-                )}
-            </Draggable>
-        )
+                    <div className="grid">
+                        {
+                            stateSettings.showChannelPills ?
+                                <ChannelsRenderer listId={draggableId} listType="Quote" channelList={collection.channels ||[]} /> :
+                                <ListRenderer videoArray={feedsToVideoObjArray(containedChannels(collection.channels), feeds)} />
+                        }
 
-    }
+                    </div>
+                    {
+                        stateSettings.draggableShelves ?
+                            <div className="floatHandle" {...provided.dragHandleProps}>^v</div> :
+                            null
+                    }
+                </div>
+            )}
+        </Draggable>
+    )
+
+    
 }
-
-
-const mapStateToProps = state => {
-    return {
-        stateSettings: state.visual,
-        feeds: state.feeds
-    };
-};
-/*
-const mapDispatchToProps = (dispatch) => {
-    return bindActionCreators({
-        //delete Collection
-        //rename Collection
-    }, dispatch)
-};
-*/
-export default connect(mapStateToProps,
-    null)(Shelf);
 
 /*<Shelf
  key={key}

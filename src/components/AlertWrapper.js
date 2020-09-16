@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { connect } from 'react-redux';
 
 //import routes from './routes';
@@ -7,45 +8,29 @@ import { alertActions } from '../actions/alert.actions';
 //import Navbar from './Navbar'; <Navbar />
 import Navigation from './Navigation/Navigation';
 
-class AlertWrapper extends Component {
-    constructor(props) {
-        super(props);
+export default (props) => {
+    const dispatch = useDispatch();
+    const alert = useSelector(state => state.alert);
 
-        const { dispatch } = this.props;
-        this.props.history.listen((location, action) => {
-            // clear alert on location change
-            dispatch(alertActions.clear());
-        });
+    props.history.listen((location, action) => {
+        // clear alert on location change
+        dispatch(alertActions.clear());
+    });
+    
+    if(alert.message){
+        console.log(alert);
     }
-
-    render() {
-        const { alert } = this.props;
-
-        if(alert.message){
-            console.log(alert);
-        }
-
-        return (
-            <div className="wrapperApp">
-                {
-                    alert.message &&
-                    <div className={`alert ${alert.type}`}>{alert.message}</div>
-                }
-                
-                <Navigation />
-                {this.props.children}
-            </div>
-        );
-    }
+        
+    return (
+        <div className="wrapperApp">
+            {
+                alert.message &&
+                <div className={`alert ${alert.type}`}>{alert.message}</div>
+            }
+            
+            <Navigation />
+            {props.children}
+        </div>
+    );
+    
 }
-
-function mapStateToProps(state) {
-    const { alert } = state;
-    return {
-        alert
-    };
-}
-
-const connectedApp = connect(mapStateToProps)(AlertWrapper);
-
-export default connectedApp;

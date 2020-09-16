@@ -53,7 +53,7 @@ function create(collectionName){
             .then(
                 response => {
                     console.log(response);
-                    dispatch(success(response));
+                    dispatch(success(response.collection));
                 },
                 error => {
                     //getallforUser to refresh state TODO
@@ -63,7 +63,7 @@ function create(collectionName){
     };
 
     function request() { return { type: collectionTypes.COLLECTION_CREATE_REQUEST } }
-    function success(collectionId) { return { type: collectionTypes.COLLECTION_CREATE_SUCCESS, collectionId } }
+    function success(collection) { return { type: collectionTypes.COLLECTION_CREATE_SUCCESS, collection } }
     function failure(error) { return { type: collectionTypes.COLLECTION_CREATE_FAILURE, error } }
 }
 
@@ -149,7 +149,7 @@ function update(collectionId, data){
 function _delete(collectionId) {
     return dispatch => {
         dispatch(request(collectionId));
-        collectionService.deleteChannel(collectionId)
+        collectionService.deleteCollection(collectionId)
             .then(
                 response => {
                     dispatch(success(collectionId));

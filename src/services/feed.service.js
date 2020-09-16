@@ -19,6 +19,7 @@ let parser = new Parser({
 const CORS_PROXY = "https://cors-anywhere.herokuapp.com/";
 
 export async function fetchFeed(inputChannelId){
+    return {}; //too many requests being sent during dev
     let urlBase = "https://www.youtube.com/feeds/videos.xml?channel_id=";
 
     let feed = await parser.parseURL( CORS_PROXY + urlBase + inputChannelId );
@@ -67,9 +68,12 @@ export async function fetchAllFeeds(arrayOfChannelIds) {
 
     let flattenedFeeds = {};
     feeds.forEach(feedObj => {
-        let key = Object.keys(feedObj)[0];
-        flattenedFeeds[key] = feedObj[key];
-        flattenedFeeds[key].lastUpdated = now;
+        if(Object.keys(feedObj).length > 0) {
+            let key = Object.keys(feedObj)[0];
+            flattenedFeeds[key] = feedObj[key];
+            flattenedFeeds[key].lastUpdated = now;
+        }
+        
     });
     
     return flattenedFeeds;

@@ -28,10 +28,13 @@ export function filterDistinctChannelIds(collectionsObj){
     console.log(collectionsObj);
     let channelIds = [];
     for (const collection in collectionsObj){
-        collectionsObj[collection].channels.forEach(function(channelObj){
-            channelIds.push(channelObj.channelId)
-        })
+        if(collectionsObj[collection].channels && collectionsObj[collection].channels.length > 0){
+            collectionsObj[collection].channels.forEach(function(channelObj){
+                channelIds.push(channelObj.ytId)
+            })
+        }
     }
+    console.log(channelIds)
     let distinctChannelIds = [...new Set(channelIds)];
     return distinctChannelIds;
 }
@@ -83,7 +86,7 @@ export function viewsSigFigs(views){
     }
 }
 
-export function containsChannel(channelArray, channelKey){
+export function containsChannel(channelArray =[], channelKey){
     //if not hovering anything, everything clear
     if (channelKey === null) {
         return true;
@@ -97,6 +100,9 @@ export function containsChannel(channelArray, channelKey){
     return false; //grey out
 }
 export function containedChannels(channelObjsArray){
+    if(channelObjsArray === null || channelObjsArray === undefined){
+        return [];
+    }
     let channelStringArray = [];
     for(let i =0; i < channelObjsArray.length; i++){
         channelStringArray.push(channelObjsArray[i].channelId)
@@ -143,4 +149,19 @@ export function objectEquivalent(a, b, exludeProperties = []) {
     // If we made it this far, objects
     // are considered equivalent
     return true;
+}
+
+
+export function uuidOrderFromCollections(collections) {
+    let order = [];
+    let unsorted = [];
+    for(const collection in collections) {
+        if (collections[collection].order === null || collections[collection].order === undefined){
+            unsorted.push(collection)
+        } else {
+            order.push({"key": collection, "value": collections[collection].order})
+        }
+    }
+    order.sort((a,b) => a.value > b.value).map(e=>e.key);
+    return order.concat(unsorted)
 }
