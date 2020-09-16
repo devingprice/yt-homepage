@@ -1,11 +1,12 @@
 import { userTypes } from '../actions/actionTypes';
 
-let user = JSON.parse(localStorage.getItem('user'));
+const localUser = localStorage.getItem('user') || '{}';
+let user = JSON.parse(localUser);
 
 const initialState = {
     loggingIn: false,
-    loggedIn: user ? true : false,
-    user: user || undefined,
+    loggedIn: user.id ? true : false,
+    user: user || {},
 }
 
 //TODO: could not set loggedIn until verify check goes through
@@ -24,9 +25,9 @@ export function authentication(state = initialState, action) {
                 user: action.user
             };
         case userTypes.LOGIN_FAILURE:
-            return { loggedIn: false, user: undefined };
+            return { loggedIn: false, user: {} };
         case userTypes.LOGOUT:
-            return { loggedIn: false, user: undefined };
+            return { loggedIn: false, user: {} };
         default:
             return state
     }

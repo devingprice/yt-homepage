@@ -39,8 +39,11 @@ const createCollection = (name) => {
 
 const getAllForUser = () => {
     //userId until i make server do it with tokens
+    // todo, make userId obtainable from autheader for this kind of request
     const authHead = authHeader();
-    const user = JSON.parse(localStorage.getItem('user'));
+    const localUser = localStorage.getItem('user') || '{}';
+    let user = JSON.parse(localUser);
+    // const user = JSON.parse(localStorage.getItem('user'));
     const userId = user.id;
 
     const requestOptions = {

@@ -64,7 +64,8 @@ const mapStateToProps = state => {
         stateSettings: state.visual, //
         feeds: state.feeds, //
         collections: state.collectionsBoard,
-        collectionOrder: state.collectionOrder
+        collectionOrder: state.collectionOrder,
+        loggedIn: state.authentication.loggedIn,
     };
 };
 const mapDispatchToProps = (dispatch) => {

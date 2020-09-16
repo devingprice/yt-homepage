@@ -1,7 +1,13 @@
 import React, { useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import Layout from '../components/layout';
+// import Layout from '../components/layout';
+import './layout/home.scss';
+import ChannelDrawer from '../components/channelDrawer';
+import Bookcase from '../components/bookcase';
+import DragDropContextWrapper from '../components/DragDropContextWrapper'
+import Toggles from '../components/toggles';
+
 import { makeFeedsRequest } from '../actions/feeds.actions';
 import { filterDistinctChannelIds, objectEmpty, objectEquivalent } from '../helpers/utils';
 
@@ -48,7 +54,19 @@ export default (props) => {
 
     return (
         <div className="">
-            <Layout loggedIn={auth.user.loggedIn}/>
+            <div className="gridWrapper">
+                <DragDropContextWrapper>
+                    <div className="headerControls">
+                        <Toggles/>
+                    </div>
+                    <div className="channelDrawer">
+                        <ChannelDrawer />
+                    </div>
+                    <div className="bodyContent">
+                        <Bookcase />
+                    </div>
+                </DragDropContextWrapper>
+            </div>
         </div>
     );
 }

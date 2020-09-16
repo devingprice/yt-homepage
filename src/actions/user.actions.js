@@ -4,7 +4,8 @@ import { alertActions } from './alert.actions';
 import { history } from '../store';
 
 import { newBoard } from './board.actions';
-import { tempColl } from '../data';
+// import { tempColl } from '../data';
+import { collectionActions } from '../actions/collection.actions';
 
 export const userActions = {
     login,
@@ -22,7 +23,8 @@ function login(username, password) {
             .then(
                 user => {
                     console.log('logging In');
-                    dispatch(newBoard(tempColl));
+                    collectionActions.getAll();
+                    // dispatch(newBoard(tempColl));
 
                     dispatch(success(user.user));
                     history.push('/');

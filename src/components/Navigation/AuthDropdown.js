@@ -1,10 +1,14 @@
 import React, { useState } from 'react';
+import { useDispatch } from "react-redux";
 import './style.scss';
 
+import { userActions } from '../../actions/user.actions';
+
 const AuthDropdown = (props) => {
+    const dispatch = useDispatch();
     const [isOpen, setIsOpen] = useState(false);
-    const user = props.user;
-    const handleLogout = props.onClick;
+    
+    const logout = () => {dispatch(userActions.logout()) }
     const toggleOpen = () => {setIsOpen(!isOpen)}
 
     const dropdownMenuClass = `dropdown-menu dropdown-menu-right ${isOpen && 'show'}`;
@@ -12,10 +16,10 @@ const AuthDropdown = (props) => {
     return (
         <li className="nav-item dropdown">
             <button className="dropdown-toggle" onClick={toggleOpen}>
-                {user.email}
+                {props.user.email}
             </button>
             <ul className={dropdownMenuClass}>
-                <li className="dropdown-item" onClick={handleLogout}>Logout</li>
+                <li className="dropdown-item" onClick={logout}>Logout</li>
             </ul>
         </li>
     ); 
