@@ -52,9 +52,9 @@ export default (props) => {
                         ref={provided.innerRef}
                         {...provided.draggableProps}>
                     <div className="shelf__header">
-                        <div className="Title" >
+                        {/* <div className="Title" >
                             {collection.name}
-                        </div>
+                        </div> */}
                         <ShelfTitle collectionId={collection.id} title={collection.name}/>
                         <button onClick={()=>deleteCollection(collection.uniqueid)}>x</button>
                     </div>

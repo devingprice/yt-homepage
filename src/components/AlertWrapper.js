@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 
 import { alertActions } from '../actions/alert.actions';
 //import Navbar from './Navbar'; <Navbar />
-import Navigation from './Navigation/Navigation';
+// import Navigation from './Navigation/Navigation';
 
 export default (props) => {
     const dispatch = useDispatch();
@@ -28,7 +28,7 @@ export default (props) => {
                 <div className={`alert ${alert.type}`}>{alert.message}</div>
             }
             
-            <Navigation />
+            {/* <Navigation /> */}
             {props.children}
         </div>
     );

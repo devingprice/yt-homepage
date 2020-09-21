@@ -9,15 +9,16 @@ import DragDropContextWrapper from '../components/DragDropContextWrapper'
 import Toggles from '../components/toggles';
 
 import { makeFeedsRequest } from '../actions/feeds.actions';
-import { filterDistinctChannelIds, objectEmpty, objectEquivalent } from '../helpers/utils';
+import { filterDistinctChannelIds, objectEmpty } from '../helpers/utils';
 
 import { collectionActions } from '../actions/collection.actions';
+import Navigation from '../components/Navigation/Navigation';
 
 function usePrevious(value) {
     const ref = useRef();
     useEffect(() => {
       ref.current = value;
-    });
+    }, [value]);
     return ref.current;
 }
 
@@ -27,21 +28,33 @@ export default (props) => {
     const collections = useSelector(state => state.collectionsBoard);
     const prevCollections = usePrevious(collections);
 
+    //should run only once
+    useEffect(()=> {
+        if ( objectEmpty(collections) ){
+            console.log('***********NEW COLLECTIONS')
+            if ( auth.user ) {
+                dispatch( collectionActions.getAll() );
+            }
+            
+        } else { 
+            console.log("^^^^^^^^^^^^^^^^^^^^^^^^^NOT REQUESTING")
+        }
+    }, []);
+
+    /*
+    Walking through the logic:
+    will load prev collections from local storage (on APP load, not page)
+        will contain lastUpdated, if over certain amount, will update
+    on first render, will request all collections for user from home page
+    */
+
     // TODO this is a hacky comparison. 
     // redux has some way of doing it with useSelector's second argument function
     // || !objectEquivalent(prevCollections, collections)
     //and apparently it doesnt work, im regenerating uuid every time so they're not the same
     
     // currently only doing it the first load
-    if ( objectEmpty(collections) ){
-        console.log('***********NEW COLLECTIONS')
-        if ( auth.user ) {
-            dispatch( collectionActions.getAll() );
-        }
-        
-    } else { 
-        console.log("^^^^^^^^^^^^^^^^^^^^^^^^^NOT REQUESTING")
-    }
+    
 
     const uniqueChannels = filterDistinctChannelIds( collections )
     
@@ -54,10 +67,11 @@ export default (props) => {
     console.log(auth);
 
     return (
-        <div className="">
+        // <div className="">
             <div className="gridWrapper">
                 <DragDropContextWrapper>
                     <div className="headerControls">
+                        <Navigation />
                         <Toggles/>
                     </div>
                     <div className="channelDrawer">
@@ -68,7 +82,6 @@ export default (props) => {
                     </div>
                 </DragDropContextWrapper>
             </div>
-        </div>
+        // </div>
     );
 }
-//

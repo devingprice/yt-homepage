@@ -25,12 +25,12 @@ export function collectionsBoard(state = boardInitialState, action) {
     switch (action.type) {
         case boardTypes.NEW_BOARD:
             console.log("new board");
-            return action.data;
+            return {...action.data};
 
         case boardTypes.SET_COLUMN:
             console.log("set columns");
             console.log(action.columns);
-            return action.columns ;
+            return action.columns;
 
         case collectionTypes.COLLECTION_CREATE_SUCCESS:
         case collectionTypes.COLLECTION_GET_SUCCESS:

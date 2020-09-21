@@ -1,6 +1,6 @@
 import React from 'react';
 
-import './channelItem.scss'
+import './channelItem.scss';
 
 const ChannelPill = (name, updates, url, key) => {
     return (

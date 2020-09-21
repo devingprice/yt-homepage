@@ -32,6 +32,17 @@ $thumbnailHeight: 118px;
 .shelf__title {
     display: flex;
     flex-direction: row;
+    
+    p, textarea {
+        margin:0;
+        height:20px;
+    }
+    textarea {
+        width: 360px;
+    }
+    button {
+        margin-left: 5px;
+    }
 }
 .channelsRenderer {
     //width:240px;

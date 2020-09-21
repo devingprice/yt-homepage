@@ -6,6 +6,9 @@ $body-background: rgb(251,251,251);
 
 $drawer-width: 240px;
 
+.wrapperApp {
+    height:100%;
+}
 .gridWrapper {
     min-height:100%;
     display: grid;
@@ -13,6 +16,7 @@ $drawer-width: 240px;
         "header"
         "leftPanel"
         "bodyContent";
+    grid-template-rows: 120px 1fr;
     @media (min-width:500px) {
         grid-template-columns: min-content auto;
         grid-template-areas:

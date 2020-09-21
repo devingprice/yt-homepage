@@ -3,7 +3,7 @@ import { history } from '../store';
 
 import AlertWrapper from './AlertWrapper';
 import routes from '../routes/index';
-import './App.css';
+import './App.scss';
 
 class App extends Component {
     render() {

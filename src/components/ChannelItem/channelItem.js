@@ -1,55 +1,38 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
 import { Draggable } from 'react-beautiful-dnd';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
 
 import ChannelPill from './channelPill';
+import './channelItem.scss';
 import { setHover } from '../../actions/visual.actions';
 
-
-
-class ChannelItem extends React.PureComponent {
-    render() {
-        const { channelData, index } = this.props;
-
-        return (
-
-            <Draggable key={channelData.id} draggableId={channelData.id} index={index}>
-                {(
-                    dragProvided,//: DraggableProvided,
-                    dragSnapshot,//: DraggableStateSnapshot
-                ) => (
-                        <div //Container
-                            //href={quote.author.url}
-                            //these 2 used for styling
-                            //isDragging={dragSnapshot.isDragging}
-                            //isGroupedOver={Boolean(dragSnapshot.combineTargetFor)}
-                            ref={dragProvided.innerRef}
-                            {...dragProvided.draggableProps}
-                            {...dragProvided.dragHandleProps}
-                            onMouseEnter={()=>{
-                                this.props.setHover(channelData.name)
-                            }}
-                            onMouseLeave={()=> {this.props.setHover(null)}}
-                        >
-                            {
-                                ChannelPill(channelData.name, channelData.updates, channelData.thumbnail, channelData.id)
-                            }
-                        </div>
-                    )}
-            </Draggable>
-            
-        );
-    }
+export default (props) => {
+    const dispatch = useDispatch();
+    return (
+        <Draggable key={props.channelData.id} draggableId={props.channelData.id} index={props.index}>
+            {(
+                dragProvided,//: DraggableProvided,
+                dragSnapshot,//: DraggableStateSnapshot
+            ) => (
+                    <div //Container
+                        //href={quote.author.url}
+                        //these 2 used for styling
+                        //isDragging={dragSnapshot.isDragging}
+                        //isGroupedOver={Boolean(dragSnapshot.combineTargetFor)}
+                        className="channel-pill-draggable"
+                        ref={dragProvided.innerRef}
+                        {...dragProvided.draggableProps}
+                        {...dragProvided.dragHandleProps}
+                        onMouseEnter={()=>{
+                            dispatch( setHover(props.channelData.name) )
+                        }}
+                        onMouseLeave={()=> {dispatch(setHover(null))}}
+                    >
+                        {
+                            ChannelPill(props.channelData.name, props.channelData.updates, props.channelData.thumbnail, props.channelData.id)
+                        }
+                    </div>
+                )}
+        </Draggable>
+    )
 }
-
-
-const mapDispatchToProps = (dispatch) => {
-    return bindActionCreators({
-        setHover
-    }, dispatch)
-};
-
-export default connect(null,
-    mapDispatchToProps)(ChannelItem);
-

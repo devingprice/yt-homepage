@@ -24,9 +24,9 @@ function formatServerResponse(response){
             return {
                 ...serverChannel,
                 id: uuid(),
-                "serverId": serverChannel.id,
                 "channelId": serverChannel.ytId,
-                "thumbnail": "https://yt3.ggpht.com/a-/AN66SAzwZsCNSyRezNFqEaG6Ef9bFcZ-PzN6CxSzEw=s88-mo-c-c0xffffffff-rj-k-no"
+                "thumbnail": serverChannel.thumbnail ||
+                    "https://yt3.ggpht.com/a-/AN66SAzwZsCNSyRezNFqEaG6Ef9bFcZ-PzN6CxSzEw=s88-mo-c-c0xffffffff-rj-k-no",
                 //server doesnt have thumbnails atm
             }
         });
@@ -95,16 +95,16 @@ function getAll() {
     console.log('created action for getAllForUser');
 
     return dispatch => {
-        dispatch(request({}));
+        dispatch(request());
         collectionService.getAllForUser()
             .then(
                 collectionRes => {
                     console.log(collectionRes);
                     console.log('received all users collections response from server');
-
+                    
                     const receivedColl = formatServerResponse(collectionRes);
                     console.log(receivedColl);
-
+                    
                     //logged in: set state to collections response
                     //dispatch(setColumn(receivedColl));
                     //dispatch(setOrdered(Object.keys(receivedColl)));
@@ -120,8 +120,8 @@ function getAll() {
             );
     };
 
-    function request(channel, collectionId) { return { type: collectionTypes.COLLECTION_GETALL_REQUEST, channel, collectionId } }
-    function success(channel, collectionId) { return { type: collectionTypes.COLLECTION_GETALL_SUCCESS, channel, collectionId } }
+    function request() { return { type: collectionTypes.COLLECTION_GETALL_REQUEST } }
+    function success(collections) { return { type: collectionTypes.COLLECTION_GETALL_SUCCESS, collections } }
     function failure(error) { return { type: collectionTypes.COLLECTION_GETALL_FAILURE, error } }
 }
 

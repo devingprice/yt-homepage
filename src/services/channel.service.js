@@ -36,7 +36,7 @@ function addChannel(channel, addToCollectionID){
         body: JSON.stringify({
             "name": channel.name,
             "ytId": channel.channelId, //TODO: will update to channelID later
-            "thumbnail": '' //TODO: will add serverside later
+            "thumbnail": channel.thumbnail //TODO: will add serverside later
         })
     };
 

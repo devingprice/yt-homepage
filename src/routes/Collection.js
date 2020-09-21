@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { makeFeedsRequest } from '../actions/feeds.actions';
@@ -19,36 +19,20 @@ export default (props) => {
     const collection = useSelector(state => state.collections[collectionId])
     const collectionExists = collection ? true : false;
     
-    const sampleCollection = {
-        channels: [
-            {
-                channelId: "UCjyNFmk6Ionj9Lw9iIo9LtQ",
-                id: "6eeaf41d-86df-4965-a802-b8d6a7b076f6",
-                name: "Imaqtpie",
-                thumbnail: "https://yt3.ggpht.com/a-/AN66SAzwZsCNSyRezNFqEaG6Ef9bFcZ-PzN6CxSzEw=s88-mo-c-c0xffffffff-rj-k-no"
-            },
-            {
-                channelId: "UCsvn_Po0SmunchJYOWpOxMg",
-                id: "94c0de20-09c3-41aa-8623-7a2aa386fc52",
-                name: "videogamedunkey",
-                thumbnail: "https://yt3.ggpht.com/a-/AN66SAzwZsCNSyRezNFqEaG6Ef9bFcZ-PzN6CxSzEw=s88-mo-c-c0xffffffff-rj-k-no"
-            }
-        ],
-        id: 123,
-        name: "123",
-        doneLoading: true,
-        numItems: 4,
-        showChannels: true,
-    }
 
-    if ( !collectionExists ) {
-        console.log('collection doesnt exist')
-        dispatch( collectionActions.get(collectionId) );
-    } else {
-        console.log('collection exists')
-        const uniqueChannels = filterDistinctChannelIds( { collection } )
-        dispatch( makeFeedsRequest(uniqueChannels) );
-    }
+    //should run only once
+    useEffect(()=> {
+        if ( !collectionExists ) {
+            console.log('collection doesnt exist')
+            dispatch( collectionActions.get(collectionId) );
+        } else {
+            console.log('collection exists')
+            const uniqueChannels = filterDistinctChannelIds( { collection } )
+            dispatch( makeFeedsRequest(uniqueChannels) );
+        }
+    }, []);
+
+    
     
     //#endregion collection/feeds
 
@@ -58,7 +42,7 @@ export default (props) => {
     //#region user
     let ownership = false;
     if (auth.loggedIn) {
-        if (auth.user && auth.user.id === collectionId){
+        if (auth.user && collection && auth.user.id === collection.ownerId){
             ownership = true;
         }
     }
@@ -67,7 +51,7 @@ export default (props) => {
 
     return (
         <div className="">
-            <h3> Collection 123</h3>
+            <h3> {collection ? collection.name : ""} </h3>
 
             <DragDropContextWrapper>
 
@@ -87,7 +71,7 @@ export default (props) => {
                                 key={123}
                                 index={123}
                                 draggableId={"142536"}
-                                collection={collectionExists ? collection: sampleCollection}
+                                collection={collection || {}}
                                 feeds={feeds}
                             />
 
