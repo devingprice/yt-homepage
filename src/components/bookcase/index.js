@@ -13,6 +13,7 @@ export default (props) => {
     // const collectionOrder = useSelector(state => state.collectionOrder);
     const collectionOrder = uuidOrderFromCollections(collections);
     const loggedIn = useSelector(state => state.authentication.loggedIn);
+    const userId = useSelector(state => state.authentication.user.id);
     // const stateSettings = useSelector(state => state.visual);
     // const feeds = useSelector(state => state.feeds);
     /*
@@ -44,6 +45,7 @@ export default (props) => {
                             index={index}
                             draggableId={key}
                             collection={collections[key]}
+                            userId={userId}
                         />
 
                     ))}

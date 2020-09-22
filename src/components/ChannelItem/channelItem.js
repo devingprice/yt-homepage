@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux';
 import { Draggable } from 'react-beautiful-dnd';
 
 import ChannelPill from './channelPill';
+import ChannelChip from './channelChip';
 import './channelItem.scss';
 import { setHover } from '../../actions/visual.actions';
 
@@ -29,6 +30,8 @@ export default (props) => {
                         onMouseLeave={()=> {dispatch(setHover(null))}}
                     >
                         {
+                            props.useChips ? 
+                            <ChannelChip {...props.channelData} /> :
                             ChannelPill(props.channelData.name, props.channelData.updates, props.channelData.thumbnail, props.channelData.id)
                         }
                     </div>

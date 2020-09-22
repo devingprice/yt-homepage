@@ -52,10 +52,12 @@ export default (props) => {
                         ref={provided.innerRef}
                         {...provided.draggableProps}>
                     <div className="shelf__header">
-                        {/* <div className="Title" >
-                            {collection.name}
-                        </div> */}
-                        <ShelfTitle collectionId={collection.id} title={collection.name}/>
+                        {
+                            props.userId && collection.ownerId === props.userId  ?
+                            <ShelfTitle collectionId={collection.id} title={collection.name}/> :
+                            <div className="Title" >{collection.name}</div>
+                        }
+                        
                         <button onClick={()=>deleteCollection(collection.uniqueid)}>x</button>
                     </div>
                     <div className="grid">

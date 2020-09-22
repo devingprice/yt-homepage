@@ -66,6 +66,7 @@ const getCollection = (collectionUid) => {
             let returnObj = response.collection;
             returnObj.channels = returnObj.channels.map(item => {
                 return {
+                    ...item,
                     ytId: item.ytId,
                     name: item.name,
                     channelId: item.ytId

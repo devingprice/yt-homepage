@@ -3,7 +3,11 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { makeFeedsRequest } from '../actions/feeds.actions';
 import { collectionActions } from '../actions/collection.actions';
+
 import Shelf from '../components/shelf';
+import Controls from '../components/collectionPage/controls';
+import CollectionChannels from '../components/collectionPage/channels';
+import Grid from '../components/collectionPage/grid';
 
 import DragDropContextWrapper from '../components/DragDropContextWrapper';
 import { Droppable } from 'react-beautiful-dnd';
@@ -81,10 +85,16 @@ export default (props) => {
 
             </DragDropContextWrapper>
 
+            <Controls userId={auth.user.id} owned={ownership} collection={collection}/>
+            <DragDropContextWrapper>
+                <CollectionChannels channelList={collection ? collection.channels : []} listId="collectionPageChannels" listType="Quote" />
+            </DragDropContextWrapper>
+            <Grid channels={collection ? collection.channels : []} />
+            
         </div>
     );
 };
-
+//
 /*
 Needs collections[collectionId], userId, feeds
 dispatches request for update if necessary on collection

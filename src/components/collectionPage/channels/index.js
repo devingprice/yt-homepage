@@ -1,12 +1,11 @@
 import React from 'react';
 import { Droppable } from 'react-beautiful-dnd';
 
-import './shelf.scss';
-import ChannelItem from '../ChannelItem/channelItem';
+import ChannelItem from '../../ChannelItem/channelItem';
 
 const InnerQuoteList = React.memo((props) => {
     return props.channelList.map((channelData, index) => (
-        <ChannelItem key={index} channelData={channelData} index={index}/>
+        <ChannelItem key={index} channelData={channelData} index={index} useChips={true} />
     ));
 });
 
@@ -18,12 +17,19 @@ export default React.memo((props) => {
         ignoreContainerClipping = false,
         isCombineEnabled = false,
         isDropDisabled = false,
-        //style
+        //style, channelList
     } = props;
+
+    const modifiedChannelList = channelList.map(item=> {
+        return {
+            ...item,
+            id: item.ytId,
+        }
+    })
 
     return (
         <Droppable
-            className="channelsRenderer"
+            className="channelsRenderer collection-page-channels"
             droppableId={listId}
             type={listType}
             direction="horizontal"
@@ -43,7 +49,7 @@ export default React.memo((props) => {
                     <div //DropZone  dont seem to need styled-component or wrapperlist
                         className="grid-draggable__container"
                         ref={dropProvided.innerRef}>
-                        <InnerQuoteList channelList={channelList} />
+                        <InnerQuoteList channelList={modifiedChannelList} />
                         {dropProvided.placeholder}
                     </div>
 
