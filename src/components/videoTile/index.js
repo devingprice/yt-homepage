@@ -28,10 +28,10 @@ export default (props) => {
         )
     }
     
-    const {id,link,title,thumbnail,published,views,channelTitle,channelId} = videoObj;
+    const {link,title,thumbnail,publishedAt,views,channelTitle,channelId} = videoObj;
 
     const viewsText = viewsSigFigs(views);
-    const date = timeSince(published); 
+    const date = timeSince(new Date(publishedAt)); 
 
     return (
         <div className="tile">

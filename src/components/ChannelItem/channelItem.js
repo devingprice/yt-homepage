@@ -9,6 +9,8 @@ import { setHover } from '../../actions/visual.actions';
 
 export default (props) => {
     const dispatch = useDispatch();
+    console.log(props.hoverControls)
+    const hoverControls = props.hoverControls !== undefined ? props.hoverControls : true;
     return (
         <Draggable key={props.channelData.id} draggableId={props.channelData.id} index={props.index}>
             {(
@@ -25,9 +27,11 @@ export default (props) => {
                         {...dragProvided.draggableProps}
                         {...dragProvided.dragHandleProps}
                         onMouseEnter={()=>{
-                            dispatch( setHover(props.channelData.name) )
+                            if (hoverControls) dispatch( setHover(props.channelData.name) )
                         }}
-                        onMouseLeave={()=> {dispatch(setHover(null))}}
+                        onMouseLeave={()=> {
+                            if (hoverControls) dispatch(setHover(null))
+                        }}
                     >
                         {
                             props.useChips ? 

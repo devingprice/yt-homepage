@@ -9,18 +9,19 @@ export default (props) => {
 
     console.log(props);
     const channelIds = props.channels.map(item=> item.ytId);
-    const feeds = useSelector(state => {
-        return Object.keys(state.feeds)
-            .filter(key => channelIds.includes(key))
-            .reduce((obj, key) => {
-                obj[key] = state.feeds[key]
-                return obj;
-            }, {});
-    });
+    const feeds = useSelector(state => state.feeds);
     console.log(feeds);
     const videoArray = feedsToVideoObjArray(channelIds, feeds);
     console.log(videoArray);
 
+    const testing = Object.keys(feeds)
+            .filter(key => channelIds.includes(key))
+            .reduce((obj, key) => {
+                obj[key] = feeds[key]
+                return obj;
+            }, {});
+    console.log(testing);
+    
     return (
         <React.Fragment />
     )

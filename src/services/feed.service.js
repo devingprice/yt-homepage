@@ -1,79 +1,86 @@
-let Parser = require('rss-parser');
+import config from '../config';
+// import { collections } from '../data';
+import { authHeader } from './auth.header';
+// let Parser = require('rss-parser');
 
 export const feedService = {
     fetchFeed,
     fetchAllFeeds
 };
 
-let parser = new Parser({
-    customFields: {
-        item: [
-            ['yt:videoId', 'videoId'],
-            ['yt:channelId', 'channelId'],
-            'published', 'updated',
-            ['media:group','mediaGroup',{keepArray:true}]
-        ]
-    }
-});
+// let parser = new Parser({
+//     customFields: {
+//         item: [
+//             ['yt:videoId', 'videoId'],
+//             ['yt:channelId', 'channelId'],
+//             'published', 'updated',
+//             ['media:group','mediaGroup',{keepArray:true}]
+//         ]
+//     }
+// });
 
-const CORS_PROXY = "https://cors-anywhere.herokuapp.com/";
+// const CORS_PROXY = "https://cors-anywhere.herokuapp.com/";
 
-export async function fetchFeed(inputChannelId){
-    return {}; //too many requests being sent during dev
-    let urlBase = "https://www.youtube.com/feeds/videos.xml?channel_id=";
+function handleResponse(response) {
+    return response.text().then(text => {
+        const data = text && JSON.parse(text);
+        if (!response.ok) {
+            if (response.status === 401) {
+                // auto logout if 401 response returned from api
+                //logout();
+                //location.reload(true);
+                console.log('got a 401');
+            }
 
-    let feed = await parser.parseURL( CORS_PROXY + urlBase + inputChannelId );
+            const error = (data && data.message) || response.statusText;
+            return Promise.reject(error);
+        }
 
-    let itemsArray = [];
-    feed.items.forEach(function(entry) {
-        let likesDislikes = parseInt(entry['mediaGroup'][0]['media:community'][0]['media:starRating'][0]['$']['count']);
-        let percentPositive = (parseFloat(entry['mediaGroup'][0]['media:community'][0]['media:starRating'][0]['$']['average']) / 5).toPrecision(3);
-
-        let likes = parseInt(likesDislikes * percentPositive);
-        let dislikes = likesDislikes - likes ;
-
-        let newItem = {
-            id: entry.videoId,
-            link: entry.link,
-            title: entry.title,
-            thumbnail: entry['mediaGroup'][0]['media:thumbnail'][0]['$']['url'],
-            description: entry['mediaGroup'][0]['media:description'][0],
-            published: Date.parse(entry.published),
-            updated: Date.parse(entry.updated),
-            likes: likes,
-            dislikes: dislikes,
-            views: parseInt(entry['mediaGroup'][0]['media:community'][0]['media:statistics'][0]['$']['views']),
-            channelId: entry.channelId,
-            channelTitle: entry.author,
-        };
-
-        itemsArray.push( newItem );
+        return data;
     });
+}
 
-    let returnObj = {};
-    returnObj[inputChannelId] = itemsArray;
-    return returnObj;
+export async function fetchFeed(channelId) {
+    const authHead = authHeader();
+
+    const requestOptions = {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': authHead.Authorization
+        }
+    };
+
+    const url = `${config.apiUrl}/videos/${channelId}`;
+    return fetch( url , requestOptions)
+        .then(handleResponse);
 }
 
 //TODO the await inside of map may be holding it up, the map should be an array of promises
 //return obj of channelId=key arrayOfVideos=item
+
 export async function fetchAllFeeds(arrayOfChannelIds) {
     let pArray = arrayOfChannelIds.map(async channelId => {
         const itemsArray = await fetchFeed(channelId);
         return itemsArray;
     });
     const feeds = await Promise.all(pArray);
-
+    console.log(feeds)
     const now = Date.now();
 
     let flattenedFeeds = {};
-    feeds.forEach(feedObj => {
-        if(Object.keys(feedObj).length > 0) {
-            let key = Object.keys(feedObj)[0];
-            flattenedFeeds[key] = feedObj[key];
-            flattenedFeeds[key].lastUpdated = now;
+    feeds.forEach(feedResponse => {
+        if(feedResponse.success) {
+            let ytId = feedResponse.channelId;
+            flattenedFeeds[ytId] = {
+                videos: feedResponse.videos,
+                lastUpdatedOnDB: feedResponse.lastUpdatedOnDB,
+                lastPulledToLocal: now,
+            };
+            //flattenedFeeds[ytId].lastPulledToLocal = now;
+            //TODO: feeds is currently an array only, i should have last updated here as well
+            // I am also losing the lastUpdatedOnDB value with current method
         }
-        
     });
     
     return flattenedFeeds;

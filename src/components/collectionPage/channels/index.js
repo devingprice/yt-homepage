@@ -5,7 +5,7 @@ import ChannelItem from '../../ChannelItem/channelItem';
 
 const InnerQuoteList = React.memo((props) => {
     return props.channelList.map((channelData, index) => (
-        <ChannelItem key={index} channelData={channelData} index={index} useChips={true} />
+        <ChannelItem key={index} channelData={channelData} index={index} useChips={true} hoverControls={false}/>
     ));
 });
 

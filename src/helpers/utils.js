@@ -99,6 +99,7 @@ export function containsChannel(channelArray =[], channelKey){
     }
     return false; //grey out
 }
+
 export function containedChannels(channelObjsArray){
     if(channelObjsArray === null || channelObjsArray === undefined){
         return [];
@@ -109,11 +110,18 @@ export function containedChannels(channelObjsArray){
     }
     return channelStringArray;
 }
+
 export function feedsToVideoObjArray(channelStringArray, feeds){
+    let feedsAreArrayFormat = Array.isArray(feeds[Object.keys(feeds)[0]]); // are feeds [] or {videos:[]}
     let arrayOfArrays = [];
     for(let i =0; i < channelStringArray.length; i++){
         if(channelStringArray[i] in feeds){
-            arrayOfArrays.push(feeds[channelStringArray[i]])
+            if(feedsAreArrayFormat) {
+                arrayOfArrays.push(feeds[channelStringArray[i]])
+            } else {
+                arrayOfArrays.push(feeds[channelStringArray[i]].videos)
+            }
+            
         }
     }
     return [].concat.apply([],arrayOfArrays);

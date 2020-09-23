@@ -23,7 +23,6 @@ export default (props) => {
     const collection = useSelector(state => state.collections[collectionId])
     const collectionExists = collection ? true : false;
     
-
     //should run only once
     useEffect(()=> {
         if ( !collectionExists ) {
@@ -31,13 +30,19 @@ export default (props) => {
             dispatch( collectionActions.get(collectionId) );
         } else {
             console.log('collection exists')
-            const uniqueChannels = filterDistinctChannelIds( { collection } )
-            dispatch( makeFeedsRequest(uniqueChannels) );
+            
         }
     }, []);
 
-    
-    
+    //runs every time collectionExists changes
+    useEffect(()=> {
+        if (collectionExists) {
+            console.log('collection page is requesting feeds');
+            const uniqueChannels = filterDistinctChannelIds( { collection } )
+            dispatch( makeFeedsRequest(uniqueChannels) );
+        }
+    }, [collectionExists]);
+
     //#endregion collection/feeds
 
     console.log(collection);
@@ -87,7 +92,7 @@ export default (props) => {
 
             <Controls userId={auth.user.id} owned={ownership} collection={collection}/>
             <DragDropContextWrapper>
-                <CollectionChannels channelList={collection ? collection.channels : []} listId="collectionPageChannels" listType="Quote" />
+                <CollectionChannels channelList={collection ? collection.channels : []} listId="collectionPageChannels" listType="Quote"/>
             </DragDropContextWrapper>
             <Grid channels={collection ? collection.channels : []} />
             

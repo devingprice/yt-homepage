@@ -6,6 +6,10 @@ import { Draggable } from 'react-beautiful-dnd';
 import './shelf.scss';
 import ChannelsRenderer from './ChannelsRenderer';
 import ListRenderer from './ListRenderer';
+import config from '../../config';
+
+// import Link from '@material-ui/core/Link';
+import { Link } from 'react-router-dom'
 
 import { containsChannel, containedChannels, feedsToVideoObjArray } from '../../helpers/utils';
 
@@ -23,7 +27,9 @@ const ShelfTitle = (props) => {
     }
     return (
         <div className="shelf__title">
-            <p style={ editing ? { display: "none" } : {} }>{text}</p>
+            <div style={ editing ? { display: "none" } : {} }>
+                <Link to={`/collection/${props.uniqueid}`}>{text}</Link>
+            </div>
             <textarea style={ editing ? {} : { display: "none" } } onChange={changeText} value={text}/>
             {
                 !editing ?
@@ -45,6 +51,8 @@ export default (props) => {
         dispatch(collectionActions.delete(collectionId));
     };
 
+    console.log(collection)
+
     return (
         <Draggable draggableId={draggableId} index={index} isDragDisabled={!stateSettings.draggableShelves}>
             {(provided, snapshot,) => (
@@ -54,7 +62,7 @@ export default (props) => {
                     <div className="shelf__header">
                         {
                             props.userId && collection.ownerId === props.userId  ?
-                            <ShelfTitle collectionId={collection.id} title={collection.name}/> :
+                            <ShelfTitle collectionId={collection.id} title={collection.name} uniqueid={collection.uniqueid} /> :
                             <div className="Title" >{collection.name}</div>
                         }
                         
